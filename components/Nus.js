@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Image, View, TextInput, StyleSheet, Text } from 'react-native';
+import { Image, View, TextInput, StyleSheet, Text, Checkbox } from 'react-native';
 import { Button, } from 'react-native-paper';
 
 export function LoginPage() {
