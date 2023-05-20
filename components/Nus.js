@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Image, View, TextInput, StyleSheet, Text, Checkbox } from 'react-native';
 import { Button, } from 'react-native-paper';
 
+
 export function LoginPage() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
