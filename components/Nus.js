@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { View, TextInput, Button, StyleSheet } from 'react-native';
+import { Image, View, TextInput, StyleSheet, Text } from 'react-native';
+import { Button, } from 'react-native-paper';
 
 export function LoginPage() {
     const [email, setEmail] = useState('');
@@ -13,6 +14,10 @@ export function LoginPage() {
 
     return (
         <View style={styles.container}>
+            <View style={styles.logoContainer}>
+                <Image style={styles.nuslogo} source={{ uri: "https://www.nus.edu.sg/images/default-source/identity-images/NUS_logo_full-horizontal.jpg" }} />
+                <Text style={styles.mentorsize}>Nusmentor</Text>
+            </View>
             <TextInput
                 style={styles.input}
                 placeholder="Email"
@@ -26,17 +31,34 @@ export function LoginPage() {
                 value={password}
                 secureTextEntry
             />
-            <Button title="Login" onPress={handleLogin} />
+            <Button onPress={handleLogin} style={{ backgroundColor: 'lightblue' }}>Login</Button>
         </View>
     );
 };
 
 const styles = StyleSheet.create({
     container: {
-        flex: 1,
+        flex: 2,
         justifyContent: 'center',
-        padding: 16,
+        padding: 20,
+        
     },
+    logoContainer: {
+        alignItems:'center',
+        flexDirection: 'column',
+        paddingBottom: 50,
+    },
+    nuslogo: {
+        width: 400,
+        height: 150,
+    },
+
+    mentorsize: {
+        fontSize: 70,
+        paddingTop:50,
+        color:'darkblue',
+    },
+
     input: {
         height: 40,
         borderColor: 'gray',
