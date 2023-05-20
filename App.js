@@ -14,7 +14,6 @@ export default function App() {
     <SafeAreaProvider>
     <SafeAreaView style= {styles.container}>
       <LoginPage />
-      <Text>Test</Text>
     </SafeAreaView>
     </SafeAreaProvider>
   );
