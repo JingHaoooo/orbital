@@ -1,23 +1,28 @@
 import React, { useState } from 'react';
 import { Image, View, TextInput, StyleSheet, Text, Checkbox } from 'react-native';
-import { Button, } from 'react-native-paper';
+import { Button } from 'react-native-paper';
 
 
-export function LoginPage() {
+export function LoginPage({navigation}) {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
 
     const handleLogin = () => {
+        // Bypass authentication first, due to time constraints
+        // Will need to authenticate using Firebase 
+        navigation.navigate('Home');
         // Perform login logic here
+
         console.log('Email:', email);
         console.log('Password:', password);
+
     };
 
     return (
         <View style={styles.container}>
             <View style={styles.logoContainer}>
                 <Image style={styles.nuslogo} source={{ uri: "https://www.nus.edu.sg/images/default-source/identity-images/NUS_logo_full-horizontal.jpg" }} />
-                <Text style={styles.mentorsize}>Nusmentor</Text>
+                <Text style={styles.mentorsize}>NUSmentor</Text>
             </View>
             <TextInput
                 style={styles.input}
@@ -42,6 +47,7 @@ const styles = StyleSheet.create({
         flex: 2,
         justifyContent: 'center',
         padding: 20,
+        backgroundColor: 'white'
         
     },
     logoContainer: {
@@ -55,8 +61,8 @@ const styles = StyleSheet.create({
     },
 
     mentorsize: {
-        fontSize: 70,
-        paddingTop:50,
+        fontSize: 60,
+        paddingTop: 50,
         color:'darkblue',
     },
 
@@ -68,4 +74,3 @@ const styles = StyleSheet.create({
         paddingHorizontal: 10,
     },
 });
-

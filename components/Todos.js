@@ -5,6 +5,9 @@ import { Text, Button, TextInput, Checkbox } from 'react-native-paper';
 import { useState } from 'react';
 import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
 
+// Gone through during MC1
+
+
 function TodoItem({todo, toggleTodo}){
   return(
     <View style={{flexDirection:'row', alignItems: 'center', paddingTop: 10, paddingBottom: 10, backgroundColor:'green', justifyContent:'center'}}>
