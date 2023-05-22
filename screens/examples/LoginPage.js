@@ -3,7 +3,7 @@ import { Image, View, TextInput, StyleSheet, Text, Checkbox } from 'react-native
 import { Button } from 'react-native-paper';
 
 
-export function LoginPage({navigation}) {
+export function LoginPage({ navigation }) {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
 
@@ -48,10 +48,10 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         padding: 20,
         backgroundColor: 'white'
-        
+
     },
     logoContainer: {
-        alignItems:'center',
+        alignItems: 'center',
         flexDirection: 'column',
         paddingBottom: 50,
     },
@@ -63,7 +63,7 @@ const styles = StyleSheet.create({
     mentorsize: {
         fontSize: 60,
         paddingTop: 50,
-        color:'darkblue',
+        color: 'darkblue',
     },
 
     input: {

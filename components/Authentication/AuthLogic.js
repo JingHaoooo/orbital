@@ -1,12 +1,13 @@
 import { useState } from 'react';
-import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
-import { useNavigation } from '@react-navigation/native';
 import { Alert, StyleSheet, View } from 'react-native';
 import { Button } from 'react-native-paper';
 
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
+import { useNavigation } from '@react-navigation/native';
+
 import AuthPage from './AuthPage';
 
-function AuthLogic({ isLogin, onAuthenticate }) {
+export default function AuthLogic({ isLogin, onAuthenticate }) {
 
   const navigation = useNavigation();
 
@@ -35,7 +36,7 @@ function AuthLogic({ isLogin, onAuthenticate }) {
     // may want to enforce NUS email, so that this app is for NUS students and staff only
     // But some may end up entering their NUSNET passwords, which is not safe!
     const validEmail = email.includes('@');
-    const validPassword = password.length >= 8;
+    const validPassword = password.length > 7;
     const equalEmails = email === confirmEmail;
     const equalPasswords = password === confirmPassword;
 
@@ -58,32 +59,28 @@ function AuthLogic({ isLogin, onAuthenticate }) {
   }
 
   return (
-      <KeyboardAwareScrollView>
-        <View style={styles.authContent}>
-          <AuthPage
-            isLogin={isLogin}
-            onSubmit={submitHandler}
-            invalidCredentials={invalidCredentials}
-          />
-          <View style={styles.buttons}>
-            <Button onPress={switchAuthModeHandler}>
-              {isLogin
-                ? 'Sign up instead'
-                : 'Already have an account? Log in instead'}
-            </Button>
-          </View>
+    <KeyboardAwareScrollView>
+      <View style={styles.authContent}>
+        <AuthPage
+          isLogin={isLogin}
+          onSubmit={submitHandler}
+          invalidCredentials={invalidCredentials}
+        />
+        <View style={styles.buttons}>
+          <Button onPress={switchAuthModeHandler}>
+            {isLogin
+              ? 'Sign up instead'
+              : 'Already have an account? Log in instead'}
+          </Button>
         </View>
-      </KeyboardAwareScrollView>
+      </View>
+    </KeyboardAwareScrollView>
   );
 }
 
-
-
-export default AuthLogic;
-
 const styles = StyleSheet.create({
   authContent: {
-    marginTop: 16,
+    marginTop: 24,
     marginHorizontal: 32,
     padding: 16,
     borderRadius: 8,

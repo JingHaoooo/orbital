@@ -2,17 +2,15 @@ import { Image, Button, View, Text, StyleSheet } from 'react-native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import BookingList from '../components/BookingList';
 
-
+// navigation after log in will be done later
 const Stack = createNativeStackNavigator();
-
-
 
 function HomePage({ navigation }) {
     const handleBookingPress = () => {
         console.log('button pressed!');
         navigation.navigate('Booking Page');
     }
-    
+
     const handleAvailPress = () => {
         console.log('button pressed!');
         navigation.navigate('Set Availability');
@@ -25,7 +23,6 @@ function HomePage({ navigation }) {
             <View style={styles.buttonContainer}>
                 <Button onPress={handleBookingPress} title='Book Now' />
                 <Button onPress={handleAvailPress} title='Set Availability' />
-
             </View>
         </View>
 

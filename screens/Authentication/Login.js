@@ -1,22 +1,32 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
+import { Alert } from 'react-native';
 
 import AuthLogic from "../../components/Authentication/AuthLogic";
+import Overlay from "../../components/ui/Overlay";
+import { AuthContext } from "../../store/auth-context";
 import { login } from "../../utility/Auth";
 
 export default function Login() {
 
     const [isAuthenticating, setIsAuthenticating] = useState(false);
+    const authReactContext = useContext(AuthContext);
 
     // returns a Promise 
     async function loginHandler({ email, password }) { 
         setIsAuthenticating(true);
-        await login(email, password); // blocking
-        setIsAuthenticating(false); // authentication done
+        try {
+            const token = await login(email, password); // blocking
+            authReactContext.authenticate(token);
+        } catch (error) {
+            Alert.alert('Login failed')
+            setIsAuthenticating(false); // authentication done
+        }
     }
 
     if (isAuthenticating) {
-        // TODO creating user message ... 
+        return <Overlay message={'Authenticating...'} />
     }
+
     return <AuthLogic isLogin onAuthenticate={loginHandler} />
 }
 

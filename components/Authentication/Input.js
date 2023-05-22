@@ -8,7 +8,7 @@ function Input({
   value,
   isInvalid,
 }) {
-  return ( 
+  return (
     <View>
       <Text style={[styles.label, isInvalid && styles.labelInvalid]}>
         {label}

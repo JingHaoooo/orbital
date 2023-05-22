@@ -108,7 +108,7 @@ const styles = StyleSheet.create({
   nuslogo: {
     width: 400,
     height: 150,
-    marginBottom: 30
+    marginBottom: 10
   },
   mentorsize: {
     fontSize: 50,
