@@ -40,7 +40,6 @@ const styles = StyleSheet.create({
         padding: 16
     },
     welcomeText: {
-        font: '',
         fontSize: 20,
         paddingBottom: 16,
         textAlign: 'left'
