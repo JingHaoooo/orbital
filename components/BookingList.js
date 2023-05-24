@@ -13,7 +13,7 @@ export default function BookingList() {
             flex: 1,
             padding: 16,
             backgroundColor: 'orange',
-            borderRadius: 30
+            borderRadius: 30,
         },
         bookings: {
             fontSize: 16,

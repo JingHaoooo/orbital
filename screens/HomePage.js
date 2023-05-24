@@ -1,6 +1,7 @@
-import { Image, Button, View, Text, StyleSheet } from 'react-native';
+import { Image, View, Text, StyleSheet } from 'react-native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import BookingList from '../components/BookingList';
+import { Button } from 'react-native-paper';
 
 // navigation after log in will be done later
 const Stack = createNativeStackNavigator();
@@ -8,12 +9,12 @@ const Stack = createNativeStackNavigator();
 function HomePage({ navigation }) {
     const handleBookingPress = () => {
         console.log('button pressed!');
-        navigation.navigate('Booking Page');
+        navigation.navigate('Booking page');
     }
 
     const handleAvailPress = () => {
         console.log('button pressed!');
-        navigation.navigate('Set Availability');
+        navigation.navigate('Set availability');
     }
 
     return (
@@ -21,8 +22,8 @@ function HomePage({ navigation }) {
             <Text style={styles.welcomeText}>Welcome, XXX</Text>
             <BookingList />
             <View style={styles.buttonContainer}>
-                <Button onPress={handleBookingPress} title='Book Now' />
-                <Button onPress={handleAvailPress} title='Set Availability' />
+                <Button style={{backgroundColor:'lightblue',}} onPress={handleBookingPress} > Book Now </Button>
+                <Button style={{backgroundColor:'lightblue',}} onPress={handleAvailPress} >Set Availability </Button>
             </View>
         </View>
 
@@ -54,6 +55,8 @@ const styles = StyleSheet.create({
         borderRadius: 30
     },
     buttonContainer: {
-        flex: 1
+        flex: 1,
+        gap: 10,
+        paddingTop: 5,
     }
 });

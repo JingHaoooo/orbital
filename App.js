@@ -11,7 +11,8 @@ import Login from './screens/Authentication/Login';
 import Signup from './screens/Authentication/Signup';
 import HomePage from './screens/HomePage';
 import AuthContextProvider, { AuthContext } from './store/auth-context';
-
+import Booking from './screens/Booking';
+import SetAvailability from './screens/SetAvailability';
 
 const Stack = createNativeStackNavigator();
 
@@ -19,13 +20,21 @@ function AuthenticatedStack() {
   const authReactContext = useContext(AuthContext);
 
   return (
-    <Stack.Navigator>
+    <Stack.Navigator initialRouteName='Home'>
       <Stack.Screen
-        name="Home"
+        name='Home'
         component={HomePage}
         options={ //expects function
           { headerRight: () => <Button onPress={authReactContext.logout}>Logout</Button> }
         } />
+        <Stack.Screen 
+        name='Booking page'
+        component={Booking}        
+        />
+        <Stack.Screen 
+        name='Set availability'
+        component={SetAvailability}
+        />
     </Stack.Navigator>
   );
 }
@@ -43,7 +52,7 @@ function Navigation() {
   const authReactContext = useContext(AuthContext);
 
   return (
-    <NavigationContainer>
+    <NavigationContainer l>
       {authReactContext.isAuthenticated
         ? <AuthenticatedStack />
         : <NotAuthenticatedStack />}
