@@ -22,7 +22,7 @@ export default function AuthContextProvider({ children }) {
 
     const value = { 
         token: authToken,
-        isAuthenticated: !!authToken, // truthy, falsy to true/false
+        isAuthenticated: !!authToken, 
         authenticate: authenticate,
         logout: logout
     };

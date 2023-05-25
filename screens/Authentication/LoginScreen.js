@@ -26,7 +26,7 @@ export default function Login() {
     if (isAuthenticating) {
         return <Overlay message={'Authenticating...'} />
     }
-
+    
     return <AuthLogic isLogin onAuthenticate={loginHandler} />
 }
 
