@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
-import { View, Text, Button, TextInput } from 'react-native';
+import { View, Button, Text, TextInput, StyleSheet } from 'react-native';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import ConsultationSlotManagement from './ConsultationSlotManagement';
 
+
 const TutorAvailabilityForm = () => {
-  
+
   const [slots, setSlots] = useState([]);
   const [selectedTutorId, setSelectedTutorId] = useState('');
   const [selectedModule, setSelectedModule] = useState('');
@@ -35,10 +36,12 @@ const TutorAvailabilityForm = () => {
   const handleDateChange = (event, date) => {
     setSelectedDate(date);
   };
-
+  
   const handleTimeChange = (event, time) => {
     setSelectedTime(time);
   };
+
+  
 
   const handleDurationSelect = (duration) => {
     if (duration === 'custom') {
@@ -92,10 +95,11 @@ const TutorAvailabilityForm = () => {
         <Button title="30" onPress={() => handleDurationSelect(30)} />
         <Button title="45" onPress={() => handleDurationSelect(45)} />
         <Button title="60" onPress={() => handleDurationSelect(60)} />
-        <Button title="Custom" onPress={() => handleDurationSelect('custom')} />
       </View>
 
-      <Button title="Add Slot" onPress={addSlot} />
+      
+        <Button title="Add Slot" onPress={addSlot} />
+
 
       <Text>Your Slots:</Text>
       <ConsultationSlotManagement slots={slots} />
@@ -104,4 +108,5 @@ const TutorAvailabilityForm = () => {
 };
 
 export default TutorAvailabilityForm;
+
 
