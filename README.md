@@ -1,14 +1,16 @@
-# NUSmentor 
+# NUSmentor README
 
-**Team Name:** 
+
+
+## **Team Name:** 
 
 IDK
 
-**Proposed Level of Achievement:** 
+## **Proposed Level of Achievement:** 
 
 Apollo 11 
 
-**Motivation** 
+## **Motivation** 
 
 University students are exposed to academic content and concepts which are harder to grasp compared to those taught in Junior Colleges or Polytechnics. As university students ourselves, we are no stranger to the difficulty of the university curriculum and academic stress that comes along with it. Admittedly, university students like us often face difficulties in our studies and desperately need the help of professors and Teaching Assistants (TA).
 
@@ -30,11 +32,11 @@ Professors and TAs often volunteer their time for consultations. In these sessio
 
 - Students and professors/ TAs may **forget about the planned consultation** due to busy schedules. The lack of reminders and overviews of consultation schedules could be contributing factors. 
 
-**Aim** 
+## **Aim** 
 
 We hope to facilitate the booking of consultation slots for professors, teaching assistants (TA) and students on our mobile application. 
 
-**Vision** 
+## **Vision** 
 
 Our mobile application, called NUSmentor, will be used to facilitate the booking of consultation slots between students and tutors. Given that mobile applications bring greater convenience to users and do not need an active internet connection to run, we decided that a mobile application will better suit our needs compared to a website.
 
@@ -44,7 +46,7 @@ Specific features of the mobile application will be elaborated in the following 
 
 We envision NUSmentor to be a mobile application that is widely used by students and the teaching team in NUS throughout the academic year (similar to the Canvas mobile application) for the booking of consultation slots. If NUSmentor proves to be useful, we hope that it will be implemented in universities and schools islandwide as well, not just in NUS (though it will require a change in name).
 
-**User Stories**
+## **User Stories**
 
 1\. As a student who has questions and problems with a module, I want to book a consultation slot with my professors or Teaching Assistants. 
 
@@ -70,7 +72,7 @@ We envision NUSmentor to be a mobile application that is widely used by students
 
 ****
 
-**Features** 
+## **Features** 
 
 There are 3 groups of people who will be using our mobile application: 
 
@@ -78,26 +80,25 @@ There are 3 groups of people who will be using our mobile application: 
 2. TAs/ Professors - who may be teaching modules
 3. TAs who are also students themselves - who may be taking and teaching modules
 
-Authentication
+#### Authentication
 
 Similar to how NUS students and staff log in to Canvas using their NUSNET account, we hope that the same could be implemented in our mobile application. Otherwise (and currently), we would require users to create an account in the mobile application. Users are able to log out as well. 
 
 This feature is important as we do not want non-NUS students and tutors to use the application. 
 
-Overview
+#### Overview
 
 This feature is available to all groups of users. It allows them to have a view of the upcoming consultations based on chronological order, and includes details such as module code, date, time and tutor/ student involved. 
 
- 
 
-Set availability
+#### Set availability
 
 This feature is only available to TAs/ Professors and TAs who are also students themselves. It allows them to create new available consultation slots for a specific module by giving module, date and time as input. 
 
-Booking
+#### Booking
 
 This feature is only available to students. It allows students to see their teaching teams and also allows students to book a new consultation slot with their module’s tutors based on availability. Users will be able to access the availability of their tutors by clicking on their respective names in the selected module. 
 
-See history
+#### See history
 
 This feature is available to all groups of users. It allows users to view their consultation history, which includes the details of the tutor, student, module, date and time of the consultation. 
