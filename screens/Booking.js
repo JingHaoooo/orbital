@@ -1,8 +1,8 @@
 import { Image, View, Text, StyleSheet, FlatList } from 'react-native';
-import SearchBar from './SearchBar';
+import SearchBar from './Authentication/SearchAlgorithm/SearchBar';
 import { useState } from 'react';
 import axios from 'axios';
-import Nuscourse from '../Nuscourse';
+import Nuscourse from './Authentication/SearchAlgorithm/Nuscourse';
 
 export default function Booking() {
   const [searchModule, setSearchModule] = useState("");

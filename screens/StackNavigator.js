@@ -2,12 +2,12 @@ import { StyleSheet, Text, View } from 'react-native'
 import React from 'react'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import HomePage from './screens/HomePage';
-import Booking from './screens/Booking';
+import HomePage from './HomePage';
+import Booking from './Booking';
 import { AntDesign } from '@expo/vector-icons';
 import { Entypo } from '@expo/vector-icons';
 import { Feather } from '@expo/vector-icons';
-import Logout from './screens/Logout';
+import Logout from './Logout';
 
 
 

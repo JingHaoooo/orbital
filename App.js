@@ -13,7 +13,7 @@ import HomePage from './screens/HomePage';
 import AuthContextProvider, { AuthContext } from './store/auth-context';
 import Booking from './screens/Booking';
 import SetAvailability from './screens/SetAvailability';
-import StackNavigator from './StackNavigator';
+import StackNavigator from './screens/StackNavigator';
 
 const Stack = createNativeStackNavigator();
 
