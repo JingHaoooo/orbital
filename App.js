@@ -13,13 +13,14 @@ import HomePage from './screens/HomePage';
 import AuthContextProvider, { AuthContext } from './store/auth-context';
 import Booking from './screens/Booking';
 import SetAvailability from './screens/SetAvailability';
+import StackNavigator from './StackNavigator';
 
 const Stack = createNativeStackNavigator();
 
 function AuthenticatedStack() {
   const authReactContext = useContext(AuthContext);
 
-  return (
+/*  return (
     <Stack.Navigator initialRouteName='Home'>
       <Stack.Screen
         name='Home'
@@ -36,6 +37,11 @@ function AuthenticatedStack() {
         component={SetAvailability}
         />
     </Stack.Navigator>
+  ); */
+  return (
+    <>
+      <StackNavigator />
+    </>
   );
 }
 
