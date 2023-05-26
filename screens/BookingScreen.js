@@ -1,5 +1,5 @@
 import { Image, View, Text, StyleSheet } from 'react-native';
-import Calendar from 'react-native-calendar';
+import AvailableSlots from '../components/AvailableSlots';
 
 
 
@@ -10,6 +10,7 @@ export default function Booking() {
             <Text>
                 Booking Page
             </Text>
+            {/* <AvailableSlots slots={null} />  */}
         </View>
     )
 }

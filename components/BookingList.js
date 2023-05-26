@@ -4,6 +4,7 @@ export default function BookingList() {
     return (
         <View style={styles.listContainer}>
             <Text style={styles.bookings}>Upcoming Bookings</Text>
+
         </View>
     );
 }

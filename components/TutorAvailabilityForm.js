@@ -1,24 +1,31 @@
 import React, { useState } from 'react';
 import { View, Text, Button, TextInput } from 'react-native';
 import DateTimePicker from '@react-native-community/datetimepicker';
+import ConsultationSlotManagement from './ConsultationSlotManagement';
 
 const TutorAvailabilityForm = () => {
+  
   const [slots, setSlots] = useState([]);
+  const [selectedTutorId, setSelectedTutorId] = useState('');
+  const [selectedModule, setSelectedModule] = useState('');
   const [selectedDate, setSelectedDate] = useState(null);
   const [selectedTime, setSelectedTime] = useState(null);
   const [selectedDuration, setSelectedDuration] = useState('');
 
   const addSlot = () => {
-    if (selectedDate && selectedTime && selectedDuration) {
+    if (selectedTutorId && selectedModule && selectedDate && selectedTime && selectedDuration) {
       const slot = {
-        // to fix: showing incorrect time
-        // to fix: add end time
-        date: selectedDate.toISOString().split('T')[0],
-        time: selectedTime.toTimeString().split(' ')[0],
+        tutorId: selectedTutorId,
+        module: selectedModule,
+        date: selectedDate,
+        time: selectedTime,
         duration: selectedDuration,
       };
 
       setSlots([...slots, slot]);
+
+      setSelectedTutorId('');
+      setSelectedModule('');
       setSelectedDate(null);
       setSelectedTime(null);
       setSelectedDuration('');
@@ -33,34 +40,42 @@ const TutorAvailabilityForm = () => {
     setSelectedTime(time);
   };
 
-  const handleDurationSelect = duration => {
+  const handleDurationSelect = (duration) => {
     if (duration === 'custom') {
-      <View> 
-        <TextInput
-        placeholder="Enter duration"
-        value={selectedDuration}
-        onChangeText={duration => setSelectedDuration(duration)}
-        style={{ borderWidth: 1, borderColor: 'gray', padding: 10, marginBottom: 10 }}
-        keyboardType="numeric"
-        step="15"
-      />
-      </View>
       // Handle custom duration input logic
+      <TextInput
+        value={selectedTutorId}
+        onChangeText={setSelectedTutorId}
+        placeholder="Enter tutor ID"
+      />
     } else {
       setSelectedDuration(duration.toString());
     }
   };
 
-
-
   return (
     <View>
+      <Text>Enter Tutor ID:</Text>
+      <TextInput
+        value={selectedTutorId}
+        onChangeText={setSelectedTutorId}
+        placeholder="Enter tutor ID"
+      />
+
+      <Text>Select Module:</Text>
+      <TextInput
+        value={selectedModule}
+        onChangeText={setSelectedModule}
+        placeholder="Enter module name"
+      />
+
       <Text>Select Date:</Text>
       <DateTimePicker
         value={selectedDate || new Date()}
         mode="date"
         onChange={handleDateChange}
         format="dd-MMM-yyyy"
+        minimumDate={new Date()} // Restrict minimum date to current date
       />
 
       <Text>Select Time:</Text>
@@ -77,20 +92,16 @@ const TutorAvailabilityForm = () => {
         <Button title="30" onPress={() => handleDurationSelect(30)} />
         <Button title="45" onPress={() => handleDurationSelect(45)} />
         <Button title="60" onPress={() => handleDurationSelect(60)} />
+        <Button title="Custom" onPress={() => handleDurationSelect('custom')} />
       </View>
 
       <Button title="Add Slot" onPress={addSlot} />
 
-      <Text>Available Slots:</Text>
-      {slots.map((slot, index) => (
-        <View key={index} style={{ marginBottom: 10 }}>
-          <Text>Date: {slot.date}</Text>
-          <Text>Time: {slot.time}</Text>
-          <Text>Duration: {slot.duration} minutes</Text>
-        </View>
-      ))}
+      <Text>Your Slots:</Text>
+      <ConsultationSlotManagement slots={slots} />
     </View>
   );
 };
 
 export default TutorAvailabilityForm;
+
