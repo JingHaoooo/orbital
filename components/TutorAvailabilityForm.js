@@ -1,93 +1,83 @@
 import React, { useState } from 'react';
-import { View, Button, Text, TextInput, StyleSheet } from 'react-native';
+import { View, Button, Text, Platform } from 'react-native';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import ConsultationSlotManagement from './ConsultationSlotManagement';
 
-
 const TutorAvailabilityForm = () => {
-
   const [slots, setSlots] = useState([]);
-  const [selectedTutorId, setSelectedTutorId] = useState('');
-  const [selectedModule, setSelectedModule] = useState('');
   const [selectedDate, setSelectedDate] = useState(null);
   const [selectedTime, setSelectedTime] = useState(null);
   const [selectedDuration, setSelectedDuration] = useState('');
+  const [datePickerVisible, setDatePickerVisible] = useState(false);
+  const [timePickerVisible, setTimePickerVisible] = useState(false);
+
+  const handleDateChange = (event, date) => {
+    setSelectedDate(date || selectedDate);
+  };
+
+  const handleTimeChange = (event, time) => {
+    setSelectedTime(time || selectedTime);
+  };
+
+  const handleDurationSelect = (duration) => {
+    setSelectedDuration(duration.toString());
+  };
 
   const addSlot = () => {
-    if (selectedTutorId && selectedModule && selectedDate && selectedTime && selectedDuration) {
+    if (selectedDate && selectedTime && selectedDuration) {
+      const dateTime = new Date(selectedDate);
+      dateTime.setHours(selectedTime.getHours());
+      dateTime.setMinutes(selectedTime.getMinutes());
+      dateTime.setSeconds(0);
+
       const slot = {
-        tutorId: selectedTutorId,
-        module: selectedModule,
-        date: selectedDate,
-        time: selectedTime,
+        dateTime,
         duration: selectedDuration,
       };
 
       setSlots([...slots, slot]);
-
-      setSelectedTutorId('');
-      setSelectedModule('');
-      setSelectedDate(null);
-      setSelectedTime(null);
+      // setSelectedDate(null);
+      // setSelectedTime(null);
       setSelectedDuration('');
-    }
-  };
-
-  const handleDateChange = (event, date) => {
-    setSelectedDate(date);
-  };
-  
-  const handleTimeChange = (event, time) => {
-    setSelectedTime(time);
-  };
-
-  
-
-  const handleDurationSelect = (duration) => {
-    if (duration === 'custom') {
-      // Handle custom duration input logic
-      <TextInput
-        value={selectedTutorId}
-        onChangeText={setSelectedTutorId}
-        placeholder="Enter tutor ID"
-      />
-    } else {
-      setSelectedDuration(duration.toString());
     }
   };
 
   return (
     <View>
-      <Text>Enter Tutor ID:</Text>
-      <TextInput
-        value={selectedTutorId}
-        onChangeText={setSelectedTutorId}
-        placeholder="Enter tutor ID"
-      />
-
-      <Text>Select Module:</Text>
-      <TextInput
-        value={selectedModule}
-        onChangeText={setSelectedModule}
-        placeholder="Enter module name"
-      />
-
       <Text>Select Date:</Text>
-      <DateTimePicker
-        value={selectedDate || new Date()}
-        mode="date"
-        onChange={handleDateChange}
-        format="dd-MMM-yyyy"
-        minimumDate={new Date()} // Restrict minimum date to current date
+      <Button
+        title={selectedDate ? selectedDate.toDateString() : 'Date'}
+        onPress={() => setDatePickerVisible(true)}
       />
+      {datePickerVisible && (
+        <DateTimePicker
+          value={selectedDate || new Date()}
+          mode="date"
+          onChange={(event, date) => {
+            setDatePickerVisible(false);
+            handleDateChange(event, date);
+          }}
+          format="dd-MMM-yyyy"
+          minimumDate={new Date()} // Restrict minimum date to current date
+        />
+      )}
 
-      <Text>Select Time:</Text>
-      <DateTimePicker
-        value={selectedTime || new Date()}
-        minuteInterval={15}
-        mode="time"
-        onChange={handleTimeChange}
+      <Text>Select Time (15min intervals):</Text>
+      <Button
+        title={selectedTime ? selectedTime.toTimeString() : 'Time'}
+        onPress={() => setTimePickerVisible(true)}
       />
+      {timePickerVisible && (
+        <DateTimePicker
+          value={selectedTime || new Date()}
+          minuteInterval={15}
+          mode="time"
+          onChange={(event, time) => {
+            setTimePickerVisible(false);
+            handleTimeChange(event, time);
+          }}
+        />
+      )}
 
       <Text>Select Duration (in minutes):</Text>
       <View style={{ flexDirection: 'row', marginBottom: 10 }}>
@@ -97,9 +87,7 @@ const TutorAvailabilityForm = () => {
         <Button title="60" onPress={() => handleDurationSelect(60)} />
       </View>
 
-      
-        <Button title="Add Slot" onPress={addSlot} />
-
+      <Button title="Add Slot" onPress={addSlot} />
 
       <Text>Your Slots:</Text>
       <ConsultationSlotManagement slots={slots} />
@@ -108,5 +96,3 @@ const TutorAvailabilityForm = () => {
 };
 
 export default TutorAvailabilityForm;
-
-

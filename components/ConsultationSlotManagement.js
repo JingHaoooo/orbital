@@ -1,21 +1,34 @@
 import React from 'react';
 import { View, Text } from 'react-native';
 
+
 const ConsultationSlotManagement = ({ slots }) => {
+  const sortedSlots = slots.sort((a, b) => a.dateTime - b.dateTime);
+
   return (
     <View>
-      <Text>Consultation Slot Management:</Text>
-      {slots.map((slot, index) => (
-        <View key={index} style={{ marginBottom: 10 }}>
-          <Text>Tutor ID: {slot.tutorId}</Text>
-          <Text>Module: {slot.module}</Text>
-          <Text>Date: {slot.date.toString()}</Text>
-          <Text>Time: {slot.time.toString()}</Text>
-          <Text>Duration: {slot.duration} minutes</Text>
-        </View>
+      {sortedSlots.map((slot, index) => (
+        <Text key={index}>{formatDate(slot.dateTime) + ' (' + slot.duration + ' minutes)'}</Text>
       ))}
     </View>
   );
 };
 
 export default ConsultationSlotManagement;
+
+const formatDate = (dateTime) => {
+  const options = {
+    day: 'numeric',
+    month: 'short',
+    year: 'numeric',
+    weekday: 'short',
+    hour: 'numeric',
+    minute: 'numeric',
+  };
+
+  const formattedDate = dateTime.toLocaleDateString('en-US', options);
+  return `${formattedDate}`;
+};
+
+
+
