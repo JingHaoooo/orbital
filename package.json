@@ -17,6 +17,7 @@
     "axios": "^1.4.0",
     "expo": "~48.0.15",
     "expo-status-bar": "~1.4.4",
+    "firebase": "^9.22.1",
     "react": "18.2.0",
     "react-calendar": "^4.2.1",
     "react-native": "0.71.8",

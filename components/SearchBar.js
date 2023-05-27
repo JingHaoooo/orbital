@@ -3,7 +3,6 @@ import React from 'react'
 
 
 const SearchBar = (props) => {
-
     return (
         <View style={styles.container}>
             <TextInput

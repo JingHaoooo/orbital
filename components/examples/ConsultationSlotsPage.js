@@ -36,7 +36,7 @@ const ConsultationSlotsPage = () => {
   return (
     <View style={{ marginTop: 100 }}>
       <TouchableOpacity onPress={showDatepicker}>
-        <Text style={{fontSize: 50}}>{formatDate(date, time)}</Text>
+        <Text style={{ fontSize: 50 }}>{formatDate(date, time)}</Text>
       </TouchableOpacity>
       {show && (
         <DateTimePicker

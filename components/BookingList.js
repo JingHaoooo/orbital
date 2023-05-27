@@ -9,15 +9,15 @@ export default function BookingList() {
     );
 }
 
-    const styles = StyleSheet.create({
-        listContainer: {
-            flex: 1,
-            padding: 16,
-            backgroundColor: 'orange',
-            borderRadius: 30,
-        },
-        bookings: {
-            fontSize: 16,
-            textAlign: 'center'
-        }
-    });
+const styles = StyleSheet.create({
+    listContainer: {
+        flex: 1,
+        padding: 16,
+        backgroundColor: 'orange',
+        borderRadius: 30,
+    },
+    bookings: {
+        fontSize: 16,
+        textAlign: 'center'
+    }
+});

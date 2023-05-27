@@ -1,7 +1,11 @@
 import React, { useState } from 'react';
 import { View, Button, Text, Platform } from 'react-native';
 import DateTimePicker from '@react-native-community/datetimepicker';
-import ConsultationSlotManagement from './ConsultationSlotManagement';
+import SelectedSlots from './SelectedSlots';
+
+// todo: prevent overlapping slots
+// todo: fix UI problems (timepicker closing prematurely)
+// todo: styling
 
 const TutorAvailabilityForm = () => {
   const [slots, setSlots] = useState([]);
@@ -23,6 +27,11 @@ const TutorAvailabilityForm = () => {
     setSelectedDuration(duration.toString());
   };
 
+  const handleReleaseSlots = () => {
+    // Clear the slots by setting an empty array
+    setSlots([]);
+  };
+
   const addSlot = () => {
     if (selectedDate && selectedTime && selectedDuration) {
       const dateTime = new Date(selectedDate);
@@ -31,8 +40,11 @@ const TutorAvailabilityForm = () => {
       dateTime.setSeconds(0);
 
       const slot = {
-        dateTime,
+        dateTime: dateTime,
         duration: selectedDuration,
+        taken: false,
+        tutorId: 0,
+        studentId: 0
       };
 
       setSlots([...slots, slot]);
@@ -80,7 +92,7 @@ const TutorAvailabilityForm = () => {
       )}
 
       <Text>Select Duration (in minutes):</Text>
-      <View style={{ flexDirection: 'row', marginBottom: 10 }}>
+      <View style={{ flexDirection: 'row', marginBottom: 10, justifyContent: 'center', alignContent: 'center' }}>
         <Button title="15" onPress={() => handleDurationSelect(15)} />
         <Button title="30" onPress={() => handleDurationSelect(30)} />
         <Button title="45" onPress={() => handleDurationSelect(45)} />
@@ -89,8 +101,8 @@ const TutorAvailabilityForm = () => {
 
       <Button title="Add Slot" onPress={addSlot} />
 
-      <Text>Your Slots:</Text>
-      <ConsultationSlotManagement slots={slots} />
+      <Text>Slots selected:</Text>
+      <SelectedSlots slots={slots} onReleaseSlots={handleReleaseSlots} />
     </View>
   );
 };
