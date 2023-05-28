@@ -2,41 +2,20 @@ import { StatusBar } from 'expo-status-bar';
 
 import { useContext } from 'react';
 import { KeyboardAvoidingView, Platform } from 'react-native';
-import { Button } from 'react-native-paper';
-
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
-import Login from './screens/Authentication/Login';
-import Signup from './screens/Authentication/Signup';
-import HomePage from './screens/HomePage';
+import Login from './screens/Authentication/LoginScreen';
+import Signup from './screens/Authentication/SignupScreen';
+import MainContainer from './screens/MainContainer';
 import AuthContextProvider, { AuthContext } from './store/auth-context';
-import Booking from './screens/Booking';
-import SetAvailability from './screens/SetAvailability';
+
 
 const Stack = createNativeStackNavigator();
 
 function AuthenticatedStack() {
   const authReactContext = useContext(AuthContext);
-
-  return (
-    <Stack.Navigator initialRouteName='Home'>
-      <Stack.Screen
-        name='Home'
-        component={HomePage}
-        options={ //expects function
-          { headerRight: () => <Button onPress={authReactContext.logout}>Logout</Button> }
-        } />
-        <Stack.Screen 
-        name='Booking page'
-        component={Booking}        
-        />
-        <Stack.Screen 
-        name='Set availability'
-        component={SetAvailability}
-        />
-    </Stack.Navigator>
-  );
+  return <MainContainer />;
 }
 
 function NotAuthenticatedStack() {
@@ -50,7 +29,6 @@ function NotAuthenticatedStack() {
 
 function Navigation() {
   const authReactContext = useContext(AuthContext);
-
   return (
     <NavigationContainer l>
       {authReactContext.isAuthenticated
