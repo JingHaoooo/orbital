@@ -45,7 +45,6 @@ const AllSlots = () => {
 
     return (
         <View>
-            <Text>Slots</Text>
             <AvailableSlots slots={slots} />
             <Button title="Refresh" onPress={handleRefresh} />
         </View>
@@ -57,7 +56,7 @@ const AvailableSlots = ({ slots }) => {
 
     return (
         <View>
-            <Text>All Slots:</Text>
+            <Text>Slots in database:</Text>
             {sortedSlots.map((slot) => (
                 <Text key={slot.id}>
                     {formatDate(new Date(slot.dateTime))} ({slot.duration} minutes)

@@ -2,7 +2,7 @@ import { View } from 'react-native';
 import TutorAvailabilityForm from '../components/TutorAvailabilityForm';
 import TutorReleasedSlots from '../components/TutorReleasedSlots';
 
-export default function SetAvailability() {
+export default function SetAvailabilityScreen() {
     return (
         <View>
             <TutorAvailabilityForm />

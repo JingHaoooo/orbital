@@ -1,6 +1,5 @@
-import { StyleSheet, Text, View, TextInput } from 'react-native'
-import React from 'react'
-
+import { StyleSheet, View, TextInput } from 'react-native';
+import React from 'react';
 
 const SearchBar = (props) => {
     return (
@@ -16,7 +15,7 @@ const SearchBar = (props) => {
     );
 }
 
-export default SearchBar
+export default SearchBar;
 
 const styles = StyleSheet.create({
     container: {

@@ -6,11 +6,11 @@ export default function BookingList() {
     return (
         <View style={styles.container}>
             <View style={styles.listContainer}>
-                <Text style={styles.bookings}>Upcoming Bookings</Text>
-            </View>
-            <View>
-            <StudentBookingList studentId={0} /> 
-            <TutorBookingList tutorId={0} />
+                <Text style={styles.bookings}>
+                    This is a mobile application in progress (Milestone 1)
+                    that facilitates the booking of consultations
+                    between tutors and students.
+                </Text>
             </View>
         </View>
     );
@@ -28,7 +28,7 @@ const styles = StyleSheet.create({
     },
     bookings: {
         fontSize: 16,
-        textAlign: 'center'
+        textAlign: 'left'
     }
 });
 

@@ -1,18 +1,25 @@
-import { StyleSheet, Text, View } from 'react-native'
+import { Pressable, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import React from 'react'
+import { useState } from 'react';
+import { useNavigation } from '@react-navigation/native';
 
-const Nuscourse = (props) => {
+const Nuscourse = ({ moduleCode, title, onPress }) => {
+    navigation = useNavigation();
+
     return (
-        <View style={styles.container}>
-            <View style={styles.modulecontainer}>
-                <Text style={styles.modulesize}>{props.moduleCode}</Text>
-                <Text style={styles.moduletitle}>{props.title}</Text>
+        <TouchableOpacity
+            style={styles.container}
+            onPress={onPress}
+        >
+            <View style={styles.modulecontainer} >
+                <Text style={styles.modulesize} > {moduleCode} </Text>
+                <Text style={styles.moduletitle}>{title}</Text>
             </View>
-        </View>
+        </TouchableOpacity>
     );
 }
 
-export default Nuscourse;
+export default Nuscourse
 
 const styles = StyleSheet.create({
     container: {

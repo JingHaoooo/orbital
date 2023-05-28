@@ -5,19 +5,19 @@ import axios from 'axios';
 import Nuscourse from '../utility/Nuscourse';
 
 export default function BookingScreen() {
+
   const [searchModule, setSearchModule] = useState("");
   const [nusModule, setNusModule] = useState([]);
 
-  const filteredModuleData = () => {
 
+
+  const filteredModuleData = () => {
     return nusModule.filter(
       (item) =>
         item.moduleCode.toLowerCase().includes(searchModule.toLowerCase()) ||
         item.title.toLowerCase().includes(searchModule.toLowerCase())
     );
   };
-
-
 
   const getNusmods = () => {
     axios.get('https://api.nusmods.com/v2/2022-2023/moduleList.json')
@@ -43,6 +43,7 @@ export default function BookingScreen() {
           <Nuscourse
             moduleCode={item.moduleCode}
             title={item.title}
+            onPress={() => navigation.navigate('BookingPopup', item)}
           />}
         keyExtractor={(item) => item.moduleCode}
       />

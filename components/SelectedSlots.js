@@ -22,7 +22,6 @@ const SelectedSlots = ({ slots, onReleaseSlots }) => {
         }
     };
 
-
     return (
         <View>
             {sortedSlots.map((slot, index) => (

@@ -60,6 +60,7 @@ const StudentBookingList = ({ studentId }) => {
 const BookedSlots = ({ slots }) => {
     const sortedSlots = slots.sort((a, b) => a.dateTime - b.dateTime);
 
+    // to fix and add a cancel button
     const handleCancelSlot = async (slotId) => {
         try {
 
