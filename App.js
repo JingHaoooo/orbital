@@ -58,7 +58,7 @@ function Navigation() {
   const authReactContext = useContext(AuthContext);
 
   return (
-    <NavigationContainer l>
+    <NavigationContainer >
       {authReactContext.isAuthenticated
         ? <AuthenticatedStack />
         : <NotAuthenticatedStack />}

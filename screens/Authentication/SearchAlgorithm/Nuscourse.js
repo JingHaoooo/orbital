@@ -1,18 +1,18 @@
 import { Pressable, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import React from 'react'
 import { useState } from 'react';
+import { useNavigation } from '@react-navigation/native';
 
-const Nuscourse = (props) => {
-  const [count, setCount] = useState(0);
-  const onPress = () => setCount(prevCount => prevCount + 1);
-  console.log({count});
+const Nuscourse = ({moduleCode, title, onPress}) => {
+  navigation = useNavigation();
   return (
     <TouchableOpacity 
     style={styles.container} 
-    onPress={onPress} >
+    onPress= {onPress}
+    >
       <View style={styles.modulecontainer} >
-        <Text style={styles.modulesize} > {props.moduleCode} </Text>
-        <Text style={styles.moduletitle}>{props.title}</Text>
+        <Text style={styles.modulesize} > {moduleCode} </Text>
+        <Text style={styles.moduletitle}>{title}</Text>
       </View>
     </TouchableOpacity>
   );

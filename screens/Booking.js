@@ -4,7 +4,7 @@ import { useState } from 'react';
 import axios from 'axios';
 import Nuscourse from './Authentication/SearchAlgorithm/Nuscourse';
 
-export default function Booking() {
+export default function Booking(item) {
   const [searchModule, setSearchModule] = useState("");
   const [nusModule, setNusModule] = useState([]);
 
@@ -43,6 +43,7 @@ export default function Booking() {
         <Nuscourse
           moduleCode={item.moduleCode}
           title={item.title}
+          onPress= {()=> navigation.navigate('BookingPopup', item )}
         />}
         keyExtractor={(item) => item.moduleCode}
       />
