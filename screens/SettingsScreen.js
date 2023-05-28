@@ -2,6 +2,7 @@ import { useContext } from 'react';
 import { View, StyleSheet } from 'react-native';
 import { Button } from 'react-native-paper';
 import { AuthContext } from '../store/auth-context';
+import AllSlots from '../components/AllSlots';
 
 
 export default function Settings() {
@@ -14,6 +15,9 @@ export default function Settings() {
                 titleStyle={styles.buttonTitle}>
                 Logout now
             </Button>
+            <View>
+                <AllSlots />
+            </View>
         </View>
     )
 }
@@ -28,7 +32,6 @@ const styles = StyleSheet.create({
         backgroundColor: 'orange',
         alignItems: 'center',
     },
-
 })
 
 

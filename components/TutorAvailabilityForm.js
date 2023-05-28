@@ -3,9 +3,7 @@ import { View, Button, Text, Platform } from 'react-native';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import SelectedSlots from './SelectedSlots';
 
-// todo: prevent overlapping slots
-// todo: fix UI problems (timepicker closing prematurely)
-// todo: styling
+// todo: prevent overlapping slots and add ability to add multiple slot at once
 
 const TutorAvailabilityForm = () => {
   const [slots, setSlots] = useState([]);
@@ -43,6 +41,7 @@ const TutorAvailabilityForm = () => {
         dateTime: dateTime,
         duration: selectedDuration,
         taken: false,
+        module: '',
         tutorId: 0,
         studentId: 0
       };
@@ -99,9 +98,11 @@ const TutorAvailabilityForm = () => {
         <Button title="60" onPress={() => handleDurationSelect(60)} />
       </View>
 
-      <Button title="Add Slot" onPress={addSlot} />
+      {slots.length === 0 && (
+        <Button title="Add Slot" onPress={addSlot} />
+      )}
 
-      <Text>Slots selected:</Text>
+      <Text>Slot selected:</Text>
       <SelectedSlots slots={slots} onReleaseSlots={handleReleaseSlots} />
     </View>
   );

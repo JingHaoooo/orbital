@@ -2,9 +2,9 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import { BottomTabBar, createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 
 import HomePage from "./HomeScreen";
-import Booking from "./BookingScreen";
 import SetAvailability from "./SetAvailabilityScreen";
 import Settings from "./SettingsScreen";
+import StudentBookingScreen from './StudentBookingScreen';
 
 
 const homeName = "Home";
@@ -41,7 +41,7 @@ export default function MainContainer() {
             })}>
 
             <Tab.Screen name={homeName} component={HomePage} />
-            <Tab.Screen name={bookingName} component={Booking} />
+            <Tab.Screen name={bookingName} component={StudentBookingScreen} />
             <Tab.Screen name={setAvailName} component={SetAvailability} />
             <Tab.Screen name={settingsName} component={Settings} />
 

@@ -30,7 +30,7 @@ const SelectedSlots = ({ slots, onReleaseSlots }) => {
                     {formatDate(slot.dateTime) + ' (' + slot.duration + ' minutes)'}
                 </Text>
             ))}
-            <Button title="Release Slots" onPress={handleReleaseSlots} />
+            <Button title="Release Slot" onPress={handleReleaseSlots} />
         </View>
     );
 };
