@@ -43,7 +43,7 @@ const TutorAvailabilityForm = () => {
         taken: false,
         module: '',
         tutorId: 0,
-        studentId: 0
+        studentId: 0,
       };
 
       setSlots([...slots, slot]);
