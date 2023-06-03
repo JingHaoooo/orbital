@@ -82,7 +82,7 @@ const BookedSlots = ({ slots }) => {
             {sortedSlots.map((slot) => (
                 <View key={slot.id}>
                     <Text>
-                        {formatDate(new Date(slot.dateTime))} ({slot.duration} minutes)
+                        {formatDate(new Date(slot.dateTime))} ({slot.duration} minutes) {slot.module}
                     </Text>
                     {/* <TouchableOpacity onPress={() => handleCancelSlot(slot.id)}>
                         <Text style={styles.cancelButtonText}>Cancel</Text>
