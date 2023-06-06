@@ -1,29 +1,32 @@
 import { StatusBar } from 'expo-status-bar';
 import { FlatList, Image, ScrollView, StyleSheet, View } from 'react-native';
 import { Post } from './components/Post';
-import { Text, Button, TextInput, Checkbox } from 'react-native-paper'; 
+import { Text, Button, TextInput, Checkbox } from 'react-native-paper';
 import { useState } from 'react';
 import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
 
-function TodoItem({todo, toggleTodo}){
-  return(
-    <View style={{flexDirection:'row', alignItems: 'center', paddingTop: 10, paddingBottom: 10, backgroundColor:'green', justifyContent:'center'}}>
+// Gone through during MC1
+
+
+function TodoItem({ todo, toggleTodo }) {
+  return (
+    <View style={{ flexDirection: 'row', alignItems: 'center', paddingTop: 10, paddingBottom: 10, backgroundColor: 'green', justifyContent: 'center' }}>
       <Text>{todo.title}</Text>
-      <Checkbox.Android 
-      status={todo.completed ? 'checked' : 'unchecked' }
-      onPress= {()=> toggleTodo(todo.id)}/>
+      <Checkbox.Android
+        status={todo.completed ? 'checked' : 'unchecked'}
+        onPress={() => toggleTodo(todo.id)} />
     </View>
   );
 }
 
-function TodoInputs({addTodo}){
+function TodoInputs({ addTodo }) {
   const [text, setText] = useState('');
   const onSubmit = () => {
     addTodo(text);
-    }
-  return(
-    <View style = {{flexDirection: 'row', backgroundColor:'yellow', alignItems:'center'}}>
-      <TextInput value={text} onChangeText={(value) => setText(value)}/>
+  }
+  return (
+    <View style={{ flexDirection: 'row', backgroundColor: 'yellow', alignItems: 'center' }}>
+      <TextInput value={text} onChangeText={(value) => setText(value)} />
       <Button onPress={onSubmit}>Submit</Button>
     </View>
   );
@@ -47,9 +50,9 @@ function Todos() {
     setTodos([
       ...todos,
       {
-      id: index,
-      title: title,
-      completed: false,
+        id: index,
+        title: title,
+        completed: false,
       }
     ]);
   }
@@ -61,34 +64,34 @@ function Todos() {
         ...todos[index],
         completed: !todos[index].completed
       },
-      ...todos.slice(index+1),
+      ...todos.slice(index + 1),
     ])
   }
-  return(
-    <View style={{ flex:1 }}>
-      <FlatList 
-      style={{backgroundColor:'red', width: 300, height: 500,}}
-      data={todos} 
-      renderItem={({item}) => <TodoItem todo={item} toggleTodo= {toggleTodo} />} />
-      <TodoInputs addTodo={addTodo}/> 
+  return (
+    <View style={{ flex: 1 }}>
+      <FlatList
+        style={{ backgroundColor: 'red', width: 300, height: 500, }}
+        data={todos}
+        renderItem={({ item }) => <TodoItem todo={item} toggleTodo={toggleTodo} />} />
+      <TodoInputs addTodo={addTodo} />
     </View>
 
   );
 }
 export default function App() {
 
-  
+
   return (
     <SafeAreaProvider>
-    <SafeAreaView style= {styles.container}>
-      <Todos />
-    </SafeAreaView>
+      <SafeAreaView style={styles.container}>
+        <Todos />
+      </SafeAreaView>
     </SafeAreaProvider>
   );
 }
 
 const styles = StyleSheet.create({
-  
+
   container: {
     flex: 1,
     justifyContent: 'center',
