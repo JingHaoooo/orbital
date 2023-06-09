@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { View, Text, Button, StyleSheet, TouchableOpacity } from 'react-native';
 import axios from 'axios';
 
-const StudentBookingForm = () => {
+const StudentBookingForm = ({moduleCode}) => {
     const [slots, setSlots] = useState([]);
 
     useEffect(() => {
@@ -17,12 +17,13 @@ const StudentBookingForm = () => {
             const slotsData = response.data;
             console.log(slotsData);
 
+
             const fetchedSlots = [];
 
             for (const key in slotsData) {
                 const slotData = slotsData[key][0]; // Access the first element of the array
 
-                if (!slotData.taken) {
+                if (!slotData.taken && (moduleCode == slotData.module)) {
                     fetchedSlots.push({
                         id: key,
                         dateTime: new Date(slotData.dateTime),

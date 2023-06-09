@@ -63,7 +63,7 @@ const BookedSlots = ({ slots }) => {
         <View>
             {sortedSlots.map((slot) => (
                 <Text key={slot.id}>
-                    {formatDate(new Date(slot.dateTime))} ({slot.duration} minutes)
+                    {formatDate(new Date(slot.dateTime))} ({slot.duration} minutes) {slot.module}
                 </Text>
             ))}
         </View>

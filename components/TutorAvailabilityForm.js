@@ -5,7 +5,7 @@ import SelectedSlots from './SelectedSlots';
 
 // todo: prevent overlapping slots and add ability to add multiple slot at once
 
-const TutorAvailabilityForm = () => {
+const TutorAvailabilityForm = ({moduleCode}) => {
   const [slots, setSlots] = useState([]);
   const [selectedDate, setSelectedDate] = useState(null);
   const [selectedTime, setSelectedTime] = useState(null);
@@ -36,14 +36,13 @@ const TutorAvailabilityForm = () => {
       dateTime.setHours(selectedTime.getHours());
       dateTime.setMinutes(selectedTime.getMinutes());
       dateTime.setSeconds(0);
-
       const slot = {
         dateTime: dateTime,
         duration: selectedDuration,
         taken: false,
-        module: '',
+        module: moduleCode,
         tutorId: 0,
-        studentId: 0
+        studentId: 0,
       };
 
       setSlots([...slots, slot]);

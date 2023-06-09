@@ -2,10 +2,10 @@ import React from 'react';
 import { View } from 'react-native';
 import StudentBookingForm from '../components/StudentBookingForm';
 
-export default function StudentBookingScreen() {
+export default function StudentBookingScreen({route}) {
   return (
     <View>
-      <StudentBookingForm />
+      <StudentBookingForm moduleCode= {route.params.moduleCode} />
     </View>
   )
 }
