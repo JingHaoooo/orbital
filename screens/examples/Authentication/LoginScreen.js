@@ -1,10 +1,10 @@
 import { useContext, useState } from "react";
 import { Alert } from 'react-native';
 
-import AuthLogic from "../../components/Authentication/AuthLogic";
-import Overlay from "../../components/ui/Overlay";
-import { AuthContext } from "../../store/auth-context";
-import { login } from "../../utility/Auth";
+import AuthLogic from "../../../components/Authentication/AuthLogic";
+import Overlay from "../../../components/ui/Overlay";
+import { AuthContext } from "../../../store/auth-context";
+import { login } from "../../../utility/Auth";
 
 export default function Login() {
 

@@ -7,7 +7,6 @@ import { useNavigation } from '@react-navigation/native';
 import AuthPage from './AuthPage';
 
 export default function AuthLogic({ isLogin, onAuthenticate }) {
-
   const navigation = useNavigation();
 
   const [invalidCredentials, setInvalidCredentials] = useState({
@@ -34,7 +33,7 @@ export default function AuthLogic({ isLogin, onAuthenticate }) {
 
     // may want to enforce NUS email, so that this app is for NUS students and staff only
     // But some may end up entering their NUSNET passwords, which is not safe!
-    const validEmail = email.includes('@');
+    const validEmail = email.includes('nus.edu.sg') || email.includes('@u.nus.edu');
     const validPassword = password.length > 7;
     const equalEmails = email === confirmEmail;
     const equalPasswords = password === confirmPassword;
@@ -44,7 +43,7 @@ export default function AuthLogic({ isLogin, onAuthenticate }) {
       !validPassword ||
       (!isLogin && (!equalEmails || !equalPasswords))
     ) {
-      Alert.alert('Failed', 'Invalid email or password!');
+      Alert.alert('Failed', 'Invalid NUS email or password!');
       setInvalidCredentials({
         // true if an attribute is invalid
         email: !validEmail,
