@@ -1,116 +1,145 @@
-/* eslint-disable react/style-prop-object */
 import { StatusBar } from 'expo-status-bar';
-
-import React, { useEffect, useState } from 'react';
-import { KeyboardAvoidingView, Platform } from 'react-native';
+import React, { useContext, useEffect, useState } from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 import LoginScreen from './src/screens/LoginScreen/LoginScreen';
 import SignupScreen from './src/screens/SignupScreen/SignupScreen';
 import MainContainer from './screens/MainContainer';
-import { firebase } from './src/firebase/config';
+import Overlay from "./components/ui/Overlay";
+import firebase from 'firebase/compat';
+import { AuthProvider, AuthContext } from './AuthContext';
+
 
 const Stack = createNativeStackNavigator();
 
 export default function App() {
-  const [user, setUser] = useState(null);
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    const usersRef = firebase.firestore().collection('users');
-    // eslint-disable-next-line no-shadow
-    firebase.auth().onAuthStateChanged((user) => {
-      if (user) {
-        usersRef
-          .doc(user.uid)
-          .get()
-          .then((document) => {
-            const userData = document.data();
-            setLoading(false);
-            setUser(userData);
-          })
-          // eslint-disable-next-line no-unused-vars
-          .catch((error) => {
-            setLoading(false);
-          });
-      } else {
-        setLoading(false);
-      }
-    });
-  }, []);
-
-  if (loading) {
-    return (
-      // eslint-disable-next-line react/jsx-filename-extension
-      <>
-      </>
-    );
-  }
-
   return (
-    <KeyboardAvoidingView
-      behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-      style={{ flex: 1 }}
-    >
-      <StatusBar style="dark" />
-      <NavigationContainer>
-        <Stack.Navigator>
-          {
-            user
-              ? (
-                <Stack.Screen name="Home" component={MainContainer} initialParams={{ extraData: user }} options={{ headerShown: false }} />
-              ) : (
-                <Stack.Group>
-                  <Stack.Screen name="Login" component={LoginScreen} />
-                  <Stack.Screen name="Signup" component={SignupScreen} />
-                </Stack.Group>
-              )
-          }
-        </Stack.Navigator>
-      </NavigationContainer>
-    </KeyboardAvoidingView>
+    <AuthProvider>
+      <AppContent />
+    </AuthProvider>
   );
 }
 
-// working code (axios):
-// const Stack = createNativeStackNavigator();
+function AppContent() {
+  const authContext = useContext(AuthContext);
+  const { user, loading } = authContext;
 
-// function AuthenticatedStack() {
-//   const authReactContext = useContext(AuthContext);
-//   return <MainContainer />;
-// }
 
-// function NotAuthenticatedStack() {
-//   return (
-//     <Stack.Navigator>
-//       <Stack.Screen name="Login" component={Login} />
-//       <Stack.Screen name="Signup" component={Signup} />
-//     </Stack.Navigator>
-//   );
-// }
+  // if (loading) {
+  //   return <Overlay message={'Loading...'} />;
+  // }
 
-// function Navigation() {
-//   const authReactContext = useContext(AuthContext);
-//   return (
-//     <NavigationContainer l>
-//       {authReactContext.isAuthenticated
-//         ? <AuthenticatedStack />
-//         : <NotAuthenticatedStack />}
-//     </NavigationContainer>
-//   );
-// }
+  return (
+    <>
+      <StatusBar style="dark" />
+      <NavigationContainer>
+        <Stack.Navigator>
+          {user ? (
+            <Stack.Screen
+              name="MainContainer"
+              component={MainContainer}
+              options={{ headerShown: false }}
+            />
+          ) : (
+            <Stack.Group>
+              <Stack.Screen name="Login" component={LoginScreen} />
+              <Stack.Screen name="Signup" component={SignupScreen} />
+            </Stack.Group>
+          )}
+        </Stack.Navigator>
+      </NavigationContainer>
+    </>
+  );
+}
+
+
+
+
 
 // export default function App() {
+
+//   const authContext = useContext(AuthContext);
+//   const { user } = authContext;
+
 //   return (
-//     <KeyboardAvoidingView
-//       behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-//       style={{ flex: 1 }}
-//     >
+//     <AuthProvider>
 //       <StatusBar style="dark" />
-//       <AuthContextProvider>
-//         <Navigation />
-//       </AuthContextProvider>
-//     </KeyboardAvoidingView>
+//       <NavigationContainer>
+//         <Stack.Navigator>
+//           {
+//             user
+//               ? (
+//                 <Stack.Screen
+//                   name="MainContainer"
+//                   component={MainContainer}
+//                   options={{ headerShown: false }} />
+//               ) : (
+//                 <Stack.Group>
+//                   <Stack.Screen name="Login" component={LoginScreen} />
+//                   <Stack.Screen name="Signup" component={SignupScreen} />
+//                 </Stack.Group>
+//               )
+//           }
+//         </Stack.Navigator>
+//       </NavigationContainer>
+//     </AuthProvider>
+//   );
+// }
+
+
+// const Stack = createNativeStackNavigator();
+
+// export default function App() {
+//   const [user, setUser] = useState(null);
+//   const [loading, setLoading] = useState(true);
+
+//   useEffect(() => {
+//     const usersRef = firebase.firestore().collection('users');
+//     firebase.auth().onAuthStateChanged((user) => {
+//       if (user) {
+//         usersRef
+//           .doc(user.uid)
+//           .get()
+//           .then((document) => {
+//             const userData = document.data();
+//             setLoading(false);
+//             setUser(userData);
+//           })
+//           .catch((error) => {
+//             setLoading(false);
+//           });
+//       } else {
+//         setLoading(false);
+//       }
+//     });
+//   }, []);
+
+//   if (loading) {
+//     return <Overlay message={'Loading...'} />
+//   }
+//   return (
+//     <>
+//       <StatusBar style="dark" />
+//       <NavigationContainer>
+//         <Stack.Navigator>
+//           {
+//             user
+//               ? (
+//                 <Stack.Screen
+//                   name="MainContainer"
+//                   component={MainContainer}
+//                   initialParams={{ extraData: user }}
+//                   options={{ headerShown: false }} />
+//               ) : (
+//                 <Stack.Group>
+//                   <Stack.Screen name="Login" component={LoginScreen} />
+//                   <Stack.Screen name="Signup" component={SignupScreen} />
+//                 </Stack.Group>
+//               )
+//           }
+//         </Stack.Navigator>
+//       </NavigationContainer>
+//     </>
 //   );
 // }

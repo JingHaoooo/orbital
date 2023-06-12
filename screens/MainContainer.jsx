@@ -11,6 +11,8 @@ import BookingPopup from './BookingPopup';
 import StudentBookingScreen from './StudentBookingScreen';
 import BookedSlotsScreen from './BookedSlotsScreen';
 
+
+
 const homeName = 'Home';
 const bookingName = 'New Bookings';
 const bookingListName = 'Booking List';
@@ -38,7 +40,7 @@ function BookingTab() {
   );
 }
 
-export default function MainContainer(props) {
+export default function MainContainer() {
   return (
     <Tab.Navigator
       initialRouteName={homeName}
@@ -73,7 +75,6 @@ export default function MainContainer(props) {
       />
       <Tab.Screen name={bookingListName} component={BookedSlotsScreen} />
       <Tab.Screen name={settingsName} component={Settings} />
-
     </Tab.Navigator>
   );
 }
