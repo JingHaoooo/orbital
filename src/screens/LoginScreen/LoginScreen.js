@@ -2,9 +2,7 @@ import React, { useState, useContext } from 'react';
 import { Image, Text, TextInput, TouchableOpacity, View } from 'react-native';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import styles from './styles';
-import { firebase } from '../../firebase/config';
-import { AuthContext } from '../../../AuthContext';
-
+import { AuthContext } from '../../../utility/AuthContext';
 
 export default function LoginScreen({ navigation }) {
   const authContext = useContext(AuthContext);
@@ -14,7 +12,6 @@ export default function LoginScreen({ navigation }) {
 
   const { user, loading, login, logout } = authContext;
 
-
   const onFooterLinkPress = () => {
     navigation.replace('Signup');
   };
@@ -22,7 +19,6 @@ export default function LoginScreen({ navigation }) {
   const onLoginPress = () => {
     login(email, password);
   };
-  
 
   return (
     <View style={styles.container}>

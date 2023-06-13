@@ -17,7 +17,9 @@ export default function SignupScreen({ navigation }) {
   };
 
   const onRegisterPress = () => {
-    const validEmail = email.includes('nus.edu.sg') || email.includes('@u.nus.edu') || email.includes('test');
+    const validEmail = email.includes('nus.edu.sg')
+      || email.includes('@u.nus.edu')
+      || email.includes('test');
     const validPassword = password.length > 7;
     const equalPasswords = password === confirmPassword;
 
