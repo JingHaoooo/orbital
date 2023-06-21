@@ -5,7 +5,7 @@ export default function BookingList() {
         <View style={styles.container}>
             <View style={styles.listContainer}>
                 <Text style={styles.bookings}>
-                    This is a mobile application in progress (Milestone 1)
+                    This is a mobile application in progress (Milestone 2)
                     that facilitates the booking of consultations
                     between tutors and students.
                 </Text>

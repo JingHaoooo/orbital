@@ -1,6 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { View, Text, Button, StyleSheet, TouchableOpacity } from 'react-native';
 import axios from 'axios';
+import firebase from 'firebase/compat/app';
+import 'firebase/compat/auth'; 
+import { getCurrentUserUid } from '../../firebase/config';
+
+const currentUserUid = getCurrentUserUid();
 
 const StudentBookingForm = ({ moduleCode }) => {
     const [slots, setSlots] = useState([]);
@@ -16,7 +21,6 @@ const StudentBookingForm = ({ moduleCode }) => {
             );
             const slotsData = response.data;
             console.log(slotsData);
-
 
             const fetchedSlots = [];
 
@@ -47,7 +51,7 @@ const StudentBookingForm = ({ moduleCode }) => {
         try {
             const response = await axios.patch(
                 `https://orbitalteamidk-default-rtdb.asia-southeast1.firebasedatabase.app/slots/${slotId}/0.json`,
-                { taken: true }
+                { taken: true, studentId: currentUserUid }
             );
             console.log('Slot booked successfully:', response.data);
             fetchSlots();

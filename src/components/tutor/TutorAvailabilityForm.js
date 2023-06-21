@@ -2,6 +2,9 @@ import React, { useState } from 'react';
 import { View, Button, Text } from 'react-native';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import SelectedSlots from '../SelectedSlots';
+import firebase from 'firebase/compat/app';
+import 'firebase/compat/auth'; // Import the Firebase Auth module
+import { getCurrentUserUid } from '../../firebase/config';
 
 // todo: prevent overlapping slots and add ability to add multiple slot at once
 
@@ -12,6 +15,8 @@ const TutorAvailabilityForm = ({ moduleCode }) => {
   const [selectedDuration, setSelectedDuration] = useState('');
   const [datePickerVisible, setDatePickerVisible] = useState(false);
   const [timePickerVisible, setTimePickerVisible] = useState(false);
+  
+  const currentUserUid = getCurrentUserUid();
 
   const handleDateChange = (event, date) => {
     setSelectedDate(date || selectedDate);
@@ -41,22 +46,22 @@ const TutorAvailabilityForm = ({ moduleCode }) => {
         duration: selectedDuration,
         taken: false,
         module: moduleCode,
-        tutorId: 0,
+        tutorId: currentUserUid,
         studentId: 0,
       };
 
       setSlots([...slots, slot]);
       // setSelectedDate(null);
-      // setSelectedTime(null);
+      setSelectedTime(null);
       setSelectedDuration('');
     }
   };
 
   return (
     <View>
-      <Text>Select Date:</Text>
+      <Text>Date:</Text>
       <Button
-        title={selectedDate ? selectedDate.toDateString() : 'Date'}
+        title={selectedDate ? selectedDate.toDateString() : 'Select Date'}
         onPress={() => setDatePickerVisible(true)}
       />
       {datePickerVisible && (
@@ -72,9 +77,9 @@ const TutorAvailabilityForm = ({ moduleCode }) => {
         />
       )}
 
-      <Text>Select Time (15min intervals):</Text>
+      <Text>Time (15min intervals):</Text>
       <Button
-        title={selectedTime ? selectedTime.toTimeString() : 'Time'}
+        title={selectedTime ? selectedTime.toTimeString() : 'Select Time'}
         onPress={() => setTimePickerVisible(true)}
       />
       {timePickerVisible && (

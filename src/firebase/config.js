@@ -23,5 +23,15 @@ const firebaseConfig = {
 if (!firebase.apps.length) {
   firebase.initializeApp(firebaseConfig);
 }
+
+export const getCurrentUserUid = () => {
+  const user = firebase.auth().currentUser;
+  if (user) {
+    console.log(user.uid) 
+    return user.uid;
+  }
+  return null;
+};
+
 export const auth = firebase.auth();
 export { firebase };

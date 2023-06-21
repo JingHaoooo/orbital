@@ -4,13 +4,13 @@ import { Button } from 'react-native-paper';
 import AllSlots from '../../../components/AllSlots';
 import { AuthContext } from '../../../../utility/AuthContext';
 import styles from './styles';
+import { clearFirebaseCache, initializeFirebase } from '../../../firebase/config'
 
 export default function Settings() {
   const authContext = useContext(AuthContext);
   const { user, loading, login, logout } = authContext;
 
   const handleLogout = () => {
-    console.log({ user });
     logout();
   };
 
