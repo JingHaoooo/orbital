@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import { View, Text, Button } from 'react-native';
 import axios from 'axios';
+import { getCurrentUserUid } from '../../firebase/config';
 
 // to add cancel button 
 
-const TutorBookingList = ({ tutorId }) => {
+const TutorBookingList = () => {
     const [slots, setSlots] = useState([]);
+    const tutorId= getCurrentUserUid();
 
     useEffect(() => {
         fetchSlots();

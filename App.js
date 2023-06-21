@@ -1,5 +1,5 @@
 import { StatusBar } from 'expo-status-bar';
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
@@ -12,12 +12,15 @@ import { AuthProvider, AuthContext } from './utility/AuthContext';
 const Stack = createNativeStackNavigator();
 
 export default function App() {
+  
   return (
     <AuthProvider>
       <AppContent />
     </AuthProvider>
   );
 }
+
+
 
 function AppContent() {
   const authContext = useContext(AuthContext);

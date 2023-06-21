@@ -2,9 +2,14 @@
 import React, { useEffect, useState } from 'react';
 import { View, Text, Button, TouchableOpacity, StyleSheet } from 'react-native';
 import axios from 'axios';
+import { getCurrentUserUid } from '../../firebase/config';
 
-const TutorReleasedSlots = ({ tutorId }) => {
+
+
+
+const TutorReleasedSlots = () => {
     const [slots, setSlots] = useState([]);
+   // const userId= getCurrentUserUid();
 
     useEffect(() => {
         fetchSlots();
@@ -16,14 +21,15 @@ const TutorReleasedSlots = ({ tutorId }) => {
                 'https://orbitalteamidk-default-rtdb.asia-southeast1.firebasedatabase.app/slots.json'
             );
             const slotsData = response.data;
-            console.log(slotsData);
+            const userId= getCurrentUserUid();
+           // console.log(slotsData);
 
             const fetchedSlots = [];
 
             for (const key in slotsData) {
                 const slotData = slotsData[key][0]; // Access the first element of the array
 
-                if (slotData.tutorId === tutorId) {
+                if (slotData.tutorId === userId) {
                     fetchedSlots.push({
                         id: key,
                         dateTime: new Date(slotData.dateTime),
@@ -55,6 +61,9 @@ const TutorReleasedSlots = ({ tutorId }) => {
 
     const handleRefresh = () => {
         fetchSlots();
+        //console.log('-------------');
+       // console.log(userId);
+       // console.log('-------------');
     };
 
     return (

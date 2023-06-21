@@ -2,11 +2,13 @@
 import React, { useEffect, useState } from 'react';
 import { View, Text, Button, StyleSheet, TouchableOpacity } from 'react-native';
 import axios from 'axios';
+import { getCurrentUserUid } from '../../firebase/config';
 
 // to add cancel button
 
-const StudentBookingList = ({ studentId }) => {
+const StudentBookingList = () => {
     const [slots, setSlots] = useState([]);
+    const studentId = getCurrentUserUid();
 
     useEffect(() => {
         fetchSlots();
@@ -18,7 +20,8 @@ const StudentBookingList = ({ studentId }) => {
                 'https://orbitalteamidk-default-rtdb.asia-southeast1.firebasedatabase.app/slots.json'
             );
             const slotsData = response.data;
-            console.log(slotsData);
+            //console.log(slotsData);
+            const studentId = getCurrentUserUid();
 
             const fetchedSlots = [];
 
@@ -46,6 +49,7 @@ const StudentBookingList = ({ studentId }) => {
 
     const handleRefresh = () => {
         fetchSlots();
+        console.log(studentId);
     };
 
     return (

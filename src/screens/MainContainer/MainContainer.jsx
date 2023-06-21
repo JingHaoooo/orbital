@@ -10,6 +10,8 @@ import SetAvailabilityScreen from './BookingPopup/SetAvailabilityScreen';
 import BookingPopup from './BookingPopup/BookingPopup';
 import StudentBookingScreen from './BookingPopup/StudentBookingScreen';
 import BookedSlotsScreen from './BookedSlotsScreen/BookedSlotsScreen';
+import { getCurrentUserUid } from '../../firebase/config';
+import firebase from '../../firebase/config';
 
 const homeName = 'Home';
 const bookingName = 'New Bookings';
@@ -41,6 +43,8 @@ function BookingTab() {
 }
 
 export default function MainContainer() {
+  const userId= getCurrentUserUid();
+  console.log(userId);
   return (
     <Tab.Navigator
       initialRouteName={homeName}

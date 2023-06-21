@@ -5,10 +5,10 @@ import firebase from 'firebase/compat/app';
 import 'firebase/compat/auth'; 
 import { getCurrentUserUid } from '../../firebase/config';
 
-const currentUserUid = getCurrentUserUid();
 
 const StudentBookingForm = ({ moduleCode }) => {
     const [slots, setSlots] = useState([]);
+    const currentUserUid = getCurrentUserUid();
 
     useEffect(() => {
         fetchSlots();
@@ -20,7 +20,7 @@ const StudentBookingForm = ({ moduleCode }) => {
                 'https://orbitalteamidk-default-rtdb.asia-southeast1.firebasedatabase.app/slots.json'
             );
             const slotsData = response.data;
-            console.log(slotsData);
+            //console.log(slotsData);
 
             const fetchedSlots = [];
 
@@ -63,6 +63,7 @@ const StudentBookingForm = ({ moduleCode }) => {
 
     const handleRefresh = () => {
         fetchSlots();
+        console.log(currentUserUid);
     };
 
     return (

@@ -27,7 +27,6 @@ if (!firebase.apps.length) {
 export const getCurrentUserUid = () => {
   const user = firebase.auth().currentUser;
   if (user) {
-    console.log(user.uid) 
     return user.uid;
   }
   return null;

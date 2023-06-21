@@ -12,9 +12,9 @@ const currentUserUid = getCurrentUserUid();
 export default function BookedSlotsScreen() {
   return (
     <View style={styles.container}>
-      <StudentBookingList studentId={currentUserUid} />
-      <TutorBookingList tutorId={currentUserUid} />
-      <TutorReleasedSlots tutorId={currentUserUid} />
+      <StudentBookingList />
+      <TutorBookingList  />
+      <TutorReleasedSlots  />
     </View>
   );
 }
