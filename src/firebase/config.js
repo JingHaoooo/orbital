@@ -1,6 +1,7 @@
 import firebase from 'firebase/compat/app';
 import 'firebase/compat/auth'; // Import the Firebase Auth module
 import 'firebase/compat/firestore'; // Import the Firebase Firestore module
+import { useEffect, useState } from 'react';
 // Import the functions you need from the SDKs you need
 
 // TODO: Add SDKs for Firebase products that you want to use
@@ -30,7 +31,40 @@ export const getCurrentUserUid = () => {
     return user.uid;
   }
   return null;
-}; 
+};
+
+
+
+export const fetchUserData = () => {
+  //const [userData, setUserData] = useState([]);
+
+  const particulars = () => {
+    const userDetails = [];
+    const uid = getCurrentUserUid();
+    const usersRef = firebase.firestore().collection('users');
+    usersRef
+      .doc(uid)
+      .get()
+      .then((snapshot) => {
+        userDetails.push({
+          userID: snapshot.data().userID,
+          displayName: snapshot.data().displayName,
+          email: snapshot.data().email,
+          id: snapshot.data().id,
+          modulesTaken: snapshot.data().modulesTaken,
+          modulesTeaching: snapshot.data().modulesTeaching,
+        });
+        //console.log(userDetails);
+
+      })
+    return userDetails;
+  };
+  const userData = particulars()
+   console.log('user details =>', userData);
+  ;
+}
+
+
 
 export const auth = firebase.auth();
 export { firebase };

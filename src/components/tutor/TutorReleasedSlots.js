@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from 'react';
 import { View, Text, Button, TouchableOpacity, StyleSheet } from 'react-native';
 import axios from 'axios';
-import { getCurrentUserUid } from '../../firebase/config';
+import { getCurrentUserUid, fetchUserData } from '../../firebase/config';
 
 
 
@@ -61,6 +61,7 @@ const TutorReleasedSlots = () => {
 
     const handleRefresh = () => {
         fetchSlots();
+        fetchUserData();
         //console.log('-------------');
        // console.log(userId);
        // console.log('-------------');
