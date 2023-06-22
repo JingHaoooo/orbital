@@ -30,6 +30,7 @@ export const AuthProvider = ({ children }) => {
                             return;
                         }
                         const userData = firestoreDocument.data();
+                        console.log(userData)
                         setUser(userData);
                         setLoading(false);
                     })

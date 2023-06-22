@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect, useCallback, useContext } from 'react';
 import {
     Text,
     TextInput,
@@ -12,8 +12,11 @@ import styles from './styles';
 import { firebase } from '../../firebase/config';
 import axios from 'axios';
 import { getCurrentUserUid } from '../../firebase/config';
+import { AuthContext } from '../../../utility/AuthContext'; // Import the AuthContext
+
 
 export default function EnterDetailsScreen({ navigation }) {
+    const { user } = useContext(AuthContext);
     const userId = getCurrentUserUid();
 
     const [displayName, setDisplayName] = useState('');
@@ -73,6 +76,10 @@ export default function EnterDetailsScreen({ navigation }) {
                 alert(error);
             });
     };
+
+    if (user.displayName !== '') {
+        navigation.replace('MainContainer')
+    }
 
     return (
         <View style={styles.container}>

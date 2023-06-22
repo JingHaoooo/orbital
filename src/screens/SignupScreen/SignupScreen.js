@@ -11,6 +11,7 @@ export default function SignupScreen({ navigation }) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
+  const [displayName, setDisplayName] = useState('');
 
   const onFooterLinkPress = () => {
     navigation.replace('Login');
@@ -33,7 +34,6 @@ export default function SignupScreen({ navigation }) {
       alert('Choose a password with at least 8 characters.');
       return;
     }
-    console.log('valid credentials entered.');
 
     firebase
       .auth()
@@ -44,6 +44,7 @@ export default function SignupScreen({ navigation }) {
           id: uid,
           email,
           userID,
+          displayName,
         };
         const usersRef = firebase.firestore().collection('users');
         usersRef
