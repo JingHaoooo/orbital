@@ -11,9 +11,10 @@ import DropDownPicker from 'react-native-dropdown-picker';
 import styles from './styles';
 import { firebase } from '../../firebase/config';
 import axios from 'axios';
+import { getCurrentUserUid } from '../../firebase/config';
 
-export default function EnterDetailsScreen({ route, navigation }) {
-    const { userId } = route.params;
+export default function EnterDetailsScreen({ navigation }) {
+    const userId = getCurrentUserUid();
 
     const [displayName, setDisplayName] = useState('');
     const [nusModule, setNusModule] = useState([]);
@@ -66,7 +67,7 @@ export default function EnterDetailsScreen({ route, navigation }) {
             .doc(userId)
             .update(data)
             .then(() => {
-                navigation.replace('Login');
+                navigation.replace('MainContainer');
             })
             .catch((error) => {
                 alert(error);

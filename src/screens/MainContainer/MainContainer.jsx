@@ -43,7 +43,7 @@ function BookingTab() {
 }
 
 export default function MainContainer() {
-  const userId= getCurrentUserUid();
+  const userId = getCurrentUserUid();
   console.log(userId);
   return (
     <Tab.Navigator

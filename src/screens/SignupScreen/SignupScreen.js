@@ -52,7 +52,7 @@ export default function SignupScreen({ navigation }) {
           .then(() => {
             // add account successfully created overlay
             // navigation.replace('Login');
-            navigation.replace('Enter Details', { userId: uid });
+            // navigation.replace('Enter Details', { userId: uid });
           })
           .catch((error) => {
             alert(error);

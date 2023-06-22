@@ -45,7 +45,7 @@ export const AuthProvider = ({ children }) => {
                 alert(error);
             });
     };
-    
+
     // Function to handle user logout
     const logout = async () => {
         try {

@@ -30,7 +30,7 @@ export const getCurrentUserUid = () => {
     return user.uid;
   }
   return null;
-};
+}; 
 
 export const auth = firebase.auth();
 export { firebase };
