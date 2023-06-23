@@ -4,7 +4,7 @@ import DateTimePicker from '@react-native-community/datetimepicker';
 import SelectedSlots from '../SelectedSlots';
 import firebase from 'firebase/compat/app';
 import 'firebase/compat/auth'; // Import the Firebase Auth module
-import { getCurrentUserUid } from '../../firebase/config';
+import { getCurrentUserUid, fetchUserData } from '../../firebase/config';
 
 // todo: prevent overlapping slots and add ability to add multiple slot at once
 
@@ -16,7 +16,8 @@ const TutorAvailabilityForm = ({ moduleCode }) => {
   const [datePickerVisible, setDatePickerVisible] = useState(false);
   const [timePickerVisible, setTimePickerVisible] = useState(false);
   
-  const currentUserUid = getCurrentUserUid();
+
+
 
   const handleDateChange = (event, date) => {
     setSelectedDate(date || selectedDate);
@@ -35,7 +36,10 @@ const TutorAvailabilityForm = ({ moduleCode }) => {
     setSlots([]);
   };
 
-  const addSlot = () => {
+  const addSlot = async() => {
+    const currentUserUid = getCurrentUserUid();
+    const userDetails = await fetchUserData();
+    console.log(userDetails);
     if (selectedDate && selectedTime && selectedDuration) {
       const dateTime = new Date(selectedDate);
       dateTime.setHours(selectedTime.getHours());
@@ -48,6 +52,8 @@ const TutorAvailabilityForm = ({ moduleCode }) => {
         module: moduleCode,
         tutorId: currentUserUid,
         studentId: 0,
+        tutorName: userDetails.displayName,
+        studentName: 0,
       };
 
       setSlots([...slots, slot]);

@@ -7,7 +7,7 @@ import { getCurrentUserUid } from '../../firebase/config';
 
 const TutorBookingList = () => {
     const [slots, setSlots] = useState([]);
-    const tutorId= getCurrentUserUid();
+    const tutorId = getCurrentUserUid();
 
     useEffect(() => {
         fetchSlots();
@@ -34,7 +34,9 @@ const TutorBookingList = () => {
                         taken: slotData.taken,
                         module: slotData.module,
                         tutorId: slotData.tutorId,
-                        studentId: slotData.studentId
+                        studentId: slotData.studentId,
+                        tutorName: slotData.tutorName,
+                        studentName: slotData.studentName,
                     });
                 }
             }
@@ -51,7 +53,7 @@ const TutorBookingList = () => {
 
     return (
         <View>
-            <Text>Tutor's Booked Slots:</Text>
+            <Text style={{ paddingBottom: 3, }}>Tutor's Booked Slots:</Text>
             <BookedSlots slots={slots} />
             <Button title="Refresh" onPress={handleRefresh} />
         </View>
@@ -64,9 +66,13 @@ const BookedSlots = ({ slots }) => {
     return (
         <View>
             {sortedSlots.map((slot) => (
-                <Text key={slot.id}>
-                    {formatDate(new Date(slot.dateTime))} ({slot.duration} minutes) {slot.module}
-                </Text>
+                <View key={slot.id}>
+                    <Text style={{ fontWeight: 'bold', }}>Module: {slot.module}</Text>
+                    <Text >
+                        {formatDate(new Date(slot.dateTime))} ({slot.duration} minutes)
+                    </Text>
+                    <Text>Booked by: {slot.studentName}</Text>
+                </View> 
             ))}
         </View>
     );

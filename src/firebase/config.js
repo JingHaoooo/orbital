@@ -2,6 +2,8 @@ import firebase from 'firebase/compat/app';
 import 'firebase/compat/auth'; // Import the Firebase Auth module
 import 'firebase/compat/firestore'; // Import the Firebase Firestore module
 import { useEffect, useState } from 'react';
+import { getFirestore, doc, getDoc } from "firebase/firestore"
+import { initializeApp } from "firebase/app"
 // Import the functions you need from the SDKs you need
 
 // TODO: Add SDKs for Firebase products that you want to use
@@ -9,6 +11,8 @@ import { useEffect, useState } from 'react';
 
 // Your web app's Firebase configuration
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+
+
 const firebaseConfig = {
   apiKey: "AIzaSyBoKd6aC_0UlGOpEUqY8eml-VH3OLWfrmk",
   authDomain: "orbitalteamidk.firebaseapp.com",
@@ -24,6 +28,8 @@ const firebaseConfig = {
 if (!firebase.apps.length) {
   firebase.initializeApp(firebaseConfig);
 }
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
 
 export const getCurrentUserUid = () => {
   const user = firebase.auth().currentUser;
@@ -35,33 +41,13 @@ export const getCurrentUserUid = () => {
 
 
 
-export const fetchUserData = () => {
-  //const [userData, setUserData] = useState([]);
-
-  const particulars = () => {
-    const userDetails = [];
-    const uid = getCurrentUserUid();
-    const usersRef = firebase.firestore().collection('users');
-    usersRef
-      .doc(uid)
-      .get()
-      .then((snapshot) => {
-        userDetails.push({
-          userID: snapshot.data().userID,
-          displayName: snapshot.data().displayName,
-          email: snapshot.data().email,
-          id: snapshot.data().id,
-          modulesTaken: snapshot.data().modulesTaken,
-          modulesTeaching: snapshot.data().modulesTeaching,
-        });
-        //console.log(userDetails);
-
-      })
-    return userDetails;
-  };
-  const userData = particulars()
-   console.log('user details =>', userData);
-  ;
+export const fetchUserData = async () => {
+  const uid = getCurrentUserUid();
+  const docRef = doc(db, "users", uid);
+  const docSnap = await getDoc(docRef);
+  const userInfo = docSnap.data();
+  //console.log(userInfo.displayName);
+  return userInfo;
 }
 
 

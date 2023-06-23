@@ -22,6 +22,7 @@ const TutorReleasedSlots = () => {
             );
             const slotsData = response.data;
             const userId= getCurrentUserUid();
+            //const userDetails = fetchUserData();
            // console.log(slotsData);
 
             const fetchedSlots = [];
@@ -37,7 +38,9 @@ const TutorReleasedSlots = () => {
                         taken: slotData.taken,
                         module: slotData.module,
                         tutorId: slotData.tutorId,
-                        studentId: slotData.studentId
+                        studentId: slotData.studentId,
+                        tutorName: slotData.tutorName,
+                        studentName: slotData.studentName,
                     });
                 }
             }
@@ -61,10 +64,6 @@ const TutorReleasedSlots = () => {
 
     const handleRefresh = () => {
         fetchSlots();
-        fetchUserData();
-        //console.log('-------------');
-       // console.log(userId);
-       // console.log('-------------');
     };
 
     return (
@@ -80,9 +79,10 @@ const ReleasedSlots = ({ slots, onCancelSlot }) => {
 
     return (
         <View>
-            <Text>Your Released Slots:</Text>
+            <Text style={{paddingBottom: 5,}}>Your Released Slots:</Text>
             {sortedSlots.map((slot) => (
-                <View key={slot.id}>
+                <View key={slot.id} >
+                    <Text style={{fontWeight: 'bold',}}>Module: {slot.module}</Text>
                     <Text>
                         {formatDate(new Date(slot.dateTime))} ({slot.duration} minutes) {slot.module}
                     </Text>
@@ -115,7 +115,8 @@ const styles = StyleSheet.create({
     cancelButtonText: {
         color: 'blue',
         fontWeight: 'bold',
-        justifyContent: 'center'
+        justifyContent: 'center',
+        paddingBottom: 5,
     },
 });
 

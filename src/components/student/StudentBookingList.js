@@ -36,7 +36,9 @@ const StudentBookingList = () => {
                         taken: slotData.taken,
                         module: slotData.module,
                         tutorId: slotData.tutorId,
-                        studentId: slotData.studentId
+                        studentId: slotData.studentId,
+                        tutorName: slotData.tutorName,
+                        studentName: slotData.studentName,
                     });
                 }
             }
@@ -54,7 +56,7 @@ const StudentBookingList = () => {
 
     return (
         <View>
-            <Text>Student's Booked Slots:</Text>
+            <Text style={{paddingBottom: 3,}}>Student's Booked Slots:</Text>
             <BookedSlots slots={slots} />
             <Button title="Refresh" onPress={handleRefresh} />
         </View>
@@ -85,9 +87,11 @@ const BookedSlots = ({ slots }) => {
         <View>
             {sortedSlots.map((slot) => (
                 <View key={slot.id}>
+                    <Text style = {{fontWeight:'bold',}}>Module: {slot.module}</Text>
                     <Text>
-                        {formatDate(new Date(slot.dateTime))} ({slot.duration} minutes) {slot.module}
+                        {formatDate(new Date(slot.dateTime))} ({slot.duration} minutes)
                     </Text>
+                    <Text>Tutor: {slot.tutorName} </Text>
                     {/* <TouchableOpacity onPress={() => handleCancelSlot(slot.id)}>
                         <Text style={styles.cancelButtonText}>Cancel</Text>
                     </TouchableOpacity> */}
