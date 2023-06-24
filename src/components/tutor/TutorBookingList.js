@@ -19,24 +19,28 @@ const TutorBookingList = () => {
                 'https://orbitalteamidk-default-rtdb.asia-southeast1.firebasedatabase.app/slots.json'
             );
             const slotsData = response.data;
-
             const fetchedSlots = [];
 
             for (const key in slotsData) {
                 const slotData = slotsData[key][0]; // Access the first element of the array
+                const currentTime = new Date();
 
                 if (slotData.tutorId === tutorId && slotData.taken) {
-                    fetchedSlots.push({
-                        id: key,
-                        dateTime: new Date(slotData.dateTime),
-                        duration: slotData.duration,
-                        taken: slotData.taken,
-                        module: slotData.module,
-                        tutorId: slotData.tutorId,
-                        studentId: slotData.studentId,
-                        tutorName: slotData.tutorName,
-                        studentName: slotData.studentName,
-                    });
+                    const slotDateTime = new Date(slotData.dateTime);
+
+                    if (slotDateTime > currentTime) {
+                        fetchedSlots.push({
+                            id: key,
+                            dateTime: new Date(slotData.dateTime),
+                            duration: slotData.duration,
+                            taken: slotData.taken,
+                            module: slotData.module,
+                            tutorId: slotData.tutorId,
+                            studentId: slotData.studentId,
+                            tutorName: slotData.tutorName,
+                            studentName: slotData.studentName,
+                        });
+                    }
                 }
             }
 
@@ -61,11 +65,9 @@ const TutorBookingList = () => {
         fetchSlots();
     };
 
-
-
     return (
         <View>
-            <Text style={{ paddingBottom: 3, }}>Tutor's Booked Slots:</Text>
+            <Text style={{ fontSize: 18, paddingBottom: 4 }}>Tutor's Booked Slots:</Text>
             <BookedSlots slots={slots} func={handleCancelSlot} />
             <Button title="Refresh" onPress={handleRefresh} />
         </View>

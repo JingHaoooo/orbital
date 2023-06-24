@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { View, StyleSheet } from 'react-native';
+import { Text, View, StyleSheet } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
 import { getCurrentUserUid } from '../firebase/config';
 import axios from 'axios';
@@ -69,6 +69,7 @@ export default function BookingList() {
                         <HomePageSlot key={slot.id} slot={slot} userRole={slot.userRole} />
                     ))}
                 </View>
+                <Text> You've reached the end of the list.</Text>
             </View>
         </ScrollView>
     );

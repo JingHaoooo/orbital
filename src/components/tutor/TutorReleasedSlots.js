@@ -6,8 +6,6 @@ import { getCurrentUserUid, fetchUserData } from '../../firebase/config';
 import { Slot } from '../ui/Slot';
 import { ScrollView } from 'react-native-gesture-handler';
 
-
-
 const TutorReleasedSlots = () => {
     const [slots, setSlots] = useState([]);
     // const userId= getCurrentUserUid();
@@ -30,17 +28,23 @@ const TutorReleasedSlots = () => {
                 const slotData = slotsData[key][0]; // Access the first element of the array
 
                 if (slotData.tutorId === userId) {
-                    fetchedSlots.push({
-                        id: key,
-                        dateTime: new Date(slotData.dateTime),
-                        duration: slotData.duration,
-                        taken: slotData.taken,
-                        module: slotData.module,
-                        tutorId: slotData.tutorId,
-                        studentId: slotData.studentId,
-                        tutorName: slotData.tutorName,
-                        studentName: slotData.studentName,
-                    });
+                    const slotDateTime = new Date(slotData.dateTime);
+                    const currentTime = new Date();
+
+                    // if (slotDateTime > currentTime) {
+                    if (true) {
+                        fetchedSlots.push({
+                            id: key,
+                            dateTime: slotDateTime,
+                            duration: slotData.duration,
+                            taken: slotData.taken,
+                            module: slotData.module,
+                            tutorId: slotData.tutorId,
+                            studentId: slotData.studentId,
+                            tutorName: slotData.tutorName,
+                            studentName: slotData.studentName,
+                        });
+                    }
                 }
             }
 
@@ -77,16 +81,14 @@ const TutorReleasedSlots = () => {
 
 const ReleasedSlots = ({ slots, onCancelSlot }) => {
     const sortedSlots = slots.sort((a, b) => a.dateTime - b.dateTime);
-
     return (
-
         <View>
-            <Text style={{ paddingBottom: 5, }}>Your Released Slots:</Text>
+            <Text style={{ fontSize: 18, padding: 8 }}>Your Released Slots:</Text>
             {sortedSlots.map((slot) => (
                 <Slot key={slot.id} slot={slot} buttonLabel={'Remove Slot'} func={onCancelSlot} user={'tutor'} />
             ))}
+            <Text style={{ fontSize: 18, padding: 8 }}>You have reached the end of the list</Text>
         </View>
-
     );
 
     // return (
