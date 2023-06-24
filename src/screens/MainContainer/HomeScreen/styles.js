@@ -12,6 +12,6 @@ export default StyleSheet.create({
 
     },
     bookings: {
-        flex: 0.6,
+       
     }
 });
