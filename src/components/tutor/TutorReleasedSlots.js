@@ -31,8 +31,7 @@ const TutorReleasedSlots = () => {
                     const slotDateTime = new Date(slotData.dateTime);
                     const currentTime = new Date();
 
-                    // if (slotDateTime > currentTime) {
-                    if (true) {
+                    if (slotDateTime > currentTime) {
                         fetchedSlots.push({
                             id: key,
                             dateTime: slotDateTime,

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { View, Text, Button } from 'react-native';
 import axios from 'axios';
-import { Slot } from '../components/ui/Slot';
+import { Slot } from '../ui/Slot';
 
 const AllSlots = () => {
     const [slots, setSlots] = useState([]);

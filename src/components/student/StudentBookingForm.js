@@ -21,25 +21,29 @@ const StudentBookingForm = ({ moduleCode }) => {
                 'https://orbitalteamidk-default-rtdb.asia-southeast1.firebasedatabase.app/slots.json'
             );
             const slotsData = response.data;
-            //console.log(slotsData);
 
             const fetchedSlots = [];
 
             for (const key in slotsData) {
                 const slotData = slotsData[key][0]; // Access the first element of the array
 
-                if (!slotData.taken && (moduleCode == slotData.module)) {
-                    fetchedSlots.push({
-                        id: key,
-                        dateTime: new Date(slotData.dateTime),
-                        duration: slotData.duration,
-                        taken: slotData.taken,
-                        module: slotData.module,
-                        tutorId: slotData.tutorId,
-                        studentId: slotData.studentId,
-                        tutorName: slotData.tutorName,
-                        studentName: slotData.studentName,
-                    });
+                const slotDateTime = new Date(slotData.dateTime);
+                const currentTime = new Date();
+
+                if (slotDateTime > currentTime) {
+                    if (!slotData.taken && (moduleCode == slotData.module)) {
+                        fetchedSlots.push({
+                            id: key,
+                            dateTime: new Date(slotData.dateTime),
+                            duration: slotData.duration,
+                            taken: slotData.taken,
+                            module: slotData.module,
+                            tutorId: slotData.tutorId,
+                            studentId: slotData.studentId,
+                            tutorName: slotData.tutorName,
+                            studentName: slotData.studentName,
+                        });
+                    }
                 }
             }
 
@@ -64,10 +68,8 @@ const StudentBookingForm = ({ moduleCode }) => {
         }
     };
 
-
     const handleRefresh = () => {
         fetchSlots();
-        // console.log(currentUserUid);
     };
 
     return (
@@ -86,7 +88,7 @@ const ReleasedSlots = ({ slots, onBookSlot }) => {
     return (
 
         <View>
-            <Text>Choose Your Slots:</Text>
+            <Text style={{ fontSize: 18, paddingBottom: 4 }}>Choose Your Slots:</Text>
             {sortedSlots.map((slot) => (
                 <Slot key={slot.id} slot={slot} buttonLabel={'Book Slot'} func={onBookSlot} user={'student'} />
             ))}

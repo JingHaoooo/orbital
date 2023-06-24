@@ -9,7 +9,6 @@ export default StyleSheet.create({
         fontSize: 20,
         paddingBottom: 16,
         textAlign: 'left'
-
     },
     bookings: {
        

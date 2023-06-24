@@ -58,7 +58,6 @@ export default function MainContainer() {
             iconName = focused ? 'home' : 'home-outline';
           } else if (routerName === bookingName) {
             iconName = focused ? 'ios-add-circle' : 'ios-add-circle-outline';
-
           } else if (routerName === bookingListName) {
             iconName = focused ? 'checkbox' : 'checkbox-outline';
           } else if (routerName === settingsName) {

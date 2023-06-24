@@ -16,7 +16,7 @@ function HomeScreen() {
                 <Text> </Text>
                 <Text style={styles.welcomeText}>Upcoming Bookings:</Text>
             </View>
-            <BookingList />
+            <BookingList booleanCondition={(slotTime) => slotTime > new Date()}/>
         </View>
     );
 }

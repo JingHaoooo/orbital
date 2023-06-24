@@ -5,7 +5,7 @@ import { getCurrentUserUid } from '../firebase/config';
 import axios from 'axios';
 import { HomePageSlot } from './ui/HomePageSlot';
 
-export default function BookingList() {
+export default function BookingList({ booleanCondition }) {
     const [slots, setSlots] = useState([]);
 
     useEffect(() => {
@@ -20,36 +20,40 @@ export default function BookingList() {
             const slotsData = response.data;
             const userID = getCurrentUserUid();
             const fetchedSlots = [];
+            const currentTime = new Date();
 
             for (const key in slotsData) {
                 const slotData = slotsData[key][0]; // Access the first element of the array
-
-                if ((slotData.tutorId === userID) && slotData.taken) {
-                    fetchedSlots.push({
-                        id: key,
-                        dateTime: new Date(slotData.dateTime),
-                        duration: slotData.duration,
-                        taken: slotData.taken,
-                        module: slotData.module,
-                        tutorId: slotData.tutorId,
-                        studentId: slotData.studentId,
-                        tutorName: slotData.tutorName,
-                        studentName: slotData.studentName,
-                        userRole: 'Tutor'
-                    });
-                } else if ((slotData.studentId === userID) && slotData.taken) {
-                    fetchedSlots.push({
-                        id: key,
-                        dateTime: new Date(slotData.dateTime),
-                        duration: slotData.duration,
-                        taken: slotData.taken,
-                        module: slotData.module,
-                        tutorId: slotData.tutorId,
-                        studentId: slotData.studentId,
-                        tutorName: slotData.tutorName,
-                        studentName: slotData.studentName,
-                        userRole: 'Student'
-                    });
+                const slotDateTime = new Date(slotData.dateTime);
+                // if (slotDateTime > currentTime) {
+                if (booleanCondition(slotDateTime)) {
+                    if ((slotData.tutorId === userID) && slotData.taken) {
+                        fetchedSlots.push({
+                            id: key,
+                            dateTime: new Date(slotData.dateTime),
+                            duration: slotData.duration,
+                            taken: slotData.taken,
+                            module: slotData.module,
+                            tutorId: slotData.tutorId,
+                            studentId: slotData.studentId,
+                            tutorName: slotData.tutorName,
+                            studentName: slotData.studentName,
+                            userRole: 'Tutor'
+                        });
+                    } else if ((slotData.studentId === userID) && slotData.taken) {
+                        fetchedSlots.push({
+                            id: key,
+                            dateTime: new Date(slotData.dateTime),
+                            duration: slotData.duration,
+                            taken: slotData.taken,
+                            module: slotData.module,
+                            tutorId: slotData.tutorId,
+                            studentId: slotData.studentId,
+                            tutorName: slotData.tutorName,
+                            studentName: slotData.studentName,
+                            userRole: 'Student'
+                        });
+                    }
                 }
             }
 
