@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { View, Text, Button, StyleSheet, TouchableOpacity } from 'react-native';
 import axios from 'axios';
 import { getCurrentUserUid } from '../../firebase/config';
+import { Slot } from '../ui/Slot';
 
 // to add cancel button
 
@@ -56,7 +57,7 @@ const StudentBookingList = () => {
 
     return (
         <View>
-            <Text style={{paddingBottom: 3,}}>Student's Booked Slots:</Text>
+            <Text style={{ paddingBottom: 3, }}>Student's Booked Slots:</Text>
             <BookedSlots slots={slots} />
             <Button title="Refresh" onPress={handleRefresh} />
         </View>
@@ -83,20 +84,26 @@ const BookedSlots = ({ slots }) => {
         }
     };
 
+    // return (
+    //     <View>
+    //         {sortedSlots.map((slot) => (
+    //             <View key={slot.id}>
+    //                 <Text style = {{fontWeight:'bold',}}>Module: {slot.module}</Text>
+    //                 <Text>
+    //                     {formatDate(new Date(slot.dateTime))} ({slot.duration} minutes)
+    //                 </Text>
+    //                 <Text>Tutor: {slot.tutorName} </Text>
+    //                 {/* <TouchableOpacity onPress={() => handleCancelSlot(slot.id)}>
+    //                      <Text style={styles.cancelButtonText}>Cancel</Text>
+    //                 </TouchableOpacity> */}
+    //             </View>
+    //         ))}
+    //     </View>
+    // );  
+
     return (
         <View>
-            {sortedSlots.map((slot) => (
-                <View key={slot.id}>
-                    <Text style = {{fontWeight:'bold',}}>Module: {slot.module}</Text>
-                    <Text>
-                        {formatDate(new Date(slot.dateTime))} ({slot.duration} minutes)
-                    </Text>
-                    <Text>Tutor: {slot.tutorName} </Text>
-                    {/* <TouchableOpacity onPress={() => handleCancelSlot(slot.id)}>
-                        <Text style={styles.cancelButtonText}>Cancel</Text>
-                    </TouchableOpacity> */}
-                </View>
-            ))}
+            {sortedSlots.map((slot) => Slot({ slot }))}
         </View>
     );
 };

@@ -2,9 +2,9 @@ import React, { useEffect, useState } from 'react';
 import { View, Text, Button, StyleSheet, TouchableOpacity } from 'react-native';
 import axios from 'axios';
 import firebase from 'firebase/compat/app';
-import 'firebase/compat/auth'; 
-import { getCurrentUserUid , fetchUserData} from '../../firebase/config';
-
+import 'firebase/compat/auth';
+import { getCurrentUserUid, fetchUserData } from '../../firebase/config';
+import { Slot } from '../ui/Slot';
 
 const StudentBookingForm = ({ moduleCode }) => {
     const [slots, setSlots] = useState([]);
@@ -54,7 +54,7 @@ const StudentBookingForm = ({ moduleCode }) => {
         try {
             const response = await axios.patch(
                 `https://orbitalteamidk-default-rtdb.asia-southeast1.firebasedatabase.app/slots/${slotId}/0.json`,
-                { taken: true, studentId: currentUserUid , studentName: studentDetails.displayName,}
+                { taken: true, studentId: currentUserUid, studentName: studentDetails.displayName, }
             );
             console.log('Slot booked successfully:', response.data);
             fetchSlots();
@@ -66,7 +66,7 @@ const StudentBookingForm = ({ moduleCode }) => {
 
     const handleRefresh = () => {
         fetchSlots();
-       // console.log(currentUserUid);
+        // console.log(currentUserUid);
     };
 
     return (

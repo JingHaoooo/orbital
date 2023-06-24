@@ -1,16 +1,19 @@
 import { Image, Button, View, Text, StyleSheet } from 'react-native';
+import { ScrollView } from 'react-native-gesture-handler';
 
 export default function BookingList() {
     return (
-        <View style={styles.container}>
-            <View style={styles.listContainer}>
-                <Text style={styles.bookings}>
-                    This is a mobile application in progress (Milestone 2)
-                    that facilitates the booking of consultations
-                    between tutors and students.
-                </Text>
+        <ScrollView>
+            <View style={styles.container}>
+                <View style={styles.listContainer}>
+                    <Text style={styles.bookings}>
+                        This is a mobile application in progress (Milestone 2)
+                        that facilitates the booking of consultations
+                        between tutors and students.
+                    </Text>
+                </View>
             </View>
-        </View>
+        </ScrollView>
     );
 }
 

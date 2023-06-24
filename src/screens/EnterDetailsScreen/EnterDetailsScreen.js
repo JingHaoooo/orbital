@@ -77,9 +77,15 @@ export default function EnterDetailsScreen({ navigation }) {
             });
     };
 
-    if (user.displayName !== '') {
-        navigation.replace('MainContainer')
-    }
+    // if (user.displayName !== '') {
+    //     navigation.replace('MainContainer')
+    // }
+    useEffect(() => {
+        if (user.displayName !== '') {
+            navigation.replace('MainContainer')
+        }
+    }, []);
+
 
     return (
         <View style={styles.container}>
