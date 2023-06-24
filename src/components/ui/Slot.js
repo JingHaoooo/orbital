@@ -1,22 +1,9 @@
-// import React from 'react';
-// import { View, Text, StyleSheet } from 'react-native';
-
-
 import React from 'react';
-import { View, Text, StyleSheet, Dimensions,  TouchableOpacity  } from 'react-native';
-import { Button } from 'react-native-paper';
+import { View, Text, StyleSheet, Dimensions, TouchableOpacity } from 'react-native';
 
 const windowWidth = Dimensions.get('window').width;
 
 const formatDate = (dateTime) => {
-  const options = {
-    day: 'numeric',
-    month: 'short',
-    year: 'numeric',
-    weekday: 'short',
-    hour: 'numeric',
-    minute: 'numeric',
-  };
 
   const day = dateTime.toLocaleDateString('en-US', { weekday: 'short' }).split(',')[0];
   const date = dateTime.toLocaleDateString('en-US', { day: 'numeric' });
@@ -44,16 +31,14 @@ export const Slot = ({ slot, buttonLabel, func, user }) => {
         <Text style={styles.module}>{slot.module}</Text>
         <Text style={styles.time}>{date[3]}</Text>
         <Text style={styles.detailText}>Duration: {slot.duration} minutes</Text>
-        {user == 'student' 
+        {user == 'student'
           ? <Text style={styles.detailText}>Tutor: {slot.tutorName}</Text>
           : <Text style={styles.detailText}>Student: {slot.studentName}</Text>
         }
         <TouchableOpacity onPress={() => func(slot.id)}>
-            <Text style={styles.button}>{buttonLabel}</Text>
+          <Text style={styles.button}>{buttonLabel}</Text>
         </TouchableOpacity>
-      </View> 
-
-
+      </View>
     </View>
   );
 };
@@ -63,7 +48,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#FFFFFF',
     flexDirection: 'row',
     borderRadius: 16,
-    marginBottom: 16,
+    marginBottom: 12,
     padding: 8,
     height: 136,
   },
@@ -78,8 +63,8 @@ const styles = StyleSheet.create({
     flex: 4,
     backgroundColor: '#FFA500',
     borderRadius: 10,
-    width: windowWidth * 0.2, // Adjust the width based on window width
-    height: windowWidth * 0.2, // Adjust the height based on window width
+    width: windowWidth * 0.2,
+    height: windowWidth * 0.2,
     justifyContent: 'center',
     alignItems: 'center',
   },
@@ -91,20 +76,19 @@ const styles = StyleSheet.create({
     marginTop: 4,
   },
   date: {
-    fontSize: windowWidth * 0.06, // Adjust the font size based on window width
-    fontWeight: 'bold',
+    fontSize: windowWidth * 0.06,
   },
   text: {
-    fontSize: windowWidth * 0.04, // Adjust the font size based on window width
+    fontSize: windowWidth * 0.04,
   },
   button: {
-    fontSize: windowWidth * 0.04, 
+    fontSize: windowWidth * 0.04,
     fontWeight: 'bold',
     color: 'red'
   },
   time: {
     fontSize: windowWidth * 0.04,
-    color: 'blue' // Adjust the font size based on window width
+    color: 'blue'
   },
   module: {
     fontSize: windowWidth * 0.045,
@@ -115,129 +99,9 @@ const styles = StyleSheet.create({
     paddingLeft: 16,
   },
   detailText: {
-    fontSize: windowWidth * 0.035, // Adjust the font size based on window width
+    fontSize: windowWidth * 0.035,
   },
   dayText: {
-    fontSize: windowWidth * 0.035, // Adjust the font size based on window width
+    fontSize: windowWidth * 0.035,
   },
 });
-
-
-
-
-// const formatDate = (dateTime) => {
-//     const options = {
-//         day: 'numeric',
-//         month: 'short',
-//         year: 'numeric',
-//         weekday: 'short',
-//         hour: 'numeric',
-//         minute: 'numeric',
-//     };
-
-//     const day = dateTime.toLocaleDateString('en-US', { weekday: 'long' }).split(',')[0];
-//     // console.log(day) // Wed
-//     const date = dateTime.toLocaleDateString('en-US', { day: 'numeric' });
-//     // console.log(date) // 28
-//     const month = dateTime.toLocaleDateString('en-US', { month: 'short' });
-//     // console.log(month) // Jun
-//     const time = dateTime.toLocaleTimeString('en-US', { hour: 'numeric', minute: 'numeric' });
-//     // console.log(time) // 2:30 PM
-//     const year = dateTime.getFullYear();
-//     return [day, date, month, time, year];
-
-//     // const formattedDate = dateTime.toLocaleDateString('en-US', options);
-//     // return formattedDate;
-// };
-
-// export const Slot = ({ slot }) => {
-//     const date = formatDate(new Date(slot.dateTime));
-//     return (
-//         <View style={styles.container} key={slot.id}>
-
-
-//             <View style={styles.leftContainer}>
-//                 <View style={styles.dateContainer}>
-//                     <Text style={styles.text}>{date[2]}</Text>
-//                     <Text style={styles.date}>{date[1]}</Text>
-//                     <Text style={styles.text}>{date[4]}</Text>
-//                 </View>
-//                 <View style={styles.dayContainer}>
-//                 <Text style={styles.text}>{date[0]}</Text>
-//                 </View>
-//             </View>
-
-
-//             <View style={styles.rightContainer}>
-//             <Text style={styles.detailText}>{slot.module}</Text>
-            
-//             <Text style={styles.detailText}>{date[3]}</Text>
-//             <Text style={styles.detailText}>Duration: {slot.duration} minutes</Text>
-//             <Text style={styles.detailText}>Tutor: {slot.tutorName}</Text>
-//             <Text style={styles.detailText}>Student: {slot.studentName}</Text>
-
-
-//             </View>
-
-
-
-//         </View>
-//     );
-// };
-
-
-  
-
-// const styles = StyleSheet.create({
-//     container: {
-//         backgroundColor: '#FFFFFF',
-//         flexDirection: 'row',
-//         borderRadius: 16,
-//         marginBottom: 16,
-//         padding: 8,
-//         height: 128,
-//     },
-//     leftContainer: {
-//         flex: 1,
-//         flexDirection: 'column',
-//         padding: 8,
-//         justifyContent: 'center',
-//         alignItems: 'center',
-//     },
-//     dateContainer: {
-//         flex: 5,
-//         backgroundColor: '#FFA500',
-//         borderRadius: 10,
-//         width: 72,
-//         height: 72,
-//         justifyContent: 'center',
-//         alignItems: 'center',
-//     },
-//     dayContainer: {
-//         flex: 1,
-//         height: 'auto', // Remove the fixed width
-//         justifyContent: 'center',
-//         alignItems: 'center',
-//       },
-      
-//     date: {
-//         fontSize: 24,
-//         fontWeight: 'bold',
-//     },
-   
-//     text: {
-//         fontSize: 14,
-//     },
-
-//     rightContainer: {
-//         flex: 3,
-
-//     },
-    
-//     detailText: {
-//         fontSize: 18,
- 
-//     },
-// });
-
-
