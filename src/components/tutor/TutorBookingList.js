@@ -4,7 +4,7 @@ import axios from 'axios';
 import { getCurrentUserUid } from '../../firebase/config';
 import { Slot } from '../ui/Slot';
 
-// to add cancel button 
+// to add remove button 
 const TutorBookingList = () => {
     const [slots, setSlots] = useState([]);
     const tutorId = getCurrentUserUid();
@@ -19,7 +19,6 @@ const TutorBookingList = () => {
                 'https://orbitalteamidk-default-rtdb.asia-southeast1.firebasedatabase.app/slots.json'
             );
             const slotsData = response.data;
-            console.log(slotsData);
 
             const fetchedSlots = [];
 
@@ -47,25 +46,40 @@ const TutorBookingList = () => {
         }
     };
 
+    const handleCancelSlot = async (slotId) => {
+        try {
+            await axios.delete(
+                `https://orbitalteamidk-default-rtdb.asia-southeast1.firebasedatabase.app/slots/${slotId}.json`
+            );
+            fetchSlots();
+        } catch (error) {
+            console.error('Error canceling slot:', error);
+        }
+    };
+
     const handleRefresh = () => {
         fetchSlots();
     };
 
+
+
     return (
         <View>
             <Text style={{ paddingBottom: 3, }}>Tutor's Booked Slots:</Text>
-            <BookedSlots slots={slots} />
+            <BookedSlots slots={slots} func={handleCancelSlot} />
             <Button title="Refresh" onPress={handleRefresh} />
         </View>
     );
 };
 
-const BookedSlots = ({ slots }) => {
+const BookedSlots = ({ slots, func }) => {
     const sortedSlots = slots.sort((a, b) => a.dateTime - b.dateTime);
 
     return (
         <View>
-            {sortedSlots.map((slot) => Slot({ slot }))}
+            {sortedSlots.map((slot) => (
+                <Slot key={slot.id} slot={slot} buttonLabel={'Cancel Slot'} func={func} user={'tutor'} />
+            ))}
         </View>
     );
 

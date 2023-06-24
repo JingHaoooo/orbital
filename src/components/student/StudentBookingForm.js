@@ -5,6 +5,7 @@ import firebase from 'firebase/compat/app';
 import 'firebase/compat/auth';
 import { getCurrentUserUid, fetchUserData } from '../../firebase/config';
 import { Slot } from '../ui/Slot';
+import { ScrollView } from 'react-native-gesture-handler';
 
 const StudentBookingForm = ({ moduleCode }) => {
     const [slots, setSlots] = useState([]);
@@ -36,7 +37,7 @@ const StudentBookingForm = ({ moduleCode }) => {
                         module: slotData.module,
                         tutorId: slotData.tutorId,
                         studentId: slotData.studentId,
-                        tutorName: slotData.studentId,
+                        tutorName: slotData.tutorName,
                         studentName: slotData.studentName,
                     });
                 }
@@ -70,10 +71,12 @@ const StudentBookingForm = ({ moduleCode }) => {
     };
 
     return (
-        <View>
-            <ReleasedSlots slots={slots} onBookSlot={handleBookSlot} />
-            <Button title="Refresh" onPress={handleRefresh} />
-        </View>
+        <ScrollView>
+            <View>
+                <ReleasedSlots slots={slots} onBookSlot={handleBookSlot} />
+                <Button title="Refresh" onPress={handleRefresh} />
+            </View>
+        </ScrollView>
     );
 };
 
@@ -81,19 +84,28 @@ const ReleasedSlots = ({ slots, onBookSlot }) => {
     const sortedSlots = slots.sort((a, b) => a.dateTime - b.dateTime);
 
     return (
+
         <View>
             <Text>Choose Your Slots:</Text>
             {sortedSlots.map((slot) => (
-                <View key={slot.id}>
-                    <Text>
-                        {formatDate(new Date(slot.dateTime))} ({slot.duration} minutes)
-                    </Text>
-                    <TouchableOpacity onPress={() => onBookSlot(slot.id)}>
-                        <Text style={styles.bookButtonText}>Book Slot</Text>
-                    </TouchableOpacity>
-                </View>
+                <Slot key={slot.id} slot={slot} buttonLabel={'Book Slot'} func={onBookSlot} user={'student'} />
             ))}
         </View>
+
+
+        //     <View>
+        //     <Text>Choose Your Slots:</Text>
+        //     {sortedSlots.map((slot) => (
+        //         <View key={slot.id}>
+        //             <Text>
+        //                 {formatDate(new Date(slot.dateTime))} ({slot.duration} minutes)
+        //             </Text>
+        //             <TouchableOpacity onPress={() => onBookSlot(slot.id)}>
+        //                 <Text style={styles.bookButtonText}>Book Slot</Text>
+        //             </TouchableOpacity>
+        //         </View>
+        //     ))}
+        // </View>
     );
 };
 

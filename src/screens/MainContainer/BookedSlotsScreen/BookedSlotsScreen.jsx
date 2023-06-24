@@ -16,7 +16,6 @@ export default function BookedSlotsScreen() {
       <View style={styles.container}>
         <StudentBookingList />
         <TutorBookingList />
-        <TutorReleasedSlots />
       </View>
     </ScrollView>
   );

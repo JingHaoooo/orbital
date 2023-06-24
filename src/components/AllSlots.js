@@ -54,24 +54,24 @@ const AllSlots = () => {
 
 const AvailableSlots = ({ slots }) => {
     const sortedSlots = slots.sort((a, b) => a.dateTime - b.dateTime);
-    // return (
-    //     <View>
-    //         <Text>Slots in database:</Text>
-    //         {sortedSlots.map((slot) => Slot({slot}))} 
-    //     </View>
-    // );
-
     return (
         <View>
             <Text>Slots in database:</Text>
-            {sortedSlots.map((slot) => (
-                <Text key={slot.id}>
-                    {formatDate(new Date(slot.dateTime))} ({slot.duration} minutes)
-                </Text>
-            ))}
+            {sortedSlots.map((slot) => Slot({ slot }))}
         </View>
     );
-}; 
+
+    // return (
+    //     <View>
+    //         <Text>Slots in database:</Text>
+    //         {sortedSlots.map((slot) => (
+    //             <Text key={slot.id}>
+    //                 {formatDate(new Date(slot.dateTime))} ({slot.duration} minutes)
+    //             </Text>
+    //         ))}
+    //     </View>
+    // );
+};
 
 const formatDate = (dateTime) => {
     const options = {

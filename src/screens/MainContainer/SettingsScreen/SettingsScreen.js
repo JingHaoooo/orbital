@@ -5,6 +5,7 @@ import AllSlots from '../../../components/AllSlots';
 import { AuthContext } from '../../../../utility/AuthContext';
 import styles from './styles';
 import { clearFirebaseCache, initializeFirebase } from '../../../firebase/config'
+import { ScrollView } from 'react-native-gesture-handler';
 
 export default function Settings() {
   const authContext = useContext(AuthContext);
@@ -23,10 +24,8 @@ export default function Settings() {
       >
         Logout now
       </Button>
-      <View>
-        <AllSlots />
-      </View>
     </View>
+
   );
 }
 

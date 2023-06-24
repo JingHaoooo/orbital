@@ -3,7 +3,8 @@
 
 
 import React from 'react';
-import { View, Text, StyleSheet, Dimensions } from 'react-native';
+import { View, Text, StyleSheet, Dimensions,  TouchableOpacity  } from 'react-native';
+import { Button } from 'react-native-paper';
 
 const windowWidth = Dimensions.get('window').width;
 
@@ -17,23 +18,23 @@ const formatDate = (dateTime) => {
     minute: 'numeric',
   };
 
-  const day = dateTime.toLocaleDateString('en-US', { weekday: 'long' }).split(',')[0];
+  const day = dateTime.toLocaleDateString('en-US', { weekday: 'short' }).split(',')[0];
   const date = dateTime.toLocaleDateString('en-US', { day: 'numeric' });
-  const month = dateTime.toLocaleDateString('en-US', { month: 'short' });
+  const month = dateTime.toLocaleDateString('en-US', { month: 'long' });
   const time = dateTime.toLocaleTimeString('en-US', { hour: 'numeric', minute: 'numeric' });
   const year = dateTime.getFullYear();
   return [day, date, month, time, year];
 };
 
-export const Slot = ({ slot }) => {
+export const Slot = ({ slot, buttonLabel, func, user }) => {
   const date = formatDate(new Date(slot.dateTime));
   return (
     <View style={styles.container} key={slot.id}>
       <View style={styles.leftContainer}>
         <View style={styles.dateContainer}>
-          <Text style={styles.text}>{date[2]}</Text>
+          <Text style={styles.detailText}>{date[2]}</Text>
           <Text style={styles.date}>{date[1]}</Text>
-          <Text style={styles.text}>{date[4]}</Text>
+          <Text style={styles.detailText}>{date[4]}</Text>
         </View>
         <View style={styles.dayContainer}>
           <Text style={styles.dayText}>{date[0]}</Text>
@@ -43,9 +44,16 @@ export const Slot = ({ slot }) => {
         <Text style={styles.module}>{slot.module}</Text>
         <Text style={styles.time}>{date[3]}</Text>
         <Text style={styles.detailText}>Duration: {slot.duration} minutes</Text>
-        <Text style={styles.detailText}>Tutor: {slot.tutorName}</Text>
-        <Text style={styles.detailText}>Student: {slot.studentName}</Text>
-      </View>
+        {user == 'student' 
+          ? <Text style={styles.detailText}>Tutor: {slot.tutorName}</Text>
+          : <Text style={styles.detailText}>Student: {slot.studentName}</Text>
+        }
+        <TouchableOpacity onPress={() => func(slot.id)}>
+            <Text style={styles.button}>{buttonLabel}</Text>
+        </TouchableOpacity>
+      </View> 
+
+
     </View>
   );
 };
@@ -57,7 +65,7 @@ const styles = StyleSheet.create({
     borderRadius: 16,
     marginBottom: 16,
     padding: 8,
-    height: 128,
+    height: 136,
   },
   leftContainer: {
     flex: 1,
@@ -88,6 +96,11 @@ const styles = StyleSheet.create({
   },
   text: {
     fontSize: windowWidth * 0.04, // Adjust the font size based on window width
+  },
+  button: {
+    fontSize: windowWidth * 0.04, 
+    fontWeight: 'bold',
+    color: 'red'
   },
   time: {
     fontSize: windowWidth * 0.04,

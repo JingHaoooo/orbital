@@ -5,6 +5,7 @@ import SelectedSlots from '../SelectedSlots';
 import firebase from 'firebase/compat/app';
 import 'firebase/compat/auth'; // Import the Firebase Auth module
 import { getCurrentUserUid, fetchUserData } from '../../firebase/config';
+import { ScrollView } from 'react-native-gesture-handler';
 
 // todo: prevent overlapping slots and add ability to add multiple slot at once
 
@@ -15,9 +16,6 @@ const TutorAvailabilityForm = ({ moduleCode }) => {
   const [selectedDuration, setSelectedDuration] = useState('');
   const [datePickerVisible, setDatePickerVisible] = useState(false);
   const [timePickerVisible, setTimePickerVisible] = useState(false);
-  
-
-
 
   const handleDateChange = (event, date) => {
     setSelectedDate(date || selectedDate);
@@ -36,7 +34,7 @@ const TutorAvailabilityForm = ({ moduleCode }) => {
     setSlots([]);
   };
 
-  const addSlot = async() => {
+  const addSlot = async () => {
     const currentUserUid = getCurrentUserUid();
     const userDetails = await fetchUserData();
     console.log(userDetails);
@@ -53,7 +51,7 @@ const TutorAvailabilityForm = ({ moduleCode }) => {
         tutorId: currentUserUid,
         studentId: 0,
         tutorName: userDetails.displayName,
-        studentName: 0,
+        studentName: '',
       };
 
       setSlots([...slots, slot]);
@@ -64,57 +62,59 @@ const TutorAvailabilityForm = ({ moduleCode }) => {
   };
 
   return (
-    <View>
-      <Text>Date:</Text>
-      <Button
-        title={selectedDate ? selectedDate.toDateString() : 'Select Date'}
-        onPress={() => setDatePickerVisible(true)}
-      />
-      {datePickerVisible && (
-        <DateTimePicker
-          value={selectedDate || new Date()}
-          mode="date"
-          onChange={(event, date) => {
-            setDatePickerVisible(false);
-            handleDateChange(event, date);
-          }}
-          format="dd-MMM-yyyy"
-          minimumDate={new Date()} // Restrict minimum date to current date
+    <ScrollView>
+      <View>
+        <Text>Date:</Text>
+        <Button
+          title={selectedDate ? selectedDate.toDateString() : 'Select Date'}
+          onPress={() => setDatePickerVisible(true)}
         />
-      )}
+        {datePickerVisible && (
+          <DateTimePicker
+            value={selectedDate || new Date()}
+            mode="date"
+            onChange={(event, date) => {
+              setDatePickerVisible(false);
+              handleDateChange(event, date);
+            }}
+            format="dd-MMM-yyyy"
+            minimumDate={new Date()} // Restrict minimum date to current date
+          />
+        )}
 
-      <Text>Time (15min intervals):</Text>
-      <Button
-        title={selectedTime ? selectedTime.toTimeString() : 'Select Time'}
-        onPress={() => setTimePickerVisible(true)}
-      />
-      {timePickerVisible && (
-        <DateTimePicker
-          value={selectedTime || new Date()}
-          minuteInterval={15}
-          mode="time"
-          onChange={(event, time) => {
-            setTimePickerVisible(false);
-            handleTimeChange(event, time);
-          }}
+        <Text>Time (15min intervals):</Text>
+        <Button
+          title={selectedTime ? selectedTime.toTimeString() : 'Select Time'}
+          onPress={() => setTimePickerVisible(true)}
         />
-      )}
+        {timePickerVisible && (
+          <DateTimePicker
+            value={selectedTime || new Date()}
+            minuteInterval={15}
+            mode="time"
+            onChange={(event, time) => {
+              setTimePickerVisible(false);
+              handleTimeChange(event, time);
+            }}
+          />
+        )}
 
-      <Text>Select Duration (in minutes):</Text>
-      <View style={{ flexDirection: 'row', marginBottom: 10, justifyContent: 'center', alignContent: 'center' }}>
-        <Button title="15" onPress={() => handleDurationSelect(15)} />
-        <Button title="30" onPress={() => handleDurationSelect(30)} />
-        <Button title="45" onPress={() => handleDurationSelect(45)} />
-        <Button title="60" onPress={() => handleDurationSelect(60)} />
+        <Text>Select Duration (in minutes):</Text>
+        <View style={{ flexDirection: 'row', marginBottom: 10, justifyContent: 'center', alignContent: 'center' }}>
+          <Button title="15" onPress={() => handleDurationSelect(15)} />
+          <Button title="30" onPress={() => handleDurationSelect(30)} />
+          <Button title="45" onPress={() => handleDurationSelect(45)} />
+          <Button title="60" onPress={() => handleDurationSelect(60)} />
+        </View>
+
+        {slots.length === 0 && (
+          <Button title="Add Slot" onPress={addSlot} />
+        )}
+
+        <Text>Slot selected:</Text>
+        <SelectedSlots slots={slots} onReleaseSlots={handleReleaseSlots} />
       </View>
-
-      {slots.length === 0 && (
-        <Button title="Add Slot" onPress={addSlot} />
-      )}
-
-      <Text>Slot selected:</Text>
-      <SelectedSlots slots={slots} onReleaseSlots={handleReleaseSlots} />
-    </View>
+    </ScrollView>
   );
 };
 

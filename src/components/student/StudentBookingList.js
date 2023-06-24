@@ -58,13 +58,13 @@ const StudentBookingList = () => {
     return (
         <View>
             <Text style={{ paddingBottom: 3, }}>Student's Booked Slots:</Text>
-            <BookedSlots slots={slots} />
+            <BookedSlots slots={slots} func={fetchSlots} />
             <Button title="Refresh" onPress={handleRefresh} />
         </View>
     );
 };
 
-const BookedSlots = ({ slots }) => {
+const BookedSlots = ({ slots, func }) => {
     const sortedSlots = slots.sort((a, b) => a.dateTime - b.dateTime);
 
     // to fix and add a cancel button
@@ -72,13 +72,11 @@ const BookedSlots = ({ slots }) => {
         try {
 
             const response = await axios.patch(
-                `https://orbitalteamidk-default-rtdb.asia-southeast1.firebasedatabase.app/slots/${slotId}/0/taken.json`,
-                true
+                `https://orbitalteamidk-default-rtdb.asia-southeast1.firebasedatabase.app/slots/${slotId}/0.json`,
+                { taken: false, studentId: 0, studentName: '' }
             );
-
             console.log('Slot canceled:', slotId);
-
-            // fetchSlots();
+            func();
         } catch (error) {
             console.error('Error canceling slot:', error);
         }
@@ -101,11 +99,26 @@ const BookedSlots = ({ slots }) => {
     //     </View>
     // );  
 
+    // return (
+    //     <View>
+    //         {sortedSlots.map((slot) => Slot({ slot }))}
+    //     </View>
+    // );
+
     return (
         <View>
-            {sortedSlots.map((slot) => Slot({ slot }))}
+            {sortedSlots.map((slot) => (
+                <Slot key={slot.id} slot={slot} buttonLabel={'Cancel Slot'} func={handleCancelSlot} user={'student'} />
+            ))}
         </View>
     );
+
+
+    // <View>
+    //   {sortedSlots.map((slot) => (
+    //     <Slot slot={slot} func={handleCancelSlot} />
+    //   ))}
+    // </View> 
 };
 
 

@@ -3,13 +3,14 @@ import React, { useEffect, useState } from 'react';
 import { View, Text, Button, TouchableOpacity, StyleSheet } from 'react-native';
 import axios from 'axios';
 import { getCurrentUserUid, fetchUserData } from '../../firebase/config';
-
+import { Slot } from '../ui/Slot';
+import { ScrollView } from 'react-native-gesture-handler';
 
 
 
 const TutorReleasedSlots = () => {
     const [slots, setSlots] = useState([]);
-   // const userId= getCurrentUserUid();
+    // const userId= getCurrentUserUid();
 
     useEffect(() => {
         fetchSlots();
@@ -21,9 +22,7 @@ const TutorReleasedSlots = () => {
                 'https://orbitalteamidk-default-rtdb.asia-southeast1.firebasedatabase.app/slots.json'
             );
             const slotsData = response.data;
-            const userId= getCurrentUserUid();
-            //const userDetails = fetchUserData();
-           // console.log(slotsData);
+            const userId = getCurrentUserUid();
 
             const fetchedSlots = [];
 
@@ -67,10 +66,12 @@ const TutorReleasedSlots = () => {
     };
 
     return (
-        <View>
-            <ReleasedSlots slots={slots} onCancelSlot={handleCancelSlot} />
-            <Button title="Refresh" onPress={handleRefresh} />
-        </View>
+        <ScrollView>
+            <View>
+                <ReleasedSlots slots={slots} onCancelSlot={handleCancelSlot} />
+                <Button title="Refresh" onPress={handleRefresh} />
+            </View>
+        </ScrollView>
     );
 };
 
@@ -78,23 +79,34 @@ const ReleasedSlots = ({ slots, onCancelSlot }) => {
     const sortedSlots = slots.sort((a, b) => a.dateTime - b.dateTime);
 
     return (
-        <View>
-            <Text style={{paddingBottom: 5,}}>Your Released Slots:</Text>
-            {sortedSlots.map((slot) => (
-                <View key={slot.id} >
-                    <Text style={{fontWeight: 'bold',}}>Module: {slot.module}</Text>
-                    <Text>
-                        {formatDate(new Date(slot.dateTime))} ({slot.duration} minutes) {slot.module}
-                    </Text>
-                    <TouchableOpacity
-                        onPress={() => onCancelSlot(slot.id)}>
-                        <Text style={styles.cancelButtonText}>Cancel</Text>
-                    </TouchableOpacity>
-                </View>
-            ))}
 
+        <View>
+            <Text style={{ paddingBottom: 5, }}>Your Released Slots:</Text>
+            {sortedSlots.map((slot) => (
+                <Slot key={slot.id} slot={slot} buttonLabel={'Remove Slot'} func={onCancelSlot} user={'tutor'} />
+            ))}
         </View>
+
     );
+
+    // return (
+    //     <View>
+    //         <Text style={{paddingBottom: 5,}}>Your Released Slots:</Text>
+    //         {sortedSlots.map((slot) => (
+    //             <View key={slot.id} >
+    //                 <Text style={{fontWeight: 'bold',}}>Module: {slot.module}</Text>
+    //                 <Text>
+    //                     {formatDate(new Date(slot.dateTime))} ({slot.duration} minutes) {slot.module}
+    //                 </Text>
+    //                 <TouchableOpacity
+    //                     onPress={() => onCancelSlot(slot.id)}>
+    //                     <Text style={styles.cancelButtonText}>Cancel</Text>
+    //                 </TouchableOpacity>
+    //             </View>
+    //         ))}
+
+    //     </View>
+    // );
 };
 
 const formatDate = (dateTime) => {
