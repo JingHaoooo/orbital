@@ -100,11 +100,16 @@ Currently, users could enter any email address to register for an account. This 
 
 To improve the user experience, we plan to [persist the authentication state](https://firebase.google.com/docs/auth/web/auth-state-persistence) using AsyncStorage provided by React Native. This will also be done before Milestone 3. 
 
+<img src="https://github.com/chewjh1234/orbital/blob/main/assets/Login%20Screen.jpg" width="150">
+
+
 #### Set Availability
 This feature is only available to TAs/ Professors of the specified module. This may also include TAs who are also students for other modules themselves. It allows them to create new available consultation slots for a specific module by giving module code, date, time and duration of the consultation slot, as input. 
 
 To be done before Milestone 3: 
 Currently, anyone could be releasing consultation slots for a module. We are working to limit this ability to those who are TAs/ tutors of that module only. We are also working to prevent the overlapping of slots by the same TA/ tutor. 
+
+<img src="https://github.com/chewjh1234/orbital/blob/main/assets/Set%20Availability.png" align="center" width="150">
 
 
 ### **Implemented**
@@ -120,10 +125,15 @@ If the user is a tutor who cancels his consultation slot for that module, the co
 
 We are working on the push notifications, so that users will be informed if their consultation slots are cancelled/ removed. 
 
+<img src="https://github.com/chewjh1234/orbital/blob/main/assets/Home%20Screen.jpg" width="150">
+
+
 #### Booking of new consultation slots
 This feature is only available to students of the specified module. It allows students to book new consultation slots with their module’s tutors based on the teaching team’s released slots. 
 
 To book a new consultation slot, students will first navigate to the specified module. Thereafter, students will click on one of the consultation slots released by the tutor to book the consultation slots. Once the consultation slot is booked, it will disappear from the list of available consultation slots, and other students will not be able to book the same consultation slot. This prevents clashes among students themselves, and other students will not be able to edit your booked consultation slots. 
+
+<img src="https://github.com/chewjh1234/orbital/blob/main/assets/New%20Booking.jpg" width="150">
 
 #### See history
 This feature is available to all groups of users. It allows users to view their consultation history, which includes the details of the tutor, student, module, date and time of the consultation booking that has passed.  
@@ -131,3 +141,5 @@ This feature is available to all groups of users. It allows users to view their 
 If the consultation slot released by a tutor was not booked by any student, it will not be shown in this ‘See history’ component. 
 
 This feature is only available to students. It allows students to see their teaching teams and also allows students to book a new consultation slot with their module’s tutors based on availability. Users will be able to access the availability of their tutors by clicking on their respective names in the selected module. 
+
+<img src="https://github.com/chewjh1234/orbital/blob/main/assets/Settings.jpg" width="150">
