@@ -44,8 +44,8 @@ function BookingTab() {
 }
 
 export default function MainContainer() {
-  const userId = getCurrentUserUid();
-  console.log(userId);
+  //const userId = getCurrentUserUid();
+  //console.log(userId);
   return (
     <Tab.Navigator
       initialRouteName={homeName}
@@ -80,7 +80,7 @@ export default function MainContainer() {
       />
       <Tab.Screen name={bookingListName} component={BookedSlotsScreen} />
       <Tab.Screen name={releasedSlotsName} component={ReleasedSlotsScreen} />
-      <Tab.Screen name={settingsName} component={Settings} />
+      <Tab.Screen name={settingsName} component={Settings} options={{ unmountOnBlur: true }} />
     </Tab.Navigator>
   );
 }
