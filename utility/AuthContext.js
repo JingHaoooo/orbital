@@ -1,4 +1,4 @@
-import React, { createContext, useState } from 'react';
+import React, { createContext, useEffect, useState } from 'react';
 import { firebase } from '../src/firebase/config';
 
 export const AuthContext = createContext({
@@ -30,6 +30,7 @@ export const AuthProvider = ({ children }) => {
                             return;
                         }
                         const userData = firestoreDocument.data();
+                        console.log(userData)
                         setUser(userData);
                         setLoading(false);
                     })
@@ -47,20 +48,49 @@ export const AuthProvider = ({ children }) => {
     };
 
     // Function to handle user logout
-    const logout = () => {
-        return firebase
-            .auth()
-            .signOut()
-            .then(() => {
-                // to delete
-                console.log({ user });
+    const logout = async () => {
+        try {
+            await firebase
+                .auth()
+                .signOut()
+            setUser(null);
+            setLoading(false);
+        } catch (error) {
+            alert('Logout error:', error);
+        }
+    };
+
+
+    // Listen for authentication state changes
+    useEffect(() => {
+        const unsubscribe = firebase.auth().onAuthStateChanged((authUser) => {
+            if (authUser) {
+                firebase
+                    .firestore()
+                    .collection('users')
+                    .doc(authUser.uid)
+                    .get()
+                    .then((document) => {
+                        const userData = document.data();
+                        setUser(userData);
+                        setLoading(false);
+                    })
+                    .catch((error) => {
+                        console.log(error);
+                        setUser(null);
+                        setLoading(false);
+                    });
+            } else {
                 setUser(null);
                 setLoading(false);
-            })
-            .catch((error) => {
-                alert('Logout error:', error);
-            });
-    };
+            }
+        });
+
+        return () => {
+            unsubscribe();
+        };
+    }, []);
+
 
     // Listen for authentication state changes
     // firebase.auth().onAuthStateChanged((authUser) => {

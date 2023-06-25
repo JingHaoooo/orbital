@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { View, Text, Button } from 'react-native';
 import axios from 'axios';
+import { Slot } from '../ui/Slot';
 
 const AllSlots = () => {
     const [slots, setSlots] = useState([]);
@@ -15,7 +16,7 @@ const AllSlots = () => {
                 'https://orbitalteamidk-default-rtdb.asia-southeast1.firebasedatabase.app/slots.json'
             );
             const slotsData = response.data;
-            console.log(slotsData);
+            // console.log(slotsData);
 
             const fetchedSlots = [];
 
@@ -53,17 +54,23 @@ const AllSlots = () => {
 
 const AvailableSlots = ({ slots }) => {
     const sortedSlots = slots.sort((a, b) => a.dateTime - b.dateTime);
-
     return (
         <View>
             <Text>Slots in database:</Text>
-            {sortedSlots.map((slot) => (
-                <Text key={slot.id}>
-                    {formatDate(new Date(slot.dateTime))} ({slot.duration} minutes)
-                </Text>
-            ))}
+            {sortedSlots.map((slot) => Slot({ slot }))}
         </View>
     );
+
+    // return (
+    //     <View>
+    //         <Text>Slots in database:</Text>
+    //         {sortedSlots.map((slot) => (
+    //             <Text key={slot.id}>
+    //                 {formatDate(new Date(slot.dateTime))} ({slot.duration} minutes)
+    //             </Text>
+    //         ))}
+    //     </View>
+    // );
 };
 
 const formatDate = (dateTime) => {

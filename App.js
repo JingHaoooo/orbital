@@ -5,13 +5,14 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 import LoginScreen from './src/screens/LoginScreen/LoginScreen';
 import SignupScreen from './src/screens/SignupScreen/SignupScreen';
+import EnterDetailsScreen from './src/screens/EnterDetailsScreen/EnterDetailsScreen'
 import MainContainer from './src/screens/MainContainer/MainContainer';
 import { AuthProvider, AuthContext } from './utility/AuthContext';
-
 
 const Stack = createNativeStackNavigator();
 
 export default function App() {
+
   return (
     <AuthProvider>
       <AppContent />
@@ -23,21 +24,20 @@ function AppContent() {
   const authContext = useContext(AuthContext);
   const { user, loading } = authContext;
 
-  // if (loading) {
-  //   return <Overlay message={'Loading...'} />;
-  // }
-
   return (
     <>
       <StatusBar style="dark" />
       <NavigationContainer>
         <Stack.Navigator>
           {user ? (
-            <Stack.Screen
-              name="MainContainer"
-              component={MainContainer}
-              options={{ headerShown: false }}
-            />
+            <Stack.Group>
+              <Stack.Screen name="Enter Details" component={EnterDetailsScreen} />
+              <Stack.Screen
+                name="MainContainer"
+                component={MainContainer}
+                options={{ headerShown: false }}
+              />
+            </Stack.Group>
           ) : (
             <Stack.Group>
               <Stack.Screen name="Login" component={LoginScreen} />

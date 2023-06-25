@@ -7,10 +7,11 @@ import styles from './styles';
 import { firebase } from '../../firebase/config';
 
 export default function SignupScreen({ navigation }) {
-  const [fullName, setFullName] = useState('');
+  const [userID, setUserID] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
+  const [displayName, setDisplayName] = useState('');
 
   const onFooterLinkPress = () => {
     navigation.replace('Login');
@@ -33,7 +34,6 @@ export default function SignupScreen({ navigation }) {
       alert('Choose a password with at least 8 characters.');
       return;
     }
-    console.log('valid credentials entered.');
 
     firebase
       .auth()
@@ -43,14 +43,17 @@ export default function SignupScreen({ navigation }) {
         const data = {
           id: uid,
           email,
-          fullName,
+          userID,
+          displayName,
         };
         const usersRef = firebase.firestore().collection('users');
         usersRef
           .doc(uid)
           .set(data)
           .then(() => {
-            navigation.navigate('Login');
+            // add account successfully created overlay
+            // navigation.replace('Login');
+            // navigation.replace('Enter Details', { userId: uid });
           })
           .catch((error) => {
             alert(error);
@@ -74,21 +77,22 @@ export default function SignupScreen({ navigation }) {
         <Text style={styles.mentorsize}>NUSmentor</Text>
         <TextInput
           style={styles.input}
-          placeholder="Full Name"
+          placeholder="Student ID/ Staff ID"
           placeholderTextColor="#aaaaaa"
-          onChangeText={(text) => setFullName(text)}
-          value={fullName}
+          onChangeText={(text) => setUserID(text)}
+          value={userID}
           underlineColorAndroid="transparent"
-          autoCapitalize="none"
+          autoCapitalize="characters"
         />
         <TextInput
           style={styles.input}
-          placeholder="NUS E-mail"
+          placeholder="NUS Email"
           placeholderTextColor="#aaaaaa"
           onChangeText={(text) => setEmail(text)}
           value={email}
           underlineColorAndroid="transparent"
           autoCapitalize="none"
+          autoCorrect={false}
         />
         <TextInput
           style={styles.input}

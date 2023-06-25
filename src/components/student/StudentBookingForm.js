@@ -1,9 +1,15 @@
 import React, { useEffect, useState } from 'react';
 import { View, Text, Button, StyleSheet, TouchableOpacity } from 'react-native';
 import axios from 'axios';
+import firebase from 'firebase/compat/app';
+import 'firebase/compat/auth';
+import { getCurrentUserUid, fetchUserData } from '../../firebase/config';
+import { Slot } from '../ui/Slot';
+import { ScrollView } from 'react-native-gesture-handler';
 
 const StudentBookingForm = ({ moduleCode }) => {
     const [slots, setSlots] = useState([]);
+    const currentUserUid = getCurrentUserUid();
 
     useEffect(() => {
         fetchSlots();
@@ -15,24 +21,29 @@ const StudentBookingForm = ({ moduleCode }) => {
                 'https://orbitalteamidk-default-rtdb.asia-southeast1.firebasedatabase.app/slots.json'
             );
             const slotsData = response.data;
-            console.log(slotsData);
-
 
             const fetchedSlots = [];
 
             for (const key in slotsData) {
                 const slotData = slotsData[key][0]; // Access the first element of the array
 
-                if (!slotData.taken && (moduleCode == slotData.module)) {
-                    fetchedSlots.push({
-                        id: key,
-                        dateTime: new Date(slotData.dateTime),
-                        duration: slotData.duration,
-                        taken: slotData.taken,
-                        module: slotData.module,
-                        tutorId: slotData.tutorId,
-                        studentId: slotData.studentId
-                    });
+                const slotDateTime = new Date(slotData.dateTime);
+                const currentTime = new Date();
+
+                if (slotDateTime > currentTime) {
+                    if (!slotData.taken && (moduleCode == slotData.module)) {
+                        fetchedSlots.push({
+                            id: key,
+                            dateTime: new Date(slotData.dateTime),
+                            duration: slotData.duration,
+                            taken: slotData.taken,
+                            module: slotData.module,
+                            tutorId: slotData.tutorId,
+                            studentId: slotData.studentId,
+                            tutorName: slotData.tutorName,
+                            studentName: slotData.studentName,
+                        });
+                    }
                 }
             }
 
@@ -44,10 +55,11 @@ const StudentBookingForm = ({ moduleCode }) => {
     };
 
     const handleBookSlot = async (slotId) => {
+        const studentDetails = await fetchUserData();
         try {
             const response = await axios.patch(
                 `https://orbitalteamidk-default-rtdb.asia-southeast1.firebasedatabase.app/slots/${slotId}/0.json`,
-                { taken: true }
+                { taken: true, studentId: currentUserUid, studentName: studentDetails.displayName, }
             );
             console.log('Slot booked successfully:', response.data);
             fetchSlots();
@@ -56,36 +68,44 @@ const StudentBookingForm = ({ moduleCode }) => {
         }
     };
 
-
     const handleRefresh = () => {
         fetchSlots();
     };
 
     return (
-        <View>
-            <ReleasedSlots slots={slots} onBookSlot={handleBookSlot} />
-            <Button title="Refresh" onPress={handleRefresh} />
-        </View>
+        <ScrollView>
+            <View>
+                <ReleasedSlots slots={slots} onBookSlot={handleBookSlot} />
+                <Button title="Refresh" onPress={handleRefresh} />
+            </View>
+        </ScrollView>
     );
 };
 
 const ReleasedSlots = ({ slots, onBookSlot }) => {
     const sortedSlots = slots.sort((a, b) => a.dateTime - b.dateTime);
-
     return (
         <View>
-            <Text>Choose Your Slots:</Text>
+            <Text style={{ fontSize: 18, paddingBottom: 4 }}>Choose Your Slots:</Text>
             {sortedSlots.map((slot) => (
-                <View key={slot.id}>
-                    <Text>
-                        {formatDate(new Date(slot.dateTime))} ({slot.duration} minutes)
-                    </Text>
-                    <TouchableOpacity onPress={() => onBookSlot(slot.id)}>
-                        <Text style={styles.bookButtonText}>Book Slot</Text>
-                    </TouchableOpacity>
-                </View>
+                <Slot key={slot.id} slot={slot} buttonLabel={'Book Slot'} func={onBookSlot} user={'student'} />
             ))}
         </View>
+
+
+        //     <View>
+        //     <Text>Choose Your Slots:</Text>
+        //     {sortedSlots.map((slot) => (
+        //         <View key={slot.id}>
+        //             <Text>
+        //                 {formatDate(new Date(slot.dateTime))} ({slot.duration} minutes)
+        //             </Text>
+        //             <TouchableOpacity onPress={() => onBookSlot(slot.id)}>
+        //                 <Text style={styles.bookButtonText}>Book Slot</Text>
+        //             </TouchableOpacity>
+        //         </View>
+        //     ))}
+        // </View>
     );
 };
 

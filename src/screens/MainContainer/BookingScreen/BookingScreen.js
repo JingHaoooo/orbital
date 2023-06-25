@@ -2,8 +2,8 @@ import { View, FlatList } from 'react-native';
 import React, { useState } from 'react';
 import axios from 'axios';
 import styles from './styles';
-import Nuscourse from '../../../components/Nuscourse';
-import SearchBar from '../../../components/SearchBar';
+import Nuscourse from '../../../components/ui/Nuscourse';
+import SearchBar from '../../../components/ui/SearchBar';
 
 export default function BookingScreen() {
   const [searchModule, setSearchModule] = useState('');
@@ -11,7 +11,7 @@ export default function BookingScreen() {
 
   const filteredModuleData = () => nusModule.filter(
     (item) => item.moduleCode.toLowerCase().includes(searchModule.toLowerCase())
-      || item.title.toLowerCase().includes(searchModule.toLowerCase()),
+      // || item.title.toLowerCase().includes(searchModule.toLowerCase()),
   );
 
   const getNusmods = () => {
@@ -50,5 +50,3 @@ export default function BookingScreen() {
     </View>
   );
 }
-
-

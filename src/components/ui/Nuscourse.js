@@ -14,7 +14,6 @@ function Nuscourse({ moduleCode, title, onPress }) {
     >
       <View style={styles.modulecontainer}>
         <Text style={styles.modulesize}>
-          {' '}
           {moduleCode}
           {' '}
         </Text>

@@ -1,7 +1,9 @@
 import React from 'react';
-import { View, Text, Button } from 'react-native';
+import { View, Text, StyleSheet } from 'react-native';
 import axios from 'axios';
+import { Slot } from './ui/Slot';
 
+// TODO: prevent overlapping slots, prevent slots from disappearing when multiple slots are chosen
 const SelectedSlots = ({ slots, onReleaseSlots }) => {
     const sortedSlots = slots.sort((a, b) => a.dateTime - b.dateTime);
     const BACKEND_URL =
@@ -14,9 +16,7 @@ const SelectedSlots = ({ slots, onReleaseSlots }) => {
                 sortedSlots
             );
             console.log('Slots stored in Firebase:', response.data);
-
             onReleaseSlots();
-
         } catch (error) {
             console.error('Error storing slots:', error);
         }
@@ -25,11 +25,8 @@ const SelectedSlots = ({ slots, onReleaseSlots }) => {
     return (
         <View>
             {sortedSlots.map((slot, index) => (
-                <Text key={index}>
-                    {formatDate(slot.dateTime) + ' (' + slot.duration + ' minutes)'}
-                </Text>
+                <Slot key={index} slot={slot} buttonLabel={'Click To Release Slot'} func={handleReleaseSlots} user={'student'} />
             ))}
-            <Button title="Release Slot" onPress={handleReleaseSlots} />
         </View>
     );
 };
@@ -49,3 +46,17 @@ const formatDate = (dateTime) => {
     const formattedDate = dateTime.toLocaleDateString('en-US', options);
     return `${formattedDate}`;
 };
+
+const styles = StyleSheet.create({
+    addButton: {
+        backgroundColor: 'orange',
+        padding: 10,
+        borderRadius: 5,
+        alignItems: 'center',
+    },
+    addButtonLabel: {
+        fontSize: 16,
+        color: '#fff',
+        fontWeight: 'bold',
+    },
+});
