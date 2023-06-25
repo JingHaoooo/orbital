@@ -143,3 +143,6 @@ If the consultation slot released by a tutor was not booked by any student, it w
 This feature is only available to students. It allows students to see their teaching teams and also allows students to book a new consultation slot with their module’s tutors based on availability. Users will be able to access the availability of their tutors by clicking on their respective names in the selected module. 
 
 <img src="https://github.com/chewjh1234/orbital/blob/main/assets/Settings.jpg" width="150">
+
+## **Flowchart**
+<img src="https://github.com/chewjh1234/orbital/blob/main/assets/NUSmentorFlowchart.png">
