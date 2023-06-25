@@ -12,7 +12,6 @@ import { initializeApp } from "firebase/app"
 // Your web app's Firebase configuration
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
 
-
 const firebaseConfig = {
   apiKey: "AIzaSyBoKd6aC_0UlGOpEUqY8eml-VH3OLWfrmk",
   authDomain: "orbitalteamidk.firebaseapp.com",
@@ -39,8 +38,6 @@ export const getCurrentUserUid = () => {
   return null;
 };
 
-
-
 export const fetchUserData = async () => {
   const uid = getCurrentUserUid();
   const docRef = doc(db, "users", uid);
@@ -49,8 +46,6 @@ export const fetchUserData = async () => {
   //console.log(userInfo.displayName);
   return userInfo;
 }
-
-
 
 export const auth = firebase.auth();
 export { firebase };

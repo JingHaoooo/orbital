@@ -55,7 +55,6 @@ export const AuthProvider = ({ children }) => {
                 .signOut()
             setUser(null);
             setLoading(false);
-            console.log('loggedout')
         } catch (error) {
             alert('Logout error:', error);
         }

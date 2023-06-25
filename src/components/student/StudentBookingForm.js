@@ -84,9 +84,7 @@ const StudentBookingForm = ({ moduleCode }) => {
 
 const ReleasedSlots = ({ slots, onBookSlot }) => {
     const sortedSlots = slots.sort((a, b) => a.dateTime - b.dateTime);
-
     return (
-
         <View>
             <Text style={{ fontSize: 18, paddingBottom: 4 }}>Choose Your Slots:</Text>
             {sortedSlots.map((slot) => (

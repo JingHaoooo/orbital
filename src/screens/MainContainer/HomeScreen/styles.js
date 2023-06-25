@@ -6,11 +6,11 @@ export default StyleSheet.create({
         padding: 16
     },
     welcomeText: {
-        fontSize: 20,
+        fontSize: 30,
         paddingBottom: 16,
         textAlign: 'left'
     },
     bookings: {
-       
+        fontSize: 20,
     }
 });

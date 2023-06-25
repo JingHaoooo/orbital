@@ -73,7 +73,7 @@ export default function BookingList({ booleanCondition }) {
                         <HomePageSlot key={slot.id} slot={slot} userRole={slot.userRole} />
                     ))}
                 </View>
-                <Text> You've reached the end of the list.</Text>
+                <Text style={styles.endText}> You've reached the end of the list.</Text>
             </View>
         </ScrollView>
     );
@@ -87,5 +87,8 @@ const styles = StyleSheet.create({
         flex: 1,
         padding: 16,
         borderRadius: 30,
+    },
+    endText: {
+        fontSize: 18,
     },
 });
