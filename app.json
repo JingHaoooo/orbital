@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "orbital-app",
-    "slug": "orbital-app",
+    "name": "Nusmentor",
+    "slug": "Nusmentor-app",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -21,10 +21,16 @@
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "package": "com.jinghaoooo.Nusmentorapp"
     },
     "web": {
       "favicon": "./assets/favicon.png"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "c046532e-9f2e-4481-8313-397d4c7a5b49"
+      }
     }
   }
 }
