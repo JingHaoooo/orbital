@@ -6,6 +6,7 @@ import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view
 import styles from './styles';
 import { firebase } from '../../firebase/config';
 
+
 export default function SignupScreen({ navigation }) {
   const [userID, setUserID] = useState('');
   const [email, setEmail] = useState('');
@@ -13,9 +14,11 @@ export default function SignupScreen({ navigation }) {
   const [confirmPassword, setConfirmPassword] = useState('');
   const [displayName, setDisplayName] = useState('');
 
+
   const onFooterLinkPress = () => {
     navigation.replace('Login');
   };
+
 
   const onRegisterPress = () => {
     const validEmail = email.includes('nus.edu.sg')
@@ -23,6 +26,8 @@ export default function SignupScreen({ navigation }) {
       || email.includes('test');
     const validPassword = password.length > 7;
     const equalPasswords = password === confirmPassword;
+    const validUserID = userID.length == 9;
+
 
     if (!equalPasswords) {
       alert("Passwords don't match.");
@@ -34,6 +39,11 @@ export default function SignupScreen({ navigation }) {
       alert('Choose a password with at least 8 characters.');
       return;
     }
+    if (!validUserID) {
+      alert('Invalid NUS User ID');
+      return;
+    }
+
 
     firebase
       .auth()
@@ -64,6 +74,7 @@ export default function SignupScreen({ navigation }) {
       });
   };
 
+
   return (
     <View style={styles.container}>
       <KeyboardAwareScrollView
@@ -77,7 +88,7 @@ export default function SignupScreen({ navigation }) {
         <Text style={styles.mentorsize}>NUSmentor</Text>
         <TextInput
           style={styles.input}
-          placeholder="Student ID/ Staff ID"
+          placeholder="Student ID/ Staff ID (Axxxxxxxx)"
           placeholderTextColor="#aaaaaa"
           onChangeText={(text) => setUserID(text)}
           value={userID}
