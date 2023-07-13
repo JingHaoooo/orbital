@@ -1,4 +1,3 @@
-
 import React, { useEffect, useState } from 'react';
 import { View, Text, Button, StyleSheet } from 'react-native';
 import axios from 'axios';
@@ -84,29 +83,6 @@ const BookedSlots = ({ slots, func }) => {
         }
     };
 
-    // return (
-    //     <View>
-    //         {sortedSlots.map((slot) => (
-    //             <View key={slot.id}>
-    //                 <Text style = {{fontWeight:'bold',}}>Module: {slot.module}</Text>
-    //                 <Text>
-    //                     {formatDate(new Date(slot.dateTime))} ({slot.duration} minutes)
-    //                 </Text>
-    //                 <Text>Tutor: {slot.tutorName} </Text>
-    //                 {/* <TouchableOpacity onPress={() => handleCancelSlot(slot.id)}>
-    //                      <Text style={styles.cancelButtonText}>Cancel</Text>
-    //                 </TouchableOpacity> */}
-    //             </View>
-    //         ))}
-    //     </View>
-    // );  
-
-    // return (
-    //     <View>
-    //         {sortedSlots.map((slot) => Slot({ slot }))}
-    //     </View>
-    // );
-
     return (
         <View>
             {sortedSlots.map((slot) => (
@@ -114,12 +90,6 @@ const BookedSlots = ({ slots, func }) => {
             ))}
         </View>
     );
-
-    // <View>
-    //   {sortedSlots.map((slot) => (
-    //     <Slot slot={slot} func={handleCancelSlot} />
-    //   ))}
-    // </View> 
 };
 
 const formatDate = (dateTime) => {

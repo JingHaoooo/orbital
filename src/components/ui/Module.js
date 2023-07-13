@@ -3,25 +3,21 @@ import {
 } from 'react-native';
 import React, { useState } from 'react';
 import { useNavigation } from '@react-navigation/native';
-import 'firebase/compat/auth';
-import { getCurrentUserUid, fetchUserData } from '../../firebase/config';
 
-
-// function Module({ moduleCode, title, onPress }) {
-function Module({ moduleCode }) {
-
-
+function Module({ module, title, onPress, user }) {
+    navigation = useNavigation();
     return (
         <TouchableOpacity
             style={styles.container}
-        // onPress={onPress}
+            onPress={onPress}
         >
             <View style={styles.modulecontainer}>
                 <Text style={styles.modulesize}>
-                    {moduleCode}
+                    {module}
                     {' '}
                 </Text>
-                <Text style={styles.moduletitle}>{moduleCode}</Text>
+                <Text style={styles.moduletitle}>{title}</Text>
+                <Text style={styles.moduletitle}>{user}</Text>
             </View>
         </TouchableOpacity>
     );
@@ -43,8 +39,9 @@ const styles = StyleSheet.create({
         backgroundColor: 'orange',
         borderWidth: 1,
         borderRadius: 15,
-        paddingBottom: 5,
+        paddingBottom: 15, // Increase the value here
     },
+
     modulesize: {
         fontSize: 16,
         fontWeight: 'bold',

@@ -1,14 +1,13 @@
 
 import React, { useEffect, useState } from 'react';
-import { View, Text, Button, TouchableOpacity, StyleSheet } from 'react-native';
+import { View, Text, Button, StyleSheet } from 'react-native';
 import axios from 'axios';
-import { getCurrentUserUid, fetchUserData } from '../../firebase/config';
+import { getCurrentUserUid } from '../../firebase/config';
 import { Slot } from '../ui/Slot';
 import { ScrollView } from 'react-native-gesture-handler';
 
 const TutorReleasedSlots = () => {
     const [slots, setSlots] = useState([]);
-    // const userId= getCurrentUserUid();
 
     useEffect(() => {
         fetchSlots();
@@ -89,25 +88,6 @@ const ReleasedSlots = ({ slots, onCancelSlot }) => {
             <Text style={{ fontSize: 18, padding: 8 }}>You have reached the end of the list</Text>
         </View>
     );
-
-    // return (
-    //     <View>
-    //         <Text style={{paddingBottom: 5,}}>Your Released Slots:</Text>
-    //         {sortedSlots.map((slot) => (
-    //             <View key={slot.id} >
-    //                 <Text style={{fontWeight: 'bold',}}>Module: {slot.module}</Text>
-    //                 <Text>
-    //                     {formatDate(new Date(slot.dateTime))} ({slot.duration} minutes) {slot.module}
-    //                 </Text>
-    //                 <TouchableOpacity
-    //                     onPress={() => onCancelSlot(slot.id)}>
-    //                     <Text style={styles.cancelButtonText}>Cancel</Text>
-    //                 </TouchableOpacity>
-    //             </View>
-    //         ))}
-
-    //     </View>
-    // );
 };
 
 const formatDate = (dateTime) => {

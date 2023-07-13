@@ -10,9 +10,7 @@ import SetAvailabilityScreen from './BookingPopup/SetAvailabilityScreen';
 import BookingPopup from './BookingPopup/BookingPopup';
 import StudentBookingScreen from './BookingPopup/StudentBookingScreen';
 import BookedSlotsScreen from './BookedSlotsScreen/BookedSlotsScreen';
-
 import ReleasedSlotsScreen from './ReleasedSlotsScreen';
-import { getCurrentUserUid } from '../../firebase/config';
 import ModuleList from './ModuleListScreen';
 
 const homeName = 'Home';
@@ -24,6 +22,7 @@ const releasedSlotsName = 'Released Slots';
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
 
+// decides whether to show header or not
 const getScreenLocation = (route) => {
   const CurrentPage = getFocusedRouteNameFromRoute(route);
   if (CurrentPage?.includes('Tutor: Set Availability')
@@ -37,7 +36,7 @@ const getScreenLocation = (route) => {
 function BookingTab() {
   return (
     <Stack.Navigator>
-      <Stack.Screen name="BookingTab" component={BookingScreen} options={{ headerShown: false }} />
+      <Stack.Screen name="BookingTab" component={ModuleList} options={{ headerShown: false }} />
       <Stack.Screen name="BookingPopup" component={BookingPopup} options={{ headerShown: true }} />
       <Stack.Screen name="Tutor: Set Availability" component={SetAvailabilityScreen} />
       <Stack.Screen name="Student: New Booking" component={StudentBookingScreen} />
@@ -46,8 +45,6 @@ function BookingTab() {
 }
 
 export default function MainContainer() {
-  //const userId = getCurrentUserUid();
-  //console.log(userId);
   return (
     <Tab.Navigator
       initialRouteName={homeName}
@@ -67,7 +64,6 @@ export default function MainContainer() {
           } else if (routerName === releasedSlotsName) {
             iconName = focused ? 'calendar' : 'calendar-outline';
           }
-
           return <Ionicons name={iconName} size={size} color={colour} />;
         },
         tabBarActiveTintColor: 'black',
@@ -75,15 +71,10 @@ export default function MainContainer() {
     >
 
       <Tab.Screen name={homeName} component={HomeScreen} options={{ unmountOnBlur: true }} />
-      {/* <Tab.Screen
+      <Tab.Screen
         name={bookingName}
         component={BookingTab}
         options={({ route }) => ({ headerShown: getScreenLocation(route) })}
-      /> */}
-      <Tab.Screen
-        name={bookingName}
-        component={ModuleList}
-        // options={({ route }) => ({ headerShown: getScreenLocation(route) })}
       />
       <Tab.Screen name={bookingListName} component={BookedSlotsScreen} />
       <Tab.Screen name={releasedSlotsName} component={ReleasedSlotsScreen} />

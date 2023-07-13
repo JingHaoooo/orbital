@@ -11,7 +11,7 @@ export default function BookingScreen() {
 
   const filteredModuleData = () => nusModule.filter(
     (item) => item.moduleCode.toLowerCase().includes(searchModule.toLowerCase())
-      // || item.title.toLowerCase().includes(searchModule.toLowerCase()),
+    // || item.title.toLowerCase().includes(searchModule.toLowerCase()),
   );
 
   const getNusmods = () => {

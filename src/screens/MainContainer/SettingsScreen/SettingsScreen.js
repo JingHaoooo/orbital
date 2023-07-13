@@ -3,11 +3,10 @@ import { View, Text, TouchableOpacity } from 'react-native';
 import { AuthContext } from '../../../../utility/AuthContext';
 import styles from './styles';
 import History from '../../../components/History';
-import { ScrollView } from 'react-native-gesture-handler';
 
 export default function Settings() {
   const authContext = useContext(AuthContext);
-  const { user, loading, login, logout } = authContext;
+  const { logout } = authContext;
 
   const handleLogout = () => {
     logout();
@@ -15,10 +14,10 @@ export default function Settings() {
 
   return (
     <View style={styles.container}>
-      <View style={flex= 5}>
+      <View style={flex = 5}>
         <History />
       </View>
-      <View style={flex= 1}>
+      <View style={flex = 1}>
         <TouchableOpacity
           style={styles.addButton}
           onPress={handleLogout}

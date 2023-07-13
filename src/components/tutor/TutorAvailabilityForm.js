@@ -22,10 +22,6 @@ const TutorAvailabilityForm = ({ moduleCode }) => {
     setSelectedTime(time || selectedTime);
   };
 
-  // const handleDurationSelect = (duration) => {
-  //   setSelectedDuration(duration.toString());
-  // };
-
   const handleDurationSelect = (duration) => {
     setSelectedDuration(duration.toString());
     setSelectedDurationButton(duration.toString()); // Set the selected duration button
@@ -116,13 +112,6 @@ const TutorAvailabilityForm = ({ moduleCode }) => {
           >
             <Text style={styles.durationButtonText}>  15  </Text>
           </TouchableOpacity>
-          {/* <TouchableOpacity
-            style={styles.durationButton}
-            onPress={() => handleDurationSelect(15)}
-            activeOpacity={0.8}
-          >
-            <Text style={styles.durationButtonText}>15</Text>
-          </TouchableOpacity> */}
           <TouchableOpacity
             style={[
               styles.durationButton,

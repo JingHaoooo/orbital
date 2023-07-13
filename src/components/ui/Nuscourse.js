@@ -1,7 +1,5 @@
-import {
-  Pressable, StyleSheet, Text, TouchableOpacity, View,
-} from 'react-native';
-import React, { useState } from 'react';
+import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import React from 'react';
 import { useNavigation } from '@react-navigation/native';
 
 function Nuscourse({ moduleCode, title, onPress }) {

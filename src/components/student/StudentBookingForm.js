@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, Button, StyleSheet, TouchableOpacity } from 'react-native';
+import { View, Text, Button, StyleSheet } from 'react-native';
 import axios from 'axios';
-import firebase from 'firebase/compat/app';
 import 'firebase/compat/auth';
 import { getCurrentUserUid, fetchUserData } from '../../firebase/config';
 import { Slot } from '../ui/Slot';
@@ -91,21 +90,6 @@ const ReleasedSlots = ({ slots, onBookSlot }) => {
                 <Slot key={slot.id} slot={slot} buttonLabel={'Book Slot'} func={onBookSlot} user={'student'} />
             ))}
         </View>
-
-
-        //     <View>
-        //     <Text>Choose Your Slots:</Text>
-        //     {sortedSlots.map((slot) => (
-        //         <View key={slot.id}>
-        //             <Text>
-        //                 {formatDate(new Date(slot.dateTime))} ({slot.duration} minutes)
-        //             </Text>
-        //             <TouchableOpacity onPress={() => onBookSlot(slot.id)}>
-        //                 <Text style={styles.bookButtonText}>Book Slot</Text>
-        //             </TouchableOpacity>
-        //         </View>
-        //     ))}
-        // </View>
     );
 };
 

@@ -84,20 +84,6 @@ const BookedSlots = ({ slots, func }) => {
             ))}
         </View>
     );
-
-    // return (
-    //     <View>
-    //         {sortedSlots.map((slot) => (
-    //             <View key={slot.id}>
-    //                 <Text style={{ fontWeight: 'bold', }}>Module: {slot.module}</Text>
-    //                 <Text >
-    //                     {formatDate(new Date(slot.dateTime))} ({slot.duration} minutes)
-    //                 </Text>
-    //                 <Text>Booked by: {slot.studentName}</Text>
-    //             </View> 
-    //         ))}
-    //     </View>
-    // );
 };
 
 export default TutorBookingList;

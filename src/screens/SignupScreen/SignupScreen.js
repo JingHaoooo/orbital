@@ -74,7 +74,6 @@ export default function SignupScreen({ navigation }) {
       });
   };
 
-
   return (
     <View style={styles.container}>
       <KeyboardAwareScrollView
