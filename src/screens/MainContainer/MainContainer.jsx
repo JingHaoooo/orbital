@@ -10,8 +10,10 @@ import SetAvailabilityScreen from './BookingPopup/SetAvailabilityScreen';
 import BookingPopup from './BookingPopup/BookingPopup';
 import StudentBookingScreen from './BookingPopup/StudentBookingScreen';
 import BookedSlotsScreen from './BookedSlotsScreen/BookedSlotsScreen';
+
 import ReleasedSlotsScreen from './ReleasedSlotsScreen';
 import { getCurrentUserUid } from '../../firebase/config';
+import ModuleList from './ModuleListScreen';
 
 const homeName = 'Home';
 const bookingName = 'New Bookings';
@@ -73,10 +75,15 @@ export default function MainContainer() {
     >
 
       <Tab.Screen name={homeName} component={HomeScreen} options={{ unmountOnBlur: true }} />
-      <Tab.Screen
+      {/* <Tab.Screen
         name={bookingName}
         component={BookingTab}
         options={({ route }) => ({ headerShown: getScreenLocation(route) })}
+      /> */}
+      <Tab.Screen
+        name={bookingName}
+        component={ModuleList}
+        // options={({ route }) => ({ headerShown: getScreenLocation(route) })}
       />
       <Tab.Screen name={bookingListName} component={BookedSlotsScreen} />
       <Tab.Screen name={releasedSlotsName} component={ReleasedSlotsScreen} />
