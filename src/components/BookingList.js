@@ -38,7 +38,7 @@ export default function BookingList({ booleanCondition }) {
                             studentId: slotData.studentId,
                             tutorName: slotData.tutorName,
                             studentName: slotData.studentName,
-                            userRole: 'Tutor'
+                            userRole: 'TUTOR'
                         });
                     } else if ((slotData.studentId === userID) && slotData.taken) {
                         fetchedSlots.push({
@@ -51,7 +51,7 @@ export default function BookingList({ booleanCondition }) {
                             studentId: slotData.studentId,
                             tutorName: slotData.tutorName,
                             studentName: slotData.studentName,
-                            userRole: 'Student'
+                            userRole: 'STUDENT'
                         });
                     }
                 }

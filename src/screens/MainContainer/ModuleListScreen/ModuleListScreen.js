@@ -5,10 +5,13 @@ import Module from '../../../components/ui/Module';
 import { ScrollView } from 'react-native-gesture-handler';
 import axios from 'axios';
 import styles from './styles';
+import { useNavigation } from '@react-navigation/native';
 
 function ModuleList() {
     const [modulesTaken, setModulesTaken] = useState([]);
     const [modulesTeaching, setModulesTeaching] = useState([]);
+
+    navigation = useNavigation();
 
     useEffect(() => {
         retrieveModules();
