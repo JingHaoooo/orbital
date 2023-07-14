@@ -1,55 +1,76 @@
-import {
-    Pressable, StyleSheet, Text, TouchableOpacity, View,
-} from 'react-native';
-import React, { useState } from 'react';
-import { useNavigation } from '@react-navigation/native';
+import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import React from 'react';
 
 function Module({ module, title, onPress, user }) {
-    navigation = useNavigation();
-    return (
-        <TouchableOpacity
-            style={styles.container}
-            onPress={onPress}
-        >
-            <View style={styles.modulecontainer}>
-                <Text style={styles.modulesize}>
-                    {module}
-                    {' '}
-                </Text>
-                <Text style={styles.moduletitle}>{title}</Text>
-                <Text style={styles.moduletitle}>{user}</Text>
-            </View>
-        </TouchableOpacity>
-    );
+
+  const getCornerColor = () => {
+    if (user === 'STUDENT') {
+      return '#FFA500'; // Orange color for student
+    } else if (user === 'TUTOR') {
+      return '#00BFFF'; // Blue color for tutor
+    } else {
+      return '#808080'; // Gray color for other users
+    }
+  };
+
+  return (
+    <TouchableOpacity style={styles.container} onPress={onPress}>
+      <View style={[styles.moduleContainer, { borderColor: getCornerColor() }]}>
+        <View style={[styles.userCorner, { backgroundColor: getCornerColor() }]}>
+          <Text style={styles.userCornerText}>{user}</Text>
+        </View>
+        <Text style={styles.moduleCode}>{module}</Text>
+        <Text style={styles.title}>{title}</Text>
+      </View>
+    </TouchableOpacity>
+  );
 }
 
 export default Module;
 
 const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        marginBottom: 5,
-        width: '95%',
-        justifyContent: 'center',
-        alignSelf: 'center',
-        marginTop: 5,
+  container: {
+    marginBottom: 10,
+    width: '90%',
+    alignSelf: 'center',
+  },
+  moduleContainer: {
+    backgroundColor: '#F5F5F5',
+    borderRadius: 10,
+    borderWidth: 2,
+    borderColor: '#FFA500', // Default border color (orange)
+    padding: 16,
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 2,
     },
-    modulecontainer: {
-        justifyContent: 'center',
-        backgroundColor: 'orange',
-        borderWidth: 1,
-        borderRadius: 15,
-        paddingBottom: 15, // Increase the value here
-    },
-
-    modulesize: {
-        fontSize: 16,
-        fontWeight: 'bold',
-        justifyContent: 'flex-start',
-        paddingLeft: 10,
-    },
-    moduletitle: {
-        fontSize: 15,
-        paddingLeft: 10,
-    },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+    elevation: 5,
+  },
+  moduleCode: {
+    fontSize: 20,
+    fontWeight: 'bold',
+    marginBottom: 8,
+  },
+  title: {
+    fontSize: 16,
+    marginBottom: 8,
+  },
+  userCorner: {
+    position: 'absolute',
+    top: 0,
+    right: 0,
+    backgroundColor: '#FFA500', // Default corner color (orange)
+    paddingHorizontal: 8,
+    paddingVertical: 4,
+    borderTopRightRadius: 10,
+    borderBottomLeftRadius: 10,
+  },
+  userCornerText: {
+    fontSize: 12,
+    fontWeight: 'bold',
+    color: 'white',
+  },
 });

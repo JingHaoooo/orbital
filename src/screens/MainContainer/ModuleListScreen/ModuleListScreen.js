@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { View, Text } from 'react-native';
-import { fetchUserData } from '../../firebase/config';
-import Module from '../../components/ui/Module';
+import { fetchUserData } from '../../../firebase/config';
+import Module from '../../../components/ui/Module';
 import { ScrollView } from 'react-native-gesture-handler';
 import axios from 'axios';
+import styles from './styles';
 
 function ModuleList() {
     const [modulesTaken, setModulesTaken] = useState([]);
@@ -36,17 +37,15 @@ function ModuleList() {
 
     return (
         <ScrollView>
+            <Text> </Text>
             <View>
-                <Text>Modules Taking:</Text>
                 {modulesTaken.map(module => (
-                    <Module key={module} module={module.moduleCode} title={module.title}
-                        onPress={() => navigation.navigate('BookingPopup', module)} user={'STUDENT'} />
+                    <Module key={module.moduleCode} module={module.moduleCode} title={module.title}
+                        onPress={() => navigation.navigate('BookingPopup', { ...module, user: 'STUDENT' })} user={'STUDENT'} />
                 ))}
-
-                <Text>Modules Teaching:</Text>
                 {modulesTeaching.map(module => (
-                    <Module key={module} module={module.moduleCode} title={module.title}
-                        onPress={() => navigation.navigate('BookingPopup', module)} user={'TUTOR'} />
+                    <Module key={module.moduleCode} module={module.moduleCode} title={module.title}
+                        onPress={() => navigation.navigate('BookingPopup', { ...module, user: 'TUTOR' })} user={'TUTOR'} />
                 ))}
             </View>
         </ScrollView>

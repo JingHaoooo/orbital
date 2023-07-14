@@ -5,13 +5,12 @@ import { getFocusedRouteNameFromRoute } from '@react-navigation/native';
 import React from 'react';
 import HomeScreen from './HomeScreen/HomeScreen';
 import Settings from './SettingsScreen/SettingsScreen';
-import BookingScreen from './BookingScreen/BookingScreen';
 import SetAvailabilityScreen from './BookingPopup/SetAvailabilityScreen';
 import BookingPopup from './BookingPopup/BookingPopup';
 import StudentBookingScreen from './BookingPopup/StudentBookingScreen';
 import BookedSlotsScreen from './BookedSlotsScreen/BookedSlotsScreen';
 import ReleasedSlotsScreen from './ReleasedSlotsScreen';
-import ModuleList from './ModuleListScreen';
+import ModuleList from './ModuleListScreen/ModuleListScreen';
 
 const homeName = 'Home';
 const bookingName = 'New Bookings';
