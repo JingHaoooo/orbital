@@ -57,7 +57,7 @@ const TutorAvailabilityForm = ({ moduleCode }) => {
       setSelectedDurationButton('');
     }
   };
- 
+
   return (
     <ScrollView contentContainerStyle={styles.container}>
       <View style={styles.inputGroup}>
@@ -94,7 +94,7 @@ const TutorAvailabilityForm = ({ moduleCode }) => {
               setTimePickerVisible(false);
               handleTimeChange(event, time);
             }}
-          /> 
+          />
         )}
       </View>
 
@@ -162,7 +162,7 @@ const TutorAvailabilityForm = ({ moduleCode }) => {
         <SelectedSlots slots={slots} onReleaseSlots={handleReleaseSlots} />
       </View>
     </ScrollView>
-  ); 
+  );
 };
 
 const styles = StyleSheet.create({

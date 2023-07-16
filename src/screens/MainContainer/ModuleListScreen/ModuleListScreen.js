@@ -51,8 +51,29 @@ function ModuleList() {
                         onPress={() => navigation.navigate('BookingPopup', { ...module, user: 'TUTOR' })} user={'TUTOR'} />
                 ))}
             </View>
+            <Text style={styles.endText}> You've reached the end of the list.</Text>
         </ScrollView>
     );
 }
 
 export default ModuleList;
+
+{/* <Text style={styles.endText}> You've reached the end of the list.</Text>
+            </View>
+        </ScrollView>
+    );
+}
+
+const styles = StyleSheet.create({
+    container: {
+        flex: 1
+    },
+    listContainer: {
+        flex: 1,
+        padding: 16,
+        borderRadius: 30,
+    },
+    endText: {
+        fontSize: 18,
+    },
+}); */}

@@ -19,14 +19,13 @@ export default function Settings() {
       </View>
       <View style={flex = 1}>
         <TouchableOpacity
-          style={styles.addButton}
+          style={styles.logoutButton}
           onPress={handleLogout}
           activeOpacity={0.8}
         >
-          <Text style={styles.addButtonLabel}>Log Out</Text>
+          <Text style={styles.logoutButtonLabel}>Log Out</Text>
         </TouchableOpacity>
       </View>
     </View>
   );
 }
-

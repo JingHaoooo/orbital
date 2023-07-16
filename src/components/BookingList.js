@@ -90,5 +90,6 @@ const styles = StyleSheet.create({
     },
     endText: {
         fontSize: 18,
+        textAlign: 'center'
     },
 });

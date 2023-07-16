@@ -8,5 +8,9 @@ export default StyleSheet.create({
     },
     bookings: {
         fontSize: 20,
-    }
+    },
+    endText: {
+        fontSize: 18,
+        textAlign: 'center'
+    },
 });

@@ -31,6 +31,7 @@ export default StyleSheet.create({
     marginLeft: 30,
     marginRight: 30,
     paddingLeft: 16,
+    fontSize: 16,
   },
   button: {
     backgroundColor: 'orange',
@@ -44,7 +45,7 @@ export default StyleSheet.create({
   },
   buttonTitle: {
     color: 'white',
-    fontSize: 16,
+    fontSize: 18,
     fontWeight: 'bold',
   },
   footerView: {

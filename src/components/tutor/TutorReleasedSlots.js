@@ -85,7 +85,7 @@ const ReleasedSlots = ({ slots, onCancelSlot }) => {
             {sortedSlots.map((slot) => (
                 <Slot key={slot.id} slot={slot} buttonLabel={'Remove Slot'} func={onCancelSlot} user={'tutor'} />
             ))}
-            <Text style={{ fontSize: 18, padding: 8 }}>You have reached the end of the list</Text>
+            <Text style={styles.endText}>You have reached the end of the list.</Text>
         </View>
     );
 };
@@ -110,6 +110,10 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
         justifyContent: 'center',
         paddingBottom: 5,
+    },
+    endText: {
+        fontSize: 18,
+        textAlign: 'center'
     },
 });
 
