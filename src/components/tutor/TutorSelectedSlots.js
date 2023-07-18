@@ -1,26 +1,58 @@
 import React from 'react';
-import { View, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import axios from 'axios';
 import { Slot } from '../ui/Slot';
 
 // TODO: prevent overlapping slots, prevent slots from disappearing when multiple slots are chosen
 const TutorSelectedSlots = ({ slots, onReleaseSlots }) => {
+
     const sortedSlots = slots.sort((a, b) => a.dateTime - b.dateTime);
     const BACKEND_URL =
         'https://orbitalteamidk-default-rtdb.asia-southeast1.firebasedatabase.app/';
 
     const handleReleaseSlots = async () => {
         try {
-            const response = await axios.post(
-                BACKEND_URL + 'slots.json',
-                sortedSlots
+            const slotArrays = sortedSlots.map((slot) => [slot]);
+            await Promise.all(
+                slotArrays.map(async (slot) => {
+                    const response = await axios.post(BACKEND_URL + 'slots.json', slot);
+                    console.log('Slot stored in Firebase:', response.data);
+                })
             );
-            console.log('Slots stored in Firebase:', response.data);
             onReleaseSlots();
         } catch (error) {
             console.error('Error storing slots:', error);
         }
     };
+
+    // Use this after changing slots from an object in an array - to just a slot object
+    // const handleReleaseSlots = async () => {
+    //     try {
+    //         await Promise.all(
+    //             sortedSlots.map(async (slot) => {
+    //                 const response = await axios.post(BACKEND_URL + 'slots.json', slot);
+    //                 console.log('Slot stored in Firebase:', response.data);
+    //             })
+    //         );
+    //         onReleaseSlots();
+    //     } catch (error) {
+    //         console.error('Error storing slots:', error);
+    //     }
+    // };
+
+    // original code, not in use as it is buggy
+    // const handleReleaseSlots = async () => {
+    //     try {
+    //         const response = await axios.post(
+    //             BACKEND_URL + 'slots.json',
+    //             sortedSlots
+    //         );
+    //         console.log('Slots stored in Firebase:', response.data);
+    //         onReleaseSlots();
+    //     } catch (error) {
+    //         console.error('Error storing slots:', error);
+    //     }
+    // };
 
     return (
         <View>
@@ -28,13 +60,41 @@ const TutorSelectedSlots = ({ slots, onReleaseSlots }) => {
                 <Slot
                     key={index}
                     slot={slot}
-                    buttonLabel={'Click To Release Slot'}
-                    func={handleReleaseSlots}
+                    buttonLabel={'Remove (Havent Implement)'}
+                    func={() => { }}
+                    // buttonLabel={'Remove Slot'}
+                    // func={handleRemoveSlot}
                     user={'student'}
                 />
             ))}
+            <TouchableOpacity
+                style={styles.addButton}
+                onPress={handleReleaseSlots}
+                activeOpacity={0.8}
+            >
+                <Text style={styles.addButtonLabel}>Release Slots</Text>
+            </TouchableOpacity>
+            {/* {sortedSlots.length > 0 ? (
+                <TouchableOpacity style={styles.addButton} onPress={handleReleaseSlots}>
+                    <Text style={styles.addButtonLabel}>Release Slots</Text>
+                </TouchableOpacity>
+            ) : null} */}
         </View>
     );
 };
 
 export default TutorSelectedSlots;
+
+const styles = StyleSheet.create({
+    addButton: {
+        backgroundColor: 'orange',
+        padding: 10,
+        borderRadius: 5,
+        alignItems: 'center',
+    },
+    addButtonLabel: {
+        fontSize: 16,
+        color: '#fff',
+        fontWeight: 'bold',
+    },
+});
