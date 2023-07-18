@@ -40,7 +40,7 @@ const styles = StyleSheet.create({
         borderWidth: 2,
         borderColor: '#FFA500', // Default border color (orange)
         padding: 16,
-        shadowColor: '#000',
+        shadowColor: 'black',
         shadowOffset: {
             width: 0,
             height: 2,

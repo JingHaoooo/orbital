@@ -1,72 +1,77 @@
-import React, { useState, useEffect, useCallback, useContext } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import {
   Text,
   TextInput,
   TouchableOpacity,
   View,
 } from 'react-native';
-import DropDownPicker from 'react-native-dropdown-picker';
 import { useNavigation } from '@react-navigation/native';
 import styles from './styles';
 import { firebase } from '../../firebase/config';
-import axios from 'axios';
 import { getCurrentUserUid } from '../../firebase/config';
 import { AuthContext } from '../../../utility/AuthContext';
+import { ScrollView } from 'react-native-gesture-handler';
+import Bubble from '../../components/ui/Bubble';
+import { useRoute } from '@react-navigation/native';
 
 export default function EnterDetailsScreen() {
   const { user } = useContext(AuthContext);
   const userId = getCurrentUserUid();
   const navigation = useNavigation();
+  const route = useRoute();
 
   const [displayName, setDisplayName] = useState('');
-  const [nusModule, setNusModule] = useState([]);
-
   const [modulesTaken, setModulesTaken] = useState([]);
-  const [takingOpen, setTakingOpen] = useState(false);
-
   const [modulesTeaching, setModulesTeaching] = useState([]);
-  const [teachingOpen, setTeachingOpen] = useState(false);
-
-  // render again when component mounts
-  useEffect(() => {
-    getNusmods();
-  }, []);
 
   useEffect(() => {
     if (user.displayName !== '') {
       navigation.replace('MainContainer');
     }
-  }, []);
 
-  const getNusmods = () => {
-    axios
-      .get('https://api.nusmods.com/v2/2022-2023/moduleList.json')
-      .then((response) => {
-        setNusModule(response.data);
+    const usersRef = firebase.firestore().collection('users');
+    usersRef
+      .doc(userId)
+      .get()
+      .then((doc) => {
+        if (doc.exists) {
+          const userData = doc.data();
+          if (userData.displayName) {
+            setDisplayName(userData.displayName);
+          }
+          if (userData.modulesTaken) {
+            setModulesTaken(userData.modulesTaken);
+          }
+          if (userData.modulesTeaching) {
+            setModulesTeaching(userData.modulesTeaching);
+          }
+        }
       })
       .catch((error) => {
-        // to handle error
+        alert(error);
       });
-  };
-
-  const NUSmods = nusModule.map((module) => ({
-    label: module.moduleCode,
-    value: module.moduleCode,
-  }));
-
-  const onTakingOpen = useCallback(() => {
-    setTeachingOpen(false);
   }, []);
 
-  const onTeachingOpen = useCallback(() => {
-    setTakingOpen(false);
-  }, []);
+  useEffect(() => {
+    if (route.params) {
+      const { selectedModules, user } = route.params;
+      // selectedModules cannot be null
+      if (selectedModules) {
+        // Check whether the modules are for modulesTaken or modulesTeaching
+        if (user == 'Student') {
+          setModulesTaken(selectedModules);
+        } else if (user == 'Tutor') {
+          setModulesTeaching(selectedModules);
+        }
+      }
+    }
+  }, [route.params]);
 
   const onSaveDetailsPress = () => {
     const data = {
-      modulesTaken,
-      modulesTeaching,
       displayName,
+      modulesTaken,
+      modulesTeaching
     };
 
     const usersRef = firebase.firestore().collection('users');
@@ -81,93 +86,67 @@ export default function EnterDetailsScreen() {
       });
   };
 
-  const navigateToAddModule = () => {
-    navigation.navigate('Add Module');
-  };  
-
   return (
-    <View style={styles.container}>
-      <Text style={styles.text}>
-        Let us know the modules you are taking and/or teaching this semester!
-      </Text>
-      <TextInput
-        style={styles.input}
-        placeholder="Enter Your Name"
-        placeholderTextColor="#aaaaaa"
-        onChangeText={(text) => setDisplayName(text)}
-        value={displayName}
-        underlineColorAndroid="transparent"
-        autoCapitalize="characters"
-        autoCorrect={false}
-      />
-
-      <View style={styles.dropdownContainer1}>
-        <Text style={styles.text}>Which modules are you taking this semester?</Text>
-        <DropDownPicker
-          items={nusModule.map((module) => ({
-            label: module.moduleCode,
-            value: module.moduleCode,
-          }))}
-          open={takingOpen}
-          onOpen={onTakingOpen}
-          setOpen={() => setTakingOpen(!takingOpen)}
-          value={modulesTaken}
-          setValue={(val) => setModulesTaken(val)}
-          autoScroll
-          placeholder='Select modules'
-          theme='LIGHT'
-          containerStyle={styles.dropdown}
-          multiple={true}
-          min={0}
-          max={10}
-          mode="BADGE"
-          multipleText="%d modules selected"
-          searchable={true}
-          searchPlaceholder="Search for a module"
-          searchPlaceholderTextColor="#aaaaaa"
-          showArrowIcon={true}
-          showTickIcon={true}
+    <ScrollView>
+      <View style={styles.container}>
+        <Text style={styles.text}>
+          Let us know the modules you are taking and/or teaching this semester!
+        </Text>
+        <TextInput
+          style={styles.input}
+          placeholder="Enter Your Name"
+          placeholderTextColor="#aaaaaa"
+          onChangeText={(text) => setDisplayName(text)}
+          value={displayName}
+          underlineColorAndroid="transparent"
+          autoCapitalize="characters"
+          autoCorrect={false}
+          maxLength={26}
         />
-        <TouchableOpacity style={styles.addButton} onPress={navigateToAddModule}>
-          <Text style={styles.buttonLabel}>Add Module</Text>
-        </TouchableOpacity>
-      </View>
 
-      <View style={styles.dropdownContainer2}>
-        <Text style={styles.text}>Which modules are you teaching this semester?</Text>
-        <DropDownPicker
-          items={nusModule.map((module) => ({
-            label: module.moduleCode,
-            value: module.moduleCode,
-          }))}
-          open={teachingOpen}
-          onOpen={onTeachingOpen}
-          setOpen={() => setTeachingOpen(!teachingOpen)}
-          value={modulesTeaching}
-          setValue={(val) => setModulesTeaching(val)}
-          autoScroll
-          placeholder='Select modules'
-          theme='LIGHT'
-          containerStyle={styles.dropdown}
-          multiple={true}
-          min={0}
-          max={10}
-          mode="BADGE"
-          multipleText="%d modules selected"
-          searchable={true}
-          searchPlaceholder="Search for a module"
-          searchPlaceholderTextColor="#aaaaaa"
-          showArrowIcon={true}
-          showTickIcon={true}
-        />
-        <TouchableOpacity style={styles.addButton} onPress={navigateToAddModule}>
-          <Text style={styles.buttonLabel}>Add Module</Text>
-        </TouchableOpacity>
-      </View>
+        <View style={styles.dropdownContainer1}>
+          <Text style={styles.text}>Which modules are you taking this semester?</Text>
+          <View style={styles.moduleBubbleContainer}>
+            {modulesTaken.map((mod) => (
+              <Bubble key={mod} moduleCode={mod} />
+            ))}
+          </View>
+          <TouchableOpacity
+            style={styles.addButton}
+            onPress={() => {
+              navigation.navigate('Add Module', {
+                currModules: modulesTaken,
+                user: 'Student'
+              })
+            }}>
+            <Text style={styles.buttonLabel}>Edit</Text>
+          </TouchableOpacity>
+        </View>
 
-      <TouchableOpacity style={styles.button} onPress={onSaveDetailsPress}>
-        <Text style={styles.buttonTitle}>Save Details</Text>
-      </TouchableOpacity>
-    </View>
+        <View style={styles.dropdownContainer2}>
+          <Text style={styles.text}>Which modules are you teaching this semester?</Text>
+          <View style={styles.moduleBubbleContainer}>
+            {modulesTeaching.map((mod) => (
+              <Bubble key={mod} moduleCode={mod} />
+            ))}
+          </View>
+          <TouchableOpacity
+            style={styles.addButton}
+            onPress={() => {
+              navigation.navigate('Add Module', {
+                currModules: modulesTeaching,
+                user: 'Tutor'
+              })
+            }}>
+            <Text style={styles.buttonLabel}>Edit</Text>
+          </TouchableOpacity>
+        </View>
+
+        <TouchableOpacity style={styles.button} onPress={onSaveDetailsPress}>
+          <Text style={styles.buttonTitle}>Update Details</Text>
+        </TouchableOpacity>
+
+      </View>
+    </ScrollView>
   );
 }
