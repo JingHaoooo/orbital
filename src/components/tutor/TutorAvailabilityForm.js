@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import DateTimePicker from '@react-native-community/datetimepicker';
-import SelectedSlots from '../SelectedSlots';
+import TutorSelectedSlots from './TutorSelectedSlots';
 import { getCurrentUserUid, fetchUserData } from '../../firebase/config';
 import { ScrollView } from 'react-native-gesture-handler';
 
@@ -159,7 +159,7 @@ const TutorAvailabilityForm = ({ moduleCode }) => {
       <View style={styles.inputGroup}>
         <Text> </Text>
         {/* <Text style={styles.label}>Selected Slot:</Text> */}
-        <SelectedSlots slots={slots} onReleaseSlots={handleReleaseSlots} />
+        <TutorSelectedSlots slots={slots} onReleaseSlots={handleReleaseSlots} />
       </View>
     </ScrollView>
   );

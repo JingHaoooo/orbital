@@ -80,7 +80,7 @@ const TutorReleasedSlots = () => {
 const ReleasedSlots = ({ slots, onCancelSlot }) => {
     const sortedSlots = slots.sort((a, b) => a.dateTime - b.dateTime);
     return (
-        <View>
+        <View style={styles.container}>
             <Text style={{ fontSize: 18, padding: 8 }}>Your Released Slots:</Text>
             {sortedSlots.map((slot) => (
                 <Slot key={slot.id} slot={slot} buttonLabel={'Remove Slot'} func={onCancelSlot} user={'tutor'} />
@@ -90,21 +90,25 @@ const ReleasedSlots = ({ slots, onCancelSlot }) => {
     );
 };
 
-const formatDate = (dateTime) => {
-    const options = {
-        day: 'numeric',
-        month: 'short',
-        year: 'numeric',
-        weekday: 'short',
-        hour: 'numeric',
-        minute: 'numeric',
-    };
+// const formatDate = (dateTime) => {
+//     const options = {
+//         day: 'numeric',
+//         month: 'short',
+//         year: 'numeric',
+//         weekday: 'short',
+//         hour: 'numeric',
+//         minute: 'numeric',
+//     };
 
-    const formattedDate = dateTime.toLocaleDateString('en-US', options);
-    return formattedDate;
-};
+//     const formattedDate = dateTime.toLocaleDateString('en-US', options);
+//     return formattedDate;
+// };
 
 const styles = StyleSheet.create({
+    container: {
+        paddingHorizontal: 20,
+        paddingBottom: 20,
+    },
     cancelButtonText: {
         color: 'blue',
         fontWeight: 'bold',
