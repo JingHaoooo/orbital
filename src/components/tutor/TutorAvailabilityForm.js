@@ -58,6 +58,11 @@ const TutorAvailabilityForm = ({ moduleCode }) => {
     }
   };
 
+  const removeSlot = (selectedSlot) => {
+    const updatedSlots = slots.filter((slot) => slot !== selectedSlot);
+    setSlots(updatedSlots);
+  };
+
   return (
     <ScrollView contentContainerStyle={styles.container}>
       <View style={styles.inputGroup}>
@@ -162,6 +167,7 @@ const TutorAvailabilityForm = ({ moduleCode }) => {
         <TutorSelectedSlots
           slots={slots}
           onReleaseSlots={handleReleaseSlots}
+          onRemoveSlot={removeSlot}
         />
       </View>
 

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, Button } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import axios from 'axios';
 import { getCurrentUserUid } from '../../firebase/config';
 import { Slot } from '../ui/Slot';
@@ -69,7 +69,13 @@ const TutorBookingList = () => {
         <View>
             <Text style={{ fontSize: 18, paddingBottom: 4 }}>Tutor's Booked Slots:</Text>
             <BookedSlots slots={slots} func={handleCancelSlot} />
-            <Button title="Refresh" onPress={handleRefresh} />
+            <TouchableOpacity
+                style={styles.refreshButton}
+                onPress={handleRefresh}
+                activeOpacity={0.8}
+            >
+                <Text style={styles.refreshButtonLabel}>Refresh</Text>
+            </TouchableOpacity>
         </View>
     );
 };
@@ -87,3 +93,25 @@ const BookedSlots = ({ slots, func }) => {
 };
 
 export default TutorBookingList;
+
+const styles = StyleSheet.create({
+    cancelButtonText: {
+        color: 'blue',
+        fontWeight: 'bold',
+        justifyContent: 'center',
+    },
+    refreshButton: {
+        backgroundColor: '#00BFFF',
+        width: '25%',
+        height: 40,
+        borderRadius: 10,
+        justifyContent: 'center',
+        alignItems: 'center',
+        marginTop: 4
+    },
+    refreshButtonLabel: {
+        color: 'white',
+        fontSize: 16,
+        fontWeight: 'bold',
+    },
+});

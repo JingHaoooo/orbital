@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, Button, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import axios from 'axios';
 import { getCurrentUserUid } from '../../firebase/config';
 import { Slot } from '../ui/Slot';
@@ -54,14 +54,19 @@ const StudentBookingList = () => {
 
     const handleRefresh = () => {
         fetchSlots();
-        console.log(studentId);
     };
 
     return (
         <View>
             <Text style={{ fontSize: 18, paddingBottom: 4 }}>Student's Booked Slots:</Text>
             <BookedSlots slots={slots} func={fetchSlots} />
-            <Button title="Refresh" onPress={handleRefresh} />
+            <TouchableOpacity
+                style={styles.refreshButton}
+                onPress={handleRefresh}
+                activeOpacity={0.8}
+            >
+                <Text style={styles.refreshButtonLabel}>Refresh</Text>
+            </TouchableOpacity>
         </View>
     );
 };
@@ -71,7 +76,6 @@ const BookedSlots = ({ slots, func }) => {
 
     const handleCancelSlot = async (slotId) => {
         try {
-
             const response = await axios.patch(
                 `https://orbitalteamidk-default-rtdb.asia-southeast1.firebasedatabase.app/slots/${slotId}/0.json`,
                 { taken: false, studentId: 0, studentName: '' }
@@ -113,5 +117,19 @@ const styles = StyleSheet.create({
         color: 'blue',
         fontWeight: 'bold',
         justifyContent: 'center',
+    },
+    refreshButton: {
+        backgroundColor: '#00BFFF',
+        width: '25%',
+        height: 40,
+        borderRadius: 10,
+        justifyContent: 'center',
+        alignItems: 'center',
+        marginTop: 4
+    },
+    refreshButtonLabel: {
+        color: 'white',
+        fontSize: 16,
+        fontWeight: 'bold',
     },
 });

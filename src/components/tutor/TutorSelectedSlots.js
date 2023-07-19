@@ -4,7 +4,7 @@ import axios from 'axios';
 import { Slot } from '../ui/Slot';
 
 // TODO: prevent overlapping slots, prevent slots from disappearing when multiple slots are chosen
-const TutorSelectedSlots = ({ slots, onReleaseSlots }) => {
+const TutorSelectedSlots = ({ slots, onReleaseSlots, onRemoveSlot }) => {
 
     const sortedSlots = slots.sort((a, b) => a.dateTime - b.dateTime);
     const BACKEND_URL =
@@ -40,45 +40,29 @@ const TutorSelectedSlots = ({ slots, onReleaseSlots }) => {
     //     }
     // };
 
-    // original code, not in use as it is buggy
-    // const handleReleaseSlots = async () => {
-    //     try {
-    //         const response = await axios.post(
-    //             BACKEND_URL + 'slots.json',
-    //             sortedSlots
-    //         );
-    //         console.log('Slots stored in Firebase:', response.data);
-    //         onReleaseSlots();
-    //     } catch (error) {
-    //         console.error('Error storing slots:', error);
-    //     }
-    // };
-
     return (
         <View>
             {sortedSlots.map((slot, index) => (
                 <Slot
                     key={index}
                     slot={slot}
-                    buttonLabel={'Remove (Havent Implement)'}
-                    func={() => { }}
-                    // buttonLabel={'Remove Slot'}
-                    // func={handleRemoveSlot}
+                    buttonLabel={'Remove'}
+                    func={() => onRemoveSlot(slot)}
                     user={'student'}
                 />
             ))}
-            <TouchableOpacity
+            {/* <TouchableOpacity
                 style={styles.addButton}
                 onPress={handleReleaseSlots}
                 activeOpacity={0.8}
             >
                 <Text style={styles.addButtonLabel}>Release Slots</Text>
-            </TouchableOpacity>
-            {/* {sortedSlots.length > 0 ? (
+            </TouchableOpacity> */}
+            {sortedSlots.length > 0 ? (
                 <TouchableOpacity style={styles.addButton} onPress={handleReleaseSlots}>
                     <Text style={styles.addButtonLabel}>Release Slots</Text>
                 </TouchableOpacity>
-            ) : null} */}
+            ) : null}
         </View>
     );
 };
