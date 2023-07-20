@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, Button, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, Alert, ActivityIndicator, ScrollView } from 'react-native';
 import axios from 'axios';
 import 'firebase/compat/auth';
 import { getCurrentUserUid, fetchUserData } from '../../firebase/config';
 import { Slot } from '../ui/Slot';
-import { ScrollView } from 'react-native-gesture-handler';
 
 const StudentBookingForm = ({ moduleCode }) => {
     const [slots, setSlots] = useState([]);
+    const [loading, setLoading] = useState(true); // Add a loading state
     const currentUserUid = getCurrentUserUid();
 
     useEffect(() => {
@@ -45,37 +45,73 @@ const StudentBookingForm = ({ moduleCode }) => {
                     }
                 }
             }
-
             setSlots(fetchedSlots);
-            console.log(fetchedSlots);
+            setLoading(false);
         } catch (error) {
             console.error('Error fetching slots:', error);
+            setLoading(false);
         }
     };
 
     const handleBookSlot = async (slotId) => {
         const studentDetails = await fetchUserData();
-        try {
-            const response = await axios.patch(
-                `https://orbitalteamidk-default-rtdb.asia-southeast1.firebasedatabase.app/slots/${slotId}/0.json`,
-                { taken: true, studentId: currentUserUid, studentName: studentDetails.displayName, }
-            );
-            console.log('Slot booked successfully:', response.data);
-            fetchSlots();
-        } catch (error) {
-            console.error('Error booking slot:', error);
-        }
+        Alert.alert(
+            'Confirm Booking',
+            'Are you sure you want to book this slot?',
+            [
+                {
+                    text: 'Cancel',
+                    style: 'cancel',
+                },
+                {
+                    text: 'OK',
+                    onPress: async () => {
+                        try {
+                            setLoading(true);
+                            const response = await axios.patch(
+                                `https://orbitalteamidk-default-rtdb.asia-southeast1.firebasedatabase.app/slots/${slotId}/0.json`,
+                                {
+                                    taken: true,
+                                    studentId: currentUserUid,
+                                    studentName: studentDetails.displayName,
+                                }
+                            );
+                            console.log('Slot booked successfully:', response.data);
+                            fetchSlots();
+                        } catch (error) {
+                            console.error('Error booking slot:', error);
+                        } finally {
+                            setLoading(false);
+                        }
+                    },
+                },
+            ],
+            { cancelable: false }
+        );
     };
 
     const handleRefresh = () => {
+        setLoading(true);
         fetchSlots();
     };
 
     return (
         <ScrollView>
-            <View>
-                <ReleasedSlots slots={slots} onBookSlot={handleBookSlot} />
-                <Button title="Refresh" onPress={handleRefresh} />
+            <View style={styles.container}>
+                {loading ? (
+                    <ActivityIndicator size="large" color="#00BFFF" />
+                ) : (
+                    <>
+                        <ReleasedSlots slots={slots} onBookSlot={handleBookSlot} />
+                        <TouchableOpacity
+                            style={styles.refreshButton}
+                            onPress={handleRefresh}
+                            activeOpacity={0.8}
+                        >
+                            <Text style={styles.refreshButtonLabel}>Refresh</Text>
+                        </TouchableOpacity>
+                    </>
+                )}
             </View>
         </ScrollView>
     );
@@ -111,7 +147,24 @@ const styles = StyleSheet.create({
     bookButtonText: {
         color: 'blue',
         fontWeight: 'bold',
-        justifyContent: 'center'
+        justifyContent: 'center',
+    },
+    container: {
+        padding: 20,
+    },
+    refreshButton: {
+        backgroundColor: '#00BFFF',
+        width: '25%',
+        height: 40,
+        borderRadius: 10,
+        justifyContent: 'center',
+        alignItems: 'center',
+        marginTop: 4,
+    },
+    refreshButtonLabel: {
+        color: 'white',
+        fontSize: 16,
+        fontWeight: 'bold',
     },
 });
 

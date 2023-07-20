@@ -68,7 +68,7 @@ export default function BookingList({ booleanCondition }) {
     return (
         <ScrollView>
             <View style={styles.container}>
-                <View style={styles.listContainer}>
+                <View>
                     {sortedSlots.map((slot) => (
                         <HomePageSlot key={slot.id} slot={slot} userRole={slot.userRole} />
                     ))}
@@ -81,12 +81,7 @@ export default function BookingList({ booleanCondition }) {
 
 const styles = StyleSheet.create({
     container: {
-        flex: 1
-    },
-    listContainer: {
         flex: 1,
-        padding: 16,
-        borderRadius: 30,
     },
     endText: {
         fontSize: 18,

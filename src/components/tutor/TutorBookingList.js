@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, ActivityIndicator, Alert } from 'react-native';
 import axios from 'axios';
 import { getCurrentUserUid } from '../../firebase/config';
 import { Slot } from '../ui/Slot';
 
-// to add remove button 
 const TutorBookingList = () => {
     const [slots, setSlots] = useState([]);
+    const [loading, setLoading] = useState(true);
     const tutorId = getCurrentUserUid();
 
     useEffect(() => {
@@ -22,7 +22,7 @@ const TutorBookingList = () => {
             const fetchedSlots = [];
 
             for (const key in slotsData) {
-                const slotData = slotsData[key][0]; // Access the first element of the array
+                const slotData = slotsData[key][0];
                 const currentTime = new Date();
 
                 if (slotData.tutorId === tutorId && slotData.taken) {
@@ -45,37 +45,68 @@ const TutorBookingList = () => {
             }
 
             setSlots(fetchedSlots);
+            setLoading(false);
         } catch (error) {
             console.error('Error fetching slots:', error);
+            setLoading(false);
         }
     };
 
-    const handleCancelSlot = async (slotId) => {
-        try {
-            await axios.delete(
-                `https://orbitalteamidk-default-rtdb.asia-southeast1.firebasedatabase.app/slots/${slotId}.json`
-            );
-            fetchSlots();
-        } catch (error) {
-            console.error('Error canceling slot:', error);
-        }
+    const handleCancelSlot = (slotId) => {
+        Alert.alert(
+            'Confirm Removal',
+            'Are you sure you want to remove this slot?',
+            [
+                {
+                    text: 'Cancel',
+                    style: 'cancel',
+                },
+                {
+                    text: 'OK',
+                    onPress: async () => {
+                        try {
+                            setLoading(true);
+                            await axios.delete(
+                                `https://orbitalteamidk-default-rtdb.asia-southeast1.firebasedatabase.app/slots/${slotId}.json`
+                            );
+                            fetchSlots();
+                            setLoading(false);
+                        } catch (error) {
+                            console.error('Error canceling slot:', error);
+                            setLoading(false);
+                        }
+                    },
+                },
+            ],
+            { cancelable: false }
+        );
     };
 
     const handleRefresh = () => {
+        setLoading(true); // Show loading indicator when refreshing
         fetchSlots();
     };
 
     return (
-        <View>
-            <Text style={{ fontSize: 18, paddingBottom: 4 }}>Tutor's Booked Slots:</Text>
-            <BookedSlots slots={slots} func={handleCancelSlot} />
-            <TouchableOpacity
-                style={styles.refreshButton}
-                onPress={handleRefresh}
-                activeOpacity={0.8}
-            >
-                <Text style={styles.refreshButtonLabel}>Refresh</Text>
-            </TouchableOpacity>
+        <View style={styles.container}>
+            <View style={styles.headerContainer}>
+                <Text style={styles.header}>Tutor's Booked Slots:</Text>
+                <TouchableOpacity
+                    style={styles.refreshButton}
+                    onPress={handleRefresh}
+                    activeOpacity={0.8}
+                >
+                    <Text style={styles.refreshButtonLabel}>Refresh</Text>
+                </TouchableOpacity>
+            </View>
+            {loading ? (
+                <ActivityIndicator size="large" color="#00BFFF" />
+            ) : slots.length === 0 ? (
+                <Text style={styles.noSlots}>No slots booked.</Text>
+            ) : (
+                <BookedSlots slots={slots} func={handleCancelSlot} />
+            )}
+
         </View>
     );
 };
@@ -95,10 +126,23 @@ const BookedSlots = ({ slots, func }) => {
 export default TutorBookingList;
 
 const styles = StyleSheet.create({
-    cancelButtonText: {
-        color: 'blue',
-        fontWeight: 'bold',
-        justifyContent: 'center',
+    container: {
+        flex: 1,
+        padding: 20,
+    },
+    headerContainer: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'space-between',
+        paddingBottom: 16,
+    },
+    header: {
+        fontSize: 18,
+    },
+    noSlots: {
+        fontSize: 16,
+        marginTop: 8,
+        textAlign: 'center',
     },
     refreshButton: {
         backgroundColor: '#00BFFF',
@@ -107,7 +151,7 @@ const styles = StyleSheet.create({
         borderRadius: 10,
         justifyContent: 'center',
         alignItems: 'center',
-        marginTop: 4
+        marginTop: 4,
     },
     refreshButtonLabel: {
         color: 'white',

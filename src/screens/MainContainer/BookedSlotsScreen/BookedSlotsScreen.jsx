@@ -5,7 +5,6 @@ import TutorBookingList from '../../../components/tutor/TutorBookingList';
 import 'firebase/compat/auth'; // Import the Firebase Auth module
 import { ScrollView } from 'react-native-gesture-handler';
 
-
 export default function BookedSlotsScreen() {
   return (
     <ScrollView>
@@ -16,4 +15,3 @@ export default function BookedSlotsScreen() {
     </ScrollView>
   );
 }
-
