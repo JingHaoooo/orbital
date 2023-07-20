@@ -11,6 +11,8 @@ import StudentBookingScreen from './BookingPopup/StudentBookingScreen';
 import BookedSlotsScreen from './BookedSlotsScreen/BookedSlotsScreen';
 import ReleasedSlotsScreen from './ReleasedSlotsScreen';
 import ModuleList from './ModuleListScreen/ModuleListScreen';
+import UpdateModule from './SettingsScreen/UpdateModule';
+import AdditionModule from './SettingsScreen/AddModules';
 
 const homeName = 'Home';
 const bookingName = 'New Bookings';
@@ -26,7 +28,8 @@ const getScreenLocation = (route) => {
   const CurrentPage = getFocusedRouteNameFromRoute(route);
   if (CurrentPage?.includes('Tutor: Set Availability')
     || CurrentPage?.includes('BookingPopup')
-    || CurrentPage?.includes('Student: New Booking')) {
+    || CurrentPage?.includes('Student: New Booking') || 
+    CurrentPage?.includes('Update Modules')) {
     return false;
   }
   return true;
@@ -35,10 +38,20 @@ const getScreenLocation = (route) => {
 function BookingTab() {
   return (
     <Stack.Navigator>
-      <Stack.Screen name="BookingTab" component={ModuleList} options={{ headerShown: false }} />
+      <Stack.Screen name="BookingTab" component={ModuleList} options={{ headerShown: false, unmountOnBlur:true  }} />
       <Stack.Screen name="BookingPopup" component={BookingPopup} options={{ headerShown: true }} />
       <Stack.Screen name="Tutor: Set Availability" component={SetAvailabilityScreen} />
       <Stack.Screen name="Student: New Booking" component={StudentBookingScreen} />
+    </Stack.Navigator>
+  );
+}
+
+function SettingTab(){
+  return (
+    <Stack.Navigator>
+      <Stack.Screen name="History" component={Settings} options={{headerShown: false}}/>
+      <Stack.Screen name="Update Modules" component={UpdateModule} />
+      <Stack.Screen name="Add Module" component={AdditionModule} />
     </Stack.Navigator>
   );
 }
@@ -73,11 +86,11 @@ export default function MainContainer() {
       <Tab.Screen
         name={bookingName}
         component={BookingTab}
-        options={({ route }) => ({ headerShown: getScreenLocation(route) })}
+        options={({ route }) => ({ headerShown: getScreenLocation(route),  unmountOnBlur: true})}
       />
       <Tab.Screen name={bookingListName} component={BookedSlotsScreen} />
       <Tab.Screen name={releasedSlotsName} component={ReleasedSlotsScreen} />
-      <Tab.Screen name={settingsName} component={Settings} options={{ unmountOnBlur: true }} />
+      <Tab.Screen name={settingsName} component={SettingTab} options={({ route }) => ({ headerShown: getScreenLocation(route), unmountOnBlur: true })} />
     </Tab.Navigator>
   );
 }
