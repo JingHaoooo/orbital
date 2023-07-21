@@ -1,7 +1,6 @@
 import firebase from 'firebase/compat/app';
 import 'firebase/compat/auth'; // Import the Firebase Auth module
 import 'firebase/compat/firestore'; // Import the Firebase Firestore module
-import { useEffect, useState } from 'react';
 import { getFirestore, doc, getDoc } from "firebase/firestore"
 import { initializeApp } from "firebase/app"
 // Import the functions you need from the SDKs you need
@@ -27,6 +26,7 @@ const firebaseConfig = {
 if (!firebase.apps.length) {
   firebase.initializeApp(firebaseConfig);
 }
+
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
@@ -43,7 +43,6 @@ export const fetchUserData = async () => {
   const docRef = doc(db, "users", uid);
   const docSnap = await getDoc(docRef);
   const userInfo = docSnap.data();
-  //console.log(userInfo.displayName);
   return userInfo;
 }
 

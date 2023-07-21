@@ -5,13 +5,14 @@ import { getFocusedRouteNameFromRoute } from '@react-navigation/native';
 import React from 'react';
 import HomeScreen from './HomeScreen/HomeScreen';
 import Settings from './SettingsScreen/SettingsScreen';
-import BookingScreen from './BookingScreen/BookingScreen';
 import SetAvailabilityScreen from './BookingPopup/SetAvailabilityScreen';
 import BookingPopup from './BookingPopup/BookingPopup';
 import StudentBookingScreen from './BookingPopup/StudentBookingScreen';
 import BookedSlotsScreen from './BookedSlotsScreen/BookedSlotsScreen';
 import ReleasedSlotsScreen from './ReleasedSlotsScreen';
-import { getCurrentUserUid } from '../../firebase/config';
+import ModuleList from './ModuleListScreen/ModuleListScreen';
+import UpdateModule from './SettingsScreen/UpdateModule';
+import AdditionModule from './SettingsScreen/AddModules';
 
 const homeName = 'Home';
 const bookingName = 'New Bookings';
@@ -22,11 +23,13 @@ const releasedSlotsName = 'Released Slots';
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
 
+// decides whether to show header or not
 const getScreenLocation = (route) => {
   const CurrentPage = getFocusedRouteNameFromRoute(route);
   if (CurrentPage?.includes('Tutor: Set Availability')
     || CurrentPage?.includes('BookingPopup')
-    || CurrentPage?.includes('Student: New Booking')) {
+    || CurrentPage?.includes('Student: New Booking') || 
+    CurrentPage?.includes('Update Modules')) {
     return false;
   }
   return true;
@@ -35,7 +38,7 @@ const getScreenLocation = (route) => {
 function BookingTab() {
   return (
     <Stack.Navigator>
-      <Stack.Screen name="BookingTab" component={BookingScreen} options={{ headerShown: false }} />
+      <Stack.Screen name="BookingTab" component={ModuleList} options={{ headerShown: false, unmountOnBlur:true  }} />
       <Stack.Screen name="BookingPopup" component={BookingPopup} options={{ headerShown: true }} />
       <Stack.Screen name="Tutor: Set Availability" component={SetAvailabilityScreen} />
       <Stack.Screen name="Student: New Booking" component={StudentBookingScreen} />
@@ -43,9 +46,17 @@ function BookingTab() {
   );
 }
 
+function SettingTab(){
+  return (
+    <Stack.Navigator>
+      <Stack.Screen name="History" component={Settings} options={{headerShown: false}}/>
+      <Stack.Screen name="Update Modules" component={UpdateModule} />
+      <Stack.Screen name="Add Module" component={AdditionModule} />
+    </Stack.Navigator>
+  );
+}
+
 export default function MainContainer() {
-  //const userId = getCurrentUserUid();
-  //console.log(userId);
   return (
     <Tab.Navigator
       initialRouteName={homeName}
@@ -65,7 +76,6 @@ export default function MainContainer() {
           } else if (routerName === releasedSlotsName) {
             iconName = focused ? 'calendar' : 'calendar-outline';
           }
-
           return <Ionicons name={iconName} size={size} color={colour} />;
         },
         tabBarActiveTintColor: 'black',
@@ -76,11 +86,11 @@ export default function MainContainer() {
       <Tab.Screen
         name={bookingName}
         component={BookingTab}
-        options={({ route }) => ({ headerShown: getScreenLocation(route) })}
+        options={({ route }) => ({ headerShown: getScreenLocation(route),  unmountOnBlur: true})}
       />
       <Tab.Screen name={bookingListName} component={BookedSlotsScreen} />
       <Tab.Screen name={releasedSlotsName} component={ReleasedSlotsScreen} />
-      <Tab.Screen name={settingsName} component={Settings} options={{ unmountOnBlur: true }} />
+      <Tab.Screen name={settingsName} component={SettingTab} options={({ route }) => ({ headerShown: getScreenLocation(route), unmountOnBlur: true })} />
     </Tab.Navigator>
   );
 }

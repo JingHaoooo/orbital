@@ -1,14 +1,13 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, Button, StyleSheet, TouchableOpacity } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, Alert, ActivityIndicator, ScrollView } from 'react-native';
 import axios from 'axios';
-import firebase from 'firebase/compat/app';
 import 'firebase/compat/auth';
 import { getCurrentUserUid, fetchUserData } from '../../firebase/config';
 import { Slot } from '../ui/Slot';
-import { ScrollView } from 'react-native-gesture-handler';
 
 const StudentBookingForm = ({ moduleCode }) => {
     const [slots, setSlots] = useState([]);
+    const [loading, setLoading] = useState(true); // Add a loading state
     const currentUserUid = getCurrentUserUid();
 
     useEffect(() => {
@@ -46,37 +45,76 @@ const StudentBookingForm = ({ moduleCode }) => {
                     }
                 }
             }
-
             setSlots(fetchedSlots);
-            console.log(fetchedSlots);
+            setLoading(false);
         } catch (error) {
             console.error('Error fetching slots:', error);
+            setLoading(false);
         }
     };
 
     const handleBookSlot = async (slotId) => {
         const studentDetails = await fetchUserData();
-        try {
-            const response = await axios.patch(
-                `https://orbitalteamidk-default-rtdb.asia-southeast1.firebasedatabase.app/slots/${slotId}/0.json`,
-                { taken: true, studentId: currentUserUid, studentName: studentDetails.displayName, }
-            );
-            console.log('Slot booked successfully:', response.data);
-            fetchSlots();
-        } catch (error) {
-            console.error('Error booking slot:', error);
-        }
+        Alert.alert(
+            'Confirm Booking',
+            'Are you sure you want to book this slot?',
+            [
+                {
+                    text: 'Cancel',
+                    style: 'cancel',
+                },
+                {
+                    text: 'OK',
+                    onPress: async () => {
+                        try {
+                            setLoading(true);
+                            const response = await axios.patch(
+                                `https://orbitalteamidk-default-rtdb.asia-southeast1.firebasedatabase.app/slots/${slotId}/0.json`,
+                                {
+                                    taken: true,
+                                    studentId: currentUserUid,
+                                    studentName: studentDetails.displayName,
+                                }
+                            );
+                            console.log('Slot booked successfully:', response.data);
+                            fetchSlots();
+                        } catch (error) {
+                            console.error('Error booking slot:', error);
+                        } finally {
+                            setLoading(false);
+                        }
+                    },
+                },
+            ],
+            { cancelable: false }
+        );
     };
 
     const handleRefresh = () => {
+        setLoading(true);
         fetchSlots();
     };
 
     return (
         <ScrollView>
-            <View>
-                <ReleasedSlots slots={slots} onBookSlot={handleBookSlot} />
-                <Button title="Refresh" onPress={handleRefresh} />
+            <View style={styles.container}>
+                <View style={styles.headerContainer}>
+                    <Text style={styles.header}>Choose Your Slots:</Text>
+                    <TouchableOpacity
+                        style={styles.refreshButton}
+                        onPress={handleRefresh}
+                        activeOpacity={0.8}
+                    >
+                        <Text style={styles.refreshButtonLabel}>Refresh</Text>
+                    </TouchableOpacity>
+                </View>
+                {loading ? (
+                    <ActivityIndicator size="large" color="#00BFFF" />
+                ) : (
+                    <>
+                        <ReleasedSlots slots={slots} onBookSlot={handleBookSlot} />
+                    </>
+                )}
             </View>
         </ScrollView>
     );
@@ -86,26 +124,10 @@ const ReleasedSlots = ({ slots, onBookSlot }) => {
     const sortedSlots = slots.sort((a, b) => a.dateTime - b.dateTime);
     return (
         <View>
-            <Text style={{ fontSize: 18, paddingBottom: 4 }}>Choose Your Slots:</Text>
             {sortedSlots.map((slot) => (
                 <Slot key={slot.id} slot={slot} buttonLabel={'Book Slot'} func={onBookSlot} user={'student'} />
             ))}
         </View>
-
-
-        //     <View>
-        //     <Text>Choose Your Slots:</Text>
-        //     {sortedSlots.map((slot) => (
-        //         <View key={slot.id}>
-        //             <Text>
-        //                 {formatDate(new Date(slot.dateTime))} ({slot.duration} minutes)
-        //             </Text>
-        //             <TouchableOpacity onPress={() => onBookSlot(slot.id)}>
-        //                 <Text style={styles.bookButtonText}>Book Slot</Text>
-        //             </TouchableOpacity>
-        //         </View>
-        //     ))}
-        // </View>
     );
 };
 
@@ -127,7 +149,33 @@ const styles = StyleSheet.create({
     bookButtonText: {
         color: 'blue',
         fontWeight: 'bold',
-        justifyContent: 'center'
+        justifyContent: 'center',
+    },
+    container: {
+        padding: 20,
+    },
+    refreshButton: {
+        backgroundColor: '#00BFFF',
+        width: '25%',
+        height: 40,
+        borderRadius: 10,
+        justifyContent: 'center',
+        alignItems: 'center',
+        marginTop: 4,
+    },
+    refreshButtonLabel: {
+        color: 'white',
+        fontSize: 16,
+        fontWeight: 'bold',
+    },
+    headerContainer: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'space-between',
+        paddingBottom: 16,
+    },
+    header: {
+        fontSize: 18,
     },
 });
 

@@ -39,6 +39,9 @@ export const Slot = ({ slot, buttonLabel, func, user }) => {
           <Text style={styles.button}>{buttonLabel}</Text>
         </TouchableOpacity>
       </View>
+      {/* <View style={[styles.userRoleContainer, { backgroundColor: 'red' }]}>
+        <Text style={styles.userRoleText}>hi</Text>
+      </View> */}
     </View>
   );
 };
@@ -47,10 +50,21 @@ const styles = StyleSheet.create({
   container: {
     backgroundColor: '#FFFFFF',
     flexDirection: 'row',
-    borderRadius: 16,
+    borderRadius: 18,
     marginBottom: 12,
     padding: 8,
     height: 136,
+    borderWidth: 2,
+    borderColor: 'white', // #00BFFF  //FFA500
+    shadowColor: 'black',
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.10,
+    shadowRadius: 2,
+    elevation: 5,
+    position: 'relative',
   },
   leftContainer: {
     flex: 1,
@@ -104,4 +118,18 @@ const styles = StyleSheet.create({
   dayText: {
     fontSize: windowWidth * 0.035,
   },
+  userRoleContainer: {
+    position: 'absolute',
+    top: 8,
+    right: 8,
+    paddingHorizontal: 8,
+    paddingVertical: 4,
+    borderTopRightRadius: 10,
+    borderBottomLeftRadius: 10,
+  },
+  userRoleText: {
+    fontSize: 12,
+    fontWeight: 'bold',
+    color: 'white',
+  }
 });

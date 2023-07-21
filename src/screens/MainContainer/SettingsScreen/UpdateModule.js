@@ -1,20 +1,19 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useEffect, useCallback, useContext } from 'react';
 import {
   Text,
   TextInput,
   TouchableOpacity,
   View,
+  Keyboard,
 } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
-import styles from './styles';
-import { firebase } from '../../firebase/config';
-import { getCurrentUserUid } from '../../firebase/config';
-import { AuthContext } from '../../../utility/AuthContext';
+import { getCurrentUserUid, firebase } from '../../../firebase/config';
+import { useNavigation, useRoute } from '@react-navigation/native';
+import { AuthContext } from '../../../../utility/AuthContext';
+import styles from '../../../screens/EnterDetailsScreen/styles'
 import { ScrollView } from 'react-native-gesture-handler';
-import Bubble from '../../components/ui/Bubble';
-import { useRoute } from '@react-navigation/native';
+import Bubble from '../../../components/ui/Bubble';
 
-export default function EnterDetailsScreen() {
+export default UpdateModule = () => {
   const { user } = useContext(AuthContext);
   const userId = getCurrentUserUid();
   const navigation = useNavigation();
@@ -26,7 +25,7 @@ export default function EnterDetailsScreen() {
 
   useEffect(() => {
     if (user.displayName !== '') {
-      navigation.replace('MainContainer');
+      //navigation.replace('History');
     }
 
     const usersRef = firebase.firestore().collection('users');
@@ -79,7 +78,7 @@ export default function EnterDetailsScreen() {
       .doc(userId)
       .update(data)
       .then(() => {
-        navigation.replace('MainContainer');
+        navigation.replace('History');
       })
       .catch((error) => {
         alert(error);
@@ -92,17 +91,6 @@ export default function EnterDetailsScreen() {
         <Text style={styles.text}>
           Let us know the modules you are taking and/or teaching this semester!
         </Text>
-        <TextInput
-          style={styles.input}
-          placeholder="Enter Your Name"
-          placeholderTextColor="#aaaaaa"
-          onChangeText={(text) => setDisplayName(text)}
-          value={displayName}
-          underlineColorAndroid="transparent"
-          autoCapitalize="characters"
-          autoCorrect={false}
-          maxLength={26}
-        />
 
         <View style={styles.dropdownContainer1}>
           <Text style={styles.text}>Which modules are you taking this semester?</Text>
@@ -150,3 +138,5 @@ export default function EnterDetailsScreen() {
     </ScrollView>
   );
 }
+
+

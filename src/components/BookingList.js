@@ -38,7 +38,7 @@ export default function BookingList({ booleanCondition }) {
                             studentId: slotData.studentId,
                             tutorName: slotData.tutorName,
                             studentName: slotData.studentName,
-                            userRole: 'Tutor'
+                            userRole: 'TUTOR'
                         });
                     } else if ((slotData.studentId === userID) && slotData.taken) {
                         fetchedSlots.push({
@@ -51,7 +51,7 @@ export default function BookingList({ booleanCondition }) {
                             studentId: slotData.studentId,
                             tutorName: slotData.tutorName,
                             studentName: slotData.studentName,
-                            userRole: 'Student'
+                            userRole: 'STUDENT'
                         });
                     }
                 }
@@ -68,7 +68,7 @@ export default function BookingList({ booleanCondition }) {
     return (
         <ScrollView>
             <View style={styles.container}>
-                <View style={styles.listContainer}>
+                <View>
                     {sortedSlots.map((slot) => (
                         <HomePageSlot key={slot.id} slot={slot} userRole={slot.userRole} />
                     ))}
@@ -81,14 +81,10 @@ export default function BookingList({ booleanCondition }) {
 
 const styles = StyleSheet.create({
     container: {
-        flex: 1
-    },
-    listContainer: {
         flex: 1,
-        padding: 16,
-        borderRadius: 30,
     },
     endText: {
         fontSize: 18,
+        textAlign: 'center'
     },
 });
