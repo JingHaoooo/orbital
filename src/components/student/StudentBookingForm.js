@@ -98,18 +98,21 @@ const StudentBookingForm = ({ moduleCode }) => {
     return (
         <ScrollView>
             <View style={styles.container}>
+                <View style={styles.headerContainer}>
+                    <Text style={styles.header}>Choose Your Slots:</Text>
+                    <TouchableOpacity
+                        style={styles.refreshButton}
+                        onPress={handleRefresh}
+                        activeOpacity={0.8}
+                    >
+                        <Text style={styles.refreshButtonLabel}>Refresh</Text>
+                    </TouchableOpacity>
+                </View>
                 {loading ? (
                     <ActivityIndicator size="large" color="#00BFFF" />
                 ) : (
                     <>
                         <ReleasedSlots slots={slots} onBookSlot={handleBookSlot} />
-                        <TouchableOpacity
-                            style={styles.refreshButton}
-                            onPress={handleRefresh}
-                            activeOpacity={0.8}
-                        >
-                            <Text style={styles.refreshButtonLabel}>Refresh</Text>
-                        </TouchableOpacity>
                     </>
                 )}
             </View>
@@ -121,7 +124,6 @@ const ReleasedSlots = ({ slots, onBookSlot }) => {
     const sortedSlots = slots.sort((a, b) => a.dateTime - b.dateTime);
     return (
         <View>
-            <Text style={{ fontSize: 18, paddingBottom: 4 }}>Choose Your Slots:</Text>
             {sortedSlots.map((slot) => (
                 <Slot key={slot.id} slot={slot} buttonLabel={'Book Slot'} func={onBookSlot} user={'student'} />
             ))}
@@ -165,6 +167,15 @@ const styles = StyleSheet.create({
         color: 'white',
         fontSize: 16,
         fontWeight: 'bold',
+    },
+    headerContainer: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'space-between',
+        paddingBottom: 16,
+    },
+    header: {
+        fontSize: 18,
     },
 });
 
