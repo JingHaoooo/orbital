@@ -16,7 +16,7 @@ export default function Settings() {
   };
 
   return (
-    <View style={styles.container}>
+    <View style={{ flex: 1, padding: 20 }}>
       <View style={flex = 5}>
         <History />
       </View>
