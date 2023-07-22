@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, Alert } from 'react-native';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import TutorSelectedSlots from './TutorSelectedSlots';
 import { getCurrentUserUid, fetchUserData } from '../../firebase/config';
@@ -28,7 +28,7 @@ const TutorAvailabilityForm = ({ moduleCode }) => {
   };
 
   const handleReleaseSlots = () => {
-    setSlots([]);
+  setSlots([]);
   };
 
   const addSlot = async () => {
@@ -36,6 +36,9 @@ const TutorAvailabilityForm = ({ moduleCode }) => {
     const userDetails = await fetchUserData();
 
     if (selectedDate && selectedTime && selectedDuration) {
+      Alert.alert('Please confirm timing', 'Kindly make sure that the slot timings does not overlap', [
+        {text: 'OK'},
+      ]);
       const dateTime = new Date(selectedDate);
       dateTime.setHours(selectedTime.getHours());
       dateTime.setMinutes(selectedTime.getMinutes());
