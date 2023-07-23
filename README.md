@@ -194,7 +194,6 @@ This page is only applicable to TAs or professors.
 <p align="center">
   Caption: Tutors can see all their released slots (and remove the slots if needed) in this screen. 
 </p>
-mg src="https://github.com/chewjh1234/orbital/blob/main/assets/New%20Booking.jpg" width="150">
 
 #### See history
 This feature is available to all groups of users. It allows users to view their consultation history, which includes the details of the tutor, student, module, date and time of the consultation booking that has passed.  
@@ -210,3 +209,64 @@ If the consultation slot released by a tutor was not booked by any student, it w
 
 ## **Flowchart**
 <img src="https://github.com/chewjh1234/orbital/blob/main/assets/NUSmentorFlowchart.png">
+
+## **UML Diagrams**
+### Use Case Diagram
+There are different user roles which will limit the user’s ability to access certain features. For example, tutors can release slots for a module they teach, but they cannot book slots for that same module. On the other hand, students can book slots for the modules they take, but they cannot release consultation slots for these modules. Both users, however, could cancel slots that have been booked. 
+
+The following Use Case Diagram depicts the various user roles:
+<p align="center">
+  <img src="https://github.com/chewjh1234/orbital/blob/main/assets/UML_1.png" width="550">
+</p>
+<p align="center">
+  Caption: Use Case Diagram for NUSmentor  
+</p>
+
+### Sequence Diagrams
+Sequence diagrams are a generic UML tool used to model and visualise the dynamic behaviour of a system, focusing on the interactions between different components (in the context of React Native) or objects over time.
+
+<p align="center">
+  <img src="https://github.com/chewjh1234/orbital/blob/main/assets/UML_2.png" width="550">
+</p>
+<p align="center">
+  Caption: Sequence Diagram for NUSmentor when a user attempts to search for a module he takes under the Enter Details screen and saves it:
+</p>
+
+<p align="center">
+  <img src="https://github.com/chewjh1234/orbital/blob/main/assets/UML_3.png" width="550">
+</p>
+<p align="center">
+  Caption: Sequence Diagram for NUSmentor when a student attempts to search for an available consultation slot for a module he takes:
+</p>
+
+## Tech Stack
+### React Native
+React Native offers a cross-platform development framework that allows us to build the mobile application for both Android and iOS using a single codebase. This means that we do not need to learn to be an Android and an iOS developer separately. This significantly reduces development time and effort as compared to developing separate native applications for each platform. 
+React Native also provides pre-built components and libraries, and flexboxes allow us to create a visually appealing and interactive user interface.
+
+
+### Git
+Git was selected for version control because it is a widely-used distributed version control system. It allows us to track changes to our codebase over time, making it easy to revert to previous versions (each version is tagged with a unique identifier), collaborate with team members (although we work in pairs, it does help us collaborate better too), and manage code changes efficiently. With Git, we can work on new features or bug fixes in separate branches and then merge them back into the main branch only when ready.
+
+### GitHub
+GitHub was chosen as the platform to host our Git repositories because it provides us with a user-friendly interface and useful collaborative features. It allows us to centralise our codebase, making it accessible to our team members for collaboration and code reviews, which is even more useful if we work in bigger teams. GitHub also enables us to manage issues and track project progress efficiently. Our advisor would also be able to look at our code through GitHub. 
+
+### Firebase 
+#### Firebase Authentication
+Firebase Authentication provides a simple and secure way to implement user sign-up, login, and account management. Users could create accounts and log in securely through their NUS email and password. It is also possible for users to use other authentication methods (but we did not implement these methods). 
+
+#### Cloud Firestore and Realtime Database
+Both Firebase Realtime database and Cloud Firestore are NoSQL databases (unfortunately, they are not relational databases that we learnt in Mission Control 1 and 2). 
+The Realtime database synchronises data across all connected devices in real-time, such that users can see updates to data instantly, thereby ensuring that consultation bookings and slot availability status are always up to date. 
+We also used Firestore when dealing with user profiles as it has great querying capabilities, especially when we need to retrieve the modules taken/ taught by the student.
+
+
+### Others
+#### Javascript
+JavaScript is the programming language used in React Native for handling the application's logic and behaviour. It is a widely-used and versatile language that works seamlessly with React Native.
+
+#### Code editor - Visual Studio Code (VSCode)
+VS Code is a popular code editor that has an extensive set of features. VS Code offers excellent support for JavaScript and React Native development, including syntax highlighting, code completion etc. which we need for our project. 
+
+
+
