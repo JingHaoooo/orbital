@@ -29,7 +29,7 @@ const getScreenLocation = (route) => {
   if (CurrentPage?.includes('Tutor: Set Availability')
     || CurrentPage?.includes('BookingPopup')
     || CurrentPage?.includes('Student: New Booking') || 
-    CurrentPage?.includes('Update Modules')) {
+    CurrentPage?.includes('Update Modules') || CurrentPage?.includes('Add Module')) {
     return false;
   }
   return true;
