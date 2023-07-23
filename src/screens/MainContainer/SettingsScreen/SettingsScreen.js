@@ -21,19 +21,20 @@ export default function Settings() {
         <History />
       </View>
       <View style={flex = 1}>
-        <TouchableOpacity
-          style={styles.logoutButton}
-          onPress={handleLogout}
-          activeOpacity={0.8}
-        >
-          <Text style={styles.logoutButtonLabel}>Log Out</Text>
-        </TouchableOpacity>
+        
         <TouchableOpacity
         style={styles.logoutButton}
         onPress={() => navigation.navigate("Update Modules")}
         activeOpacity={0.8}
         >
           <Text style={styles.logoutButtonLabel}>Update Modules</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={styles.logoutButton}
+          onPress={handleLogout}
+          activeOpacity={0.8}
+        >
+          <Text style={styles.logoutButtonLabel}>Log Out</Text>
         </TouchableOpacity>
       </View>
     </View>
