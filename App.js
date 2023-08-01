@@ -12,7 +12,6 @@ import AddModuleScreen from './src/screens/AddModuleScreen/AddModuleScreen';
 const Stack = createNativeStackNavigator();
 
 export default function App() {
-
   return (
     <AuthProvider>
       <AppContent />
@@ -22,7 +21,7 @@ export default function App() {
 
 function AppContent() {
   const authContext = useContext(AuthContext);
-  const { user, loading } = authContext;
+  const { user } = authContext;
 
   return (
     <>

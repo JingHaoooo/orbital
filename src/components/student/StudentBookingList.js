@@ -129,20 +129,6 @@ const BookedSlots = ({ slots, func }) => {
     );
 };
 
-const formatDate = (dateTime) => {
-    const options = {
-        day: 'numeric',
-        month: 'short',
-        year: 'numeric',
-        weekday: 'short',
-        hour: 'numeric',
-        minute: 'numeric',
-    };
-
-    const formattedDate = dateTime.toLocaleDateString('en-US', options);
-    return formattedDate;
-};
-
 const styles = StyleSheet.create({
     container: {
         flex: 1,

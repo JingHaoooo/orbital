@@ -2,7 +2,9 @@ import { StyleSheet } from 'react-native';
 
 export default StyleSheet.create({
   container: {
-    flex: 1,
+    flex: 0.8,
+    paddingHorizontal: 20,
+    paddingVertical: 20
   },
   logoutButton: {
     backgroundColor: 'orange',
@@ -20,4 +22,3 @@ export default StyleSheet.create({
     fontWeight: 'bold',
   },
 });
-

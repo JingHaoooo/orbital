@@ -4,7 +4,6 @@ import { AuthContext } from '../../../../utility/AuthContext';
 import styles from './styles';
 import History from '../../../components/History';
 import { useNavigation } from '@react-navigation/native';
-import EnterDetailsScreen from '../../EnterDetailsScreen/EnterDetailsScreen';
 
 export default function Settings() {
   const authContext = useContext(AuthContext);
@@ -20,7 +19,7 @@ export default function Settings() {
       <View style={flex = 5}>
         <History />
       </View>
-      <View style={flex = 1}>
+      <View>
         <TouchableOpacity
           style={styles.logoutButton}
           onPress={handleLogout}
@@ -29,9 +28,9 @@ export default function Settings() {
           <Text style={styles.logoutButtonLabel}>Log Out</Text>
         </TouchableOpacity>
         <TouchableOpacity
-        style={styles.logoutButton}
-        onPress={() => navigation.navigate("Update Modules")}
-        activeOpacity={0.8}
+          style={styles.logoutButton}
+          onPress={() => navigation.navigate("Update Modules")}
+          activeOpacity={0.8}
         >
           <Text style={styles.logoutButtonLabel}>Update Modules</Text>
         </TouchableOpacity>

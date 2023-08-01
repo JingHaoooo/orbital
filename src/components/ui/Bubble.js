@@ -10,7 +10,6 @@ export default function Bubble({ moduleCode }) {
 
 const styles = StyleSheet.create({
   moduleBubble: {
-    // backgroundColor: 'white',
     borderColor: 'white',
     borderWidth: 2,
     borderRadius: 8,
@@ -22,6 +21,5 @@ const styles = StyleSheet.create({
   moduleBubbleText: {
     color: 'grey',
     fontSize: 18,
-    // fontWeight: 'bold',
   },
 });

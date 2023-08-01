@@ -1,6 +1,5 @@
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import React from 'react';
-import Bubble from './Bubble';
 
 function Course({ moduleCode, title, onPress, semesters, selected }) {
   const getCornerColor = () => {
@@ -15,11 +14,6 @@ function Course({ moduleCode, title, onPress, semesters, selected }) {
         </View>
         <Text style={styles.moduleCode}>{moduleCode}</Text>
         <Text style={styles.title}>{title}</Text>
-        {/* <View style={styles.moduleBubbleContainer}>
-            {semesters.map((sem) => (
-              <Bubble key={sem} moduleCode={sem} />
-            ))}
-          </View> */}
       </View>
     </TouchableOpacity>
   );

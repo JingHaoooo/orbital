@@ -228,12 +228,3 @@ const styles = StyleSheet.create({
 });
 
 export default TutorAvailabilityForm;
-
-// {/* <View style={styles.inputGroup}>
-// <Text> </Text>
-// {/* <Text style={styles.label}>Selected Slot:</Text> */}
-// <TutorSelectedSlots
-//   slots={slots}
-//   onReleaseSlots={handleReleaseSlots}
-// />
-// </View> */}

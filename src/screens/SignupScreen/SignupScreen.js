@@ -6,7 +6,6 @@ import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view
 import styles from './styles';
 import { firebase } from '../../firebase/config';
 
-
 export default function SignupScreen({ navigation }) {
   const [userID, setUserID] = useState('');
   const [email, setEmail] = useState('');

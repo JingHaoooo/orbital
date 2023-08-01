@@ -57,23 +57,3 @@ function ModuleList() {
 }
 
 export default ModuleList;
-
-{/* <Text style={styles.endText}> You've reached the end of the list.</Text>
-            </View>
-        </ScrollView>
-    );
-}
-
-const styles = StyleSheet.create({
-    container: {
-        flex: 1
-    },
-    listContainer: {
-        flex: 1,
-        padding: 16,
-        borderRadius: 30,
-    },
-    endText: {
-        fontSize: 18,
-    },
-}); */}

@@ -28,7 +28,7 @@ const getScreenLocation = (route) => {
   const CurrentPage = getFocusedRouteNameFromRoute(route);
   if (CurrentPage?.includes('Tutor: Set Availability')
     || CurrentPage?.includes('BookingPopup')
-    || CurrentPage?.includes('Student: New Booking') || 
+    || CurrentPage?.includes('Student: New Booking') ||
     CurrentPage?.includes('Update Modules')) {
     return false;
   }
@@ -38,7 +38,7 @@ const getScreenLocation = (route) => {
 function BookingTab() {
   return (
     <Stack.Navigator>
-      <Stack.Screen name="BookingTab" component={ModuleList} options={{ headerShown: false, unmountOnBlur:true  }} />
+      <Stack.Screen name="BookingTab" component={ModuleList} options={{ headerShown: false, unmountOnBlur: true }} />
       <Stack.Screen name="BookingPopup" component={BookingPopup} options={{ headerShown: true }} />
       <Stack.Screen name="Tutor: Set Availability" component={SetAvailabilityScreen} />
       <Stack.Screen name="Student: New Booking" component={StudentBookingScreen} />
@@ -46,10 +46,10 @@ function BookingTab() {
   );
 }
 
-function SettingTab(){
+function SettingTab() {
   return (
     <Stack.Navigator>
-      <Stack.Screen name="History" component={Settings} options={{headerShown: false}}/>
+      <Stack.Screen name="History" component={Settings} options={{ headerShown: false }} />
       <Stack.Screen name="Update Modules" component={UpdateModule} />
       <Stack.Screen name="Add Module" component={AdditionModule} />
     </Stack.Navigator>
@@ -86,7 +86,7 @@ export default function MainContainer() {
       <Tab.Screen
         name={bookingName}
         component={BookingTab}
-        options={({ route }) => ({ headerShown: getScreenLocation(route),  unmountOnBlur: true})}
+        options={({ route }) => ({ headerShown: getScreenLocation(route), unmountOnBlur: true })}
       />
       <Tab.Screen name={bookingListName} component={BookedSlotsScreen} />
       <Tab.Screen name={releasedSlotsName} component={ReleasedSlotsScreen} />

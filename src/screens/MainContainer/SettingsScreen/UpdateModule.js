@@ -1,10 +1,8 @@
-import React, { useState, useEffect, useCallback, useContext } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import {
   Text,
-  TextInput,
   TouchableOpacity,
   View,
-  Keyboard,
 } from 'react-native';
 import { getCurrentUserUid, firebase } from '../../../firebase/config';
 import { useNavigation, useRoute } from '@react-navigation/native';
@@ -24,9 +22,6 @@ export default UpdateModule = () => {
   const [modulesTeaching, setModulesTeaching] = useState([]);
 
   useEffect(() => {
-    if (user.displayName !== '') {
-      //navigation.replace('History');
-    }
 
     const usersRef = firebase.firestore().collection('users');
     usersRef
@@ -138,5 +133,3 @@ export default UpdateModule = () => {
     </ScrollView>
   );
 }
-
-

@@ -3,7 +3,6 @@ import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import axios from 'axios';
 import { Slot } from '../ui/Slot';
 
-// TODO: prevent overlapping slots, prevent slots from disappearing when multiple slots are chosen
 const TutorSelectedSlots = ({ slots, onReleaseSlots, onRemoveSlot }) => {
 
     const sortedSlots = slots.sort((a, b) => a.dateTime - b.dateTime);

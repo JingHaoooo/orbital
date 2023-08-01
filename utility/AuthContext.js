@@ -91,27 +91,6 @@ export const AuthProvider = ({ children }) => {
         };
     }, []);
 
-
-    // Listen for authentication state changes
-    // firebase.auth().onAuthStateChanged((authUser) => {
-    //     if (authUser) {
-    //         firebase.firestore().collection('users').doc(authUser.uid).get()
-    //             .then((document) => {
-    //                 const userData = document.data();
-    //                 setUser(userData);
-    //                 setLoading(false);
-    //             })
-    //             .catch((error) => {
-    //                 console.log(error);
-    //                 setUser(null);
-    //                 setLoading(false);
-    //             });
-    //     } else {
-    //         setUser(null);
-    //         setLoading(false);
-    //     }
-    // });
-
     // Provide the authentication context values
     const authContextValues = {
         user: user,

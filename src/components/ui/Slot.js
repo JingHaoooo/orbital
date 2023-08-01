@@ -39,9 +39,6 @@ export const Slot = ({ slot, buttonLabel, func, user }) => {
           <Text style={styles.button}>{buttonLabel}</Text>
         </TouchableOpacity>
       </View>
-      {/* <View style={[styles.userRoleContainer, { backgroundColor: 'red' }]}>
-        <Text style={styles.userRoleText}>hi</Text>
-      </View> */}
     </View>
   );
 };
