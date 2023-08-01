@@ -1,53 +1,52 @@
 import { StatusBar } from 'expo-status-bar';
-
-import { useContext } from 'react';
-import { KeyboardAvoidingView, Platform } from 'react-native';
+import React, { useContext } from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-
-import Login from './screens/Authentication/LoginScreen';
-import Signup from './screens/Authentication/SignupScreen';
-import MainContainer from './screens/MainContainer';
-import AuthContextProvider, { AuthContext } from './store/auth-context';
-
+import LoginScreen from './src/screens/LoginScreen/LoginScreen';
+import SignupScreen from './src/screens/SignupScreen/SignupScreen';
+import EnterDetailsScreen from './src/screens/EnterDetailsScreen/EnterDetailsScreen'
+import MainContainer from './src/screens/MainContainer/MainContainer';
+import { AuthProvider, AuthContext } from './utility/AuthContext';
+import AddModuleScreen from './src/screens/AddModuleScreen/AddModuleScreen';
 
 const Stack = createNativeStackNavigator();
 
-function AuthenticatedStack() {
-  const authReactContext = useContext(AuthContext);
-  return <MainContainer />;
-}
-
-function NotAuthenticatedStack() {
-  return (
-    <Stack.Navigator>
-      <Stack.Screen name="Login" component={Login} />
-      <Stack.Screen name="Signup" component={Signup} />
-    </Stack.Navigator>
-  );
-}
-
-function Navigation() {
-  const authReactContext = useContext(AuthContext);
-  return (
-    <NavigationContainer l>
-      {authReactContext.isAuthenticated
-        ? <AuthenticatedStack />
-        : <NotAuthenticatedStack />}
-    </NavigationContainer>
-  );
-}
-
 export default function App() {
+
   return (
-    <KeyboardAvoidingView
-      behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-      style={{ flex: 1 }}
-    >
+    <AuthProvider>
+      <AppContent />
+    </AuthProvider>
+  );
+}
+
+function AppContent() {
+  const authContext = useContext(AuthContext);
+  const { user, loading } = authContext;
+
+  return (
+    <>
       <StatusBar style="dark" />
-      <AuthContextProvider>
-        <Navigation />
-      </AuthContextProvider>
-    </KeyboardAvoidingView>
+      <NavigationContainer>
+        <Stack.Navigator>
+          {user ? (
+            <Stack.Group>
+              <Stack.Screen name="Enter Details" component={EnterDetailsScreen} />
+              <Stack.Screen name="Add Module" component={AddModuleScreen} />
+              <Stack.Screen
+                name="MainContainer"
+                component={MainContainer}
+                options={{ headerShown: false }}
+              />
+            </Stack.Group>
+          ) : (
+            <Stack.Group>
+              <Stack.Screen name="Login" component={LoginScreen} />
+              <Stack.Screen name="Signup" component={SignupScreen} />
+            </Stack.Group>
+          )}
+        </Stack.Navigator>
+      </NavigationContainer>
+    </>
   );
 }
